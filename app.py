@@ -4,7 +4,7 @@ import re
 import time
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
-import google.generativeai as genai
+from google import genai
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -16,13 +16,12 @@ users_collection = db.users
 quizzes_collection = db.quizzes
 submissions_collection = db.submissions
 
-# Google GenAI Configuration
+# Modern Google GenAI Client Configuration
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-if GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
+ai_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
 
 def fetch_quiz_from_gemini(topic, num_questions):
-    if not GEMINI_API_KEY:
+    if not ai_client:
         raise Exception("GEMINI_API_KEY environment variable is not set on Render.")
         
     prompt = (
@@ -35,9 +34,11 @@ def fetch_quiz_from_gemini(topic, num_questions):
     max_retries = 3
     for attempt in range(max_retries):
         try:
-            # Initialize model explicitly using gemini-1.5-flash
-            model = genai.GenerativeModel('gemini-1.5-flash')
-            response = model.generate_content(prompt)
+            # Using the official modern Google GenAI SDK client method
+            response = ai_client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=prompt,
+            )
             raw_text = response.text.strip()
             cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
             return json.loads(cleaned_text)
