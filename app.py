@@ -34,9 +34,9 @@ def fetch_quiz_from_gemini(topic, num_questions):
     max_retries = 3
     for attempt in range(max_retries):
         try:
-            # Using the official modern Google GenAI SDK client method
+            # Updated to gemini-3.8-flash per error recommendation
             response = ai_client.models.generate_content(
-                model='gemini-2.5-flash',
+                model='gemini-3.8-flash',
                 contents=prompt,
             )
             raw_text = response.text.strip()
