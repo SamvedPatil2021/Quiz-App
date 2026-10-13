@@ -16,34 +16,28 @@ quizzes_collection = db.quizzes
 submissions_collection = db.submissions
 
 # Google GenAI Configuration
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "your_gemini_api_key_here")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 
-# ==========================================
-# DEDICATED GEMINI AI QUESTION GENERATOR
-# ==========================================
 def fetch_quiz_from_gemini(topic, num_questions):
     """
-    Calls the Google Gemini model to generate a set of unique, diverse multiple-choice 
-    questions for the given topic and returns them as a Python list/object.
+    Calls the Google Gemini model using the API key to generate 
+    unique, diverse multiple-choice questions matching the requested count.
     """
     prompt = (
         f"Create a unique {num_questions}-question multiple-choice quiz about '{topic}'. "
-        f"Ensure all questions are completely distinct, covering different concepts, definitions, and applications of the topic. "
-        f"Return ONLY valid JSON format as a list of objects, where each object has keys: "
-        f"'q' (the question string), 'options' (an array of 4 distinct choices), and 'correct' (integer index 0 to 3 of the correct answer)."
+        f"Ensure all questions are completely distinct, covering different concepts, syntax, and applications of the topic. "
+        f"Return ONLY a valid JSON array of objects, where each object has keys: "
+        f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
     model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content(prompt)
     
-    # Clean up response text in case markdown tags (```json ... ```) are included
     raw_text = response.text.strip()
     cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
     
-    # Parse and return JSON list
-    questions_list = json.loads(cleaned_text)
-    return questions_list
+    return json.loads(cleaned_text)
 
 @app.route('/')
 def index():
@@ -68,10 +62,9 @@ def generate_quiz():
     num_questions = int(data.get('numQuestions', 5))
     
     try:
-        # Call our dedicated Gemini function to fetch unique questions
+        # Calls Gemini API to generate the exact number of unique questions requested
         questions_list = fetch_quiz_from_gemini(topic, num_questions)
         
-        # Save unique questions to MongoDB
         quiz_id = quizzes_collection.insert_one({
             "title": f"{topic} (AI Generated)",
             "topic": topic,
