@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
 import google.generativeai as genai
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 # MongoDB Atlas Connection
 MONGO_URI = os.environ.get("MONGO_URI", "your_mongodb_atlas_connection_string_here")
