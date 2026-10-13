@@ -35,6 +35,7 @@ def fetch_quiz_from_gemini(topic, num_questions):
     max_retries = 3
     for attempt in range(max_retries):
         try:
+            # Initialize model explicitly using gemini-1.5-flash
             model = genai.GenerativeModel('gemini-1.5-flash')
             response = model.generate_content(prompt)
             raw_text = response.text.strip()
