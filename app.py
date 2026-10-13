@@ -27,7 +27,6 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    # Use gemini-pro for universal compatibility
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content(prompt)
     
@@ -36,7 +35,6 @@ def fetch_quiz_from_gemini(topic, num_questions):
     
     return json.loads(cleaned_text)
 
-# Root route to serve your main frontend dashboard
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -60,7 +58,6 @@ def generate_quiz():
     num_questions = int(data.get('numQuestions', 5))
     
     try:
-        # Calls Gemini API to generate the exact number of unique questions requested
         questions_list = fetch_quiz_from_gemini(topic, num_questions)
         
         quiz_id = quizzes_collection.insert_one({
@@ -75,4 +72,4 @@ def generate_quiz():
         return jsonify({"success": False, "error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
