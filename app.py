@@ -31,21 +31,25 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    max_retries = 3
-    for attempt in range(max_retries):
-        try:
-            # Updated to gemini-3.8-flash per error recommendation
-            response = ai_client.models.generate_content(
-                model='gemini-3.8-flash',
-                contents=prompt,
-            )
-            raw_text = response.text.strip()
-            cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
-            return json.loads(cleaned_text)
-        except Exception as e:
-            if attempt == max_retries - 1:
-                raise e
-            time.sleep(2)
+    # Automatic fallback across multiple stable models to bypass 503 spikes
+    models_to_try = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-2.0-flash']
+    last_exception = None
+    
+    for model_name in models_to_try:
+        for attempt in range(2):
+            try:
+                response = ai_client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                )
+                raw_text = response.text.strip()
+                cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
+                return json.loads(cleaned_text)
+            except Exception as e:
+                last_exception = e
+                time.sleep(1)
+                
+    raise last_exception
 
 @app.route('/')
 def index():
