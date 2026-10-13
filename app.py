@@ -27,14 +27,19 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    # Updated model string
-    model = genai.GenerativeModel('gemini-3.8-flash')
+    # Stable model identifier for Google GenAI SDK
+    model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content(prompt)
     
     raw_text = response.text.strip()
     cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
     
     return json.loads(cleaned_text)
+
+# Root route to serve your main frontend dashboard
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/api/login', methods=['POST'])
 def login():
