@@ -31,7 +31,7 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-2.5-flash')
     response = model.generate_content(prompt)
     
     raw_text = response.text.strip()
