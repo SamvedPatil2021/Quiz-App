@@ -27,8 +27,8 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    # Stable model identifier for Google GenAI SDK
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    # Use gemini-pro for universal compatibility
+    model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content(prompt)
     
     raw_text = response.text.strip()
@@ -75,4 +75,4 @@ def generate_quiz():
         return jsonify({"success": False, "error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000))
