@@ -31,18 +31,24 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    # Update model to gemini-3.8-flash
-    response = ai_client.models.generate_content(
-        model='gemini-3.8-flash',
-        contents=prompt,
-    )
+    # List of models to try in sequence if one returns a 503 error
+    models_to_try = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-pro']
     
-    raw_text = response.text.strip()
-    cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
-    
-    return json.loads(cleaned_text)
-
-@app.route('/')
+    for model_name in models_to_try:
+        try:
+            response = ai_client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+            )
+            raw_text = response.text.strip()
+            cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
+            return json.loads(cleaned_text)
+        except Exception as e:
+            # If it's a 503 or 404, loop continues to the next model
+            continue
+            
+    # If all models are temporarily unavailable, raise a clean user-friendly message
+    raise Exception("Gemini servers are currently experiencing high traffic (503). Please wait 10 seconds and try generating again.")@app.route('/')
 def index():
     return render_template('index.html')
 
