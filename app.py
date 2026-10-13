@@ -20,10 +20,6 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 
 def fetch_quiz_from_gemini(topic, num_questions):
-    """
-    Calls the Google Gemini model using the API key to generate 
-    unique, diverse multiple-choice questions matching the requested count.
-    """
     prompt = (
         f"Create a unique {num_questions}-question multiple-choice quiz about '{topic}'. "
         f"Ensure all questions are completely distinct, covering different concepts, syntax, and applications of the topic. "
@@ -31,14 +27,14 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    model = genai.GenerativeModel('gemini-2.5-flash')
+    # Use gemini-1.5-flash
+    model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content(prompt)
     
     raw_text = response.text.strip()
     cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
     
     return json.loads(cleaned_text)
-
 @app.route('/')
 def index():
     return render_template('index.html')
