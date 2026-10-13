@@ -19,6 +19,8 @@ submissions_collection = db.submissions
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 ai_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
 
+import time
+
 def fetch_quiz_from_gemini(topic, num_questions):
     if not ai_client:
         raise Exception("GEMINI_API_KEY environment variable is not set on Render.")
@@ -30,17 +32,21 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    # Updated model string to gemini-3.8-flash
-    response = ai_client.models.generate_content(
-        model='gemini-3.8-flash',
-        contents=prompt,
-    )
-    
-    raw_text = response.text.strip()
-    cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
-    
-    return json.loads(cleaned_text)
-
+    # Retry loop to handle temporary 503 high demand spikes gracefully
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            response = ai_client.models.generate_content(
+                model='gemini-3.8-flash',
+                contents=prompt,
+            )
+            raw_text = response.text.strip()
+            cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
+            return json.loads(cleaned_text)
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise e
+            time.sleep(2)  # Wait 2 seconds before retrying
 @app.route('/')
 def index():
     return render_template('index.html')
