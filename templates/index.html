@@ -632,7 +632,7 @@
                     </div>
                     <div>
                         <h3 class="font-extrabold text-lg text-white">AI Quiz Maker</h3>
-                        <p class="text-xs text-purple-300">Powered by Gemini AI Engine</p>
+                        
                     </div>
                 </div>
                 <button onclick="closeAiModal()" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-gray-400 hover:text-white">
@@ -1176,34 +1176,50 @@
         function showDemoCredentials() {
             openHelpModal();
         }
+// --- AI Quiz Generation via Backend & Gemini API ---
+function generateAiQuiz(event) {
+    event.preventDefault();
+    const topic = document.getElementById('ai-topic').value;
+    const count = parseInt(document.getElementById('ai-count').value) || 5;
 
-        function generateAiQuiz(event) {
-            event.preventDefault();
-            const topic = document.getElementById('ai-topic').value;
-            const count = parseInt(document.getElementById('ai-count').value) || 5;
+    const btn = document.getElementById('btn-generate-ai');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> Generating via Gemini AI...`;
+    btn.disabled = true;
 
+    // Send request to Flask backend which uses the Gemini API key
+    fetch('/api/generate-quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic, numQuestions: count })
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+
+        if (data.success && data.questions) {
             const newQuiz = {
-                id: 'q_' + Math.floor(Math.random() * 9000 + 1000),
+                id: data.quizId || ('q_' + Math.floor(Math.random() * 9000 + 1000)),
                 title: `${topic} (AI Generated)`,
                 topic: topic,
                 createdBy: currentUser ? currentUser.name : 'AI Faculty Agent',
-                questions: []
+                questions: data.questions // Uses the real unique questions returned by Gemini API
             };
-
-            for (let i = 1; i <= count; i++) {
-                newQuiz.questions.push({
-                    q: `AI Question ${i}: Which core principle applies to ${topic}?`,
-                    options: ['Optimal Scaling & Performance', 'Static Routing', 'Manual Compilation', 'Legacy Fallback'],
-                    correct: 0
-                });
-            }
-
             dbQuizzes.push(newQuiz);
             closeAiModal();
             renderTeacherDashboard();
-            showCustomAlert(`AI successfully generated "${newQuiz.title}" with ${count} questions! Shareable link created.`);
+            showCustomAlert(`Gemini AI successfully generated "${newQuiz.title}" with ${data.questions.length} unique questions!`);
+        } else {
+            showCustomAlert('Generation Error: ' + (data.error || 'Check your Gemini API key on Render/local.'));
         }
-
+    })
+    .catch(err => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        showCustomAlert('Failed to connect to the backend server.');
+    });
+}
         function createManualQuiz(event) {
             event.preventDefault();
             const title = document.getElementById('manual-title').value;
