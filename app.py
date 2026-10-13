@@ -4,7 +4,7 @@ import re
 import time
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
-import google.generativeai as genai
+from google import genai
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -16,13 +16,12 @@ users_collection = db.users
 quizzes_collection = db.quizzes
 submissions_collection = db.submissions
 
-# Google GenAI Configuration
+# Modern Google GenAI Client Configuration
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-if GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
+ai_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
 
 def fetch_quiz_from_gemini(topic, num_questions):
-    if not GEMINI_API_KEY:
+    if not ai_client:
         raise Exception("GEMINI_API_KEY environment variable is not set on Render.")
         
     prompt = (
@@ -32,23 +31,21 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    # Robust rotation across stable models with automatic retry
-    models_to_try = ['gemini-1.5-flash', 'gemini-1.5-pro']
-    last_exception = None
-    
-    for model_name in models_to_try:
-        for attempt in range(2):
-            try:
-                model = genai.GenerativeModel(model_name)
-                response = model.generate_content(prompt)
-                raw_text = response.text.strip()
-                cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
-                return json.loads(cleaned_text)
-            except Exception as e:
-                last_exception = e
-                time.sleep(1)
-                
-    raise last_exception
+    # Strictly use gemini-3.8-flash with auto-retry for temporary 503 high-demand spikes
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            response = ai_client.models.generate_content(
+                model='gemini-3.8-flash',
+                contents=prompt,
+            )
+            raw_text = response.text.strip()
+            cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
+            return json.loads(cleaned_text)
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise e
+            time.sleep(2)
 
 @app.route('/')
 def index():
@@ -64,7 +61,7 @@ def login():
     user = users_collection.find_one({"role": role, "identifier": identifier, "password": password})
     if user:
         return jsonify({"success": True, "message": "Login successful", "role": role, "name": user.get("name", "User")})
-    return jsonify({"success": False, "message": "Invalid credentials or unauthorized access"}), 401
+    return jsonify({"success": False, "message": "Invalid credentials or unauthorized access"}}, 401
 
 @app.route('/api/generate-quiz', methods=['POST'])
 def generate_quiz():
