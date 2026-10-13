@@ -31,7 +31,6 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    # Strictly use gemini-3.8-flash with auto-retry for temporary 503 high-demand spikes
     max_retries = 3
     for attempt in range(max_retries):
         try:
@@ -61,7 +60,7 @@ def login():
     user = users_collection.find_one({"role": role, "identifier": identifier, "password": password})
     if user:
         return jsonify({"success": True, "message": "Login successful", "role": role, "name": user.get("name", "User")})
-    return jsonify({"success": False, "message": "Invalid credentials or unauthorized access"}}, 401
+    return jsonify({"success": False, "message": "Invalid credentials or unauthorized access"}), 401
 
 @app.route('/api/generate-quiz', methods=['POST'])
 def generate_quiz():
