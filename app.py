@@ -4,7 +4,7 @@ import re
 import time
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
-from google import genai
+import google.generativeai as genai
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -16,12 +16,13 @@ users_collection = db.users
 quizzes_collection = db.quizzes
 submissions_collection = db.submissions
 
-# Modern Google GenAI Client Configuration
+# Google GenAI Configuration
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-ai_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
 
 def fetch_quiz_from_gemini(topic, num_questions):
-    if not ai_client:
+    if not GEMINI_API_KEY:
         raise Exception("GEMINI_API_KEY environment variable is not set on Render.")
         
     prompt = (
@@ -31,24 +32,25 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    # List of models to try in sequence if one returns a 503 error
-    models_to_try = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-pro']
+    # Robust rotation across stable models with automatic retry
+    models_to_try = ['gemini-1.5-flash', 'gemini-1.5-pro']
+    last_exception = None
     
     for model_name in models_to_try:
-        try:
-            response = ai_client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-            )
-            raw_text = response.text.strip()
-            cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
-            return json.loads(cleaned_text)
-        except Exception as e:
-            # If it's a 503 or 404, loop continues to the next model
-            continue
-            
-    # If all models are temporarily unavailable, raise a clean user-friendly message
-    raise Exception("Gemini servers are currently experiencing high traffic (503). Please wait 10 seconds and try generating again.")@app.route('/')
+        for attempt in range(2):
+            try:
+                model = genai.GenerativeModel(model_name)
+                response = model.generate_content(prompt)
+                raw_text = response.text.strip()
+                cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
+                return json.loads(cleaned_text)
+            except Exception as e:
+                last_exception = e
+                time.sleep(1)
+                
+    raise last_exception
+
+@app.route('/')
 def index():
     return render_template('index.html')
 
