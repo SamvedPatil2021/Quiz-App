@@ -1,4 +1,4 @@
 Flask
 pymongo
 gunicorn
-google-genai
+google-generativeai

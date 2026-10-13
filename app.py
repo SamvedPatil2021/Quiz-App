@@ -1,13 +1,12 @@
-
-import time
 import os
 import json
 import re
+import time
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
-from google import genai
+import google.generativeai as genai
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
 # MongoDB Atlas Connection
 MONGO_URI = os.environ.get("MONGO_URI", "")
@@ -17,13 +16,13 @@ users_collection = db.users
 quizzes_collection = db.quizzes
 submissions_collection = db.submissions
 
-# Google GenAI Configuration (Modern SDK)
+# Google GenAI Configuration
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-ai_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
-
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
 
 def fetch_quiz_from_gemini(topic, num_questions):
-    if not ai_client:
+    if not GEMINI_API_KEY:
         raise Exception("GEMINI_API_KEY environment variable is not set on Render.")
         
     prompt = (
@@ -36,18 +35,17 @@ def fetch_quiz_from_gemini(topic, num_questions):
     max_retries = 3
     for attempt in range(max_retries):
         try:
-            # Using the robust gemini-2.0-flash model
-            response = ai_client.models.generate_content(
-                model='gemini-2.0-flash',
-                contents=prompt,
-            )
+            model = genai.GenerativeModel('gemini-1.5-flash')
+            response = model.generate_content(prompt)
             raw_text = response.text.strip()
             cleaned_text = re.sub(r"^```json\s*|\s*```$", "", raw_text, flags=re.IGNORECASE).strip()
             return json.loads(cleaned_text)
         except Exception as e:
             if attempt == max_retries - 1:
                 raise e
-            time.sleep(2)@app.route('/')
+            time.sleep(2)
+
+@app.route('/')
 def index():
     return render_template('index.html')
 
