@@ -36,9 +36,9 @@ def fetch_quiz_from_gemini(topic, num_questions):
     max_retries = 3
     for attempt in range(max_retries):
         try:
-            # Using the stable gemini-1.5-flash model
+            # Using the robust gemini-2.0-flash model
             response = ai_client.models.generate_content(
-                model='gemini-1.5-flash',
+                model='gemini-2.0-flash',
                 contents=prompt,
             )
             raw_text = response.text.strip()
@@ -47,8 +47,7 @@ def fetch_quiz_from_gemini(topic, num_questions):
         except Exception as e:
             if attempt == max_retries - 1:
                 raise e
-            time.sleep(2)
-@app.route('/')
+            time.sleep(2)@app.route('/')
 def index():
     return render_template('index.html')
 
