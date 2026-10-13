@@ -1,3 +1,5 @@
+
+import time
 import os
 import json
 import re
@@ -19,7 +21,6 @@ submissions_collection = db.submissions
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 ai_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
 
-import time
 
 def fetch_quiz_from_gemini(topic, num_questions):
     if not ai_client:
@@ -32,12 +33,12 @@ def fetch_quiz_from_gemini(topic, num_questions):
         f"'q' (the question string), 'options' (an array of 4 distinct string choices), and 'correct' (integer index 0 to 3 of the correct answer)."
     )
     
-    # Retry loop to handle temporary 503 high demand spikes gracefully
     max_retries = 3
     for attempt in range(max_retries):
         try:
+            # Using the stable gemini-1.5-flash model
             response = ai_client.models.generate_content(
-                model='gemini-3.8-flash',
+                model='gemini-1.5-flash',
                 contents=prompt,
             )
             raw_text = response.text.strip()
@@ -46,7 +47,7 @@ def fetch_quiz_from_gemini(topic, num_questions):
         except Exception as e:
             if attempt == max_retries - 1:
                 raise e
-            time.sleep(2)  # Wait 2 seconds before retrying
+            time.sleep(2)
 @app.route('/')
 def index():
     return render_template('index.html')
