@@ -171,10 +171,11 @@
                     <p class="text-sm text-gray-400 max-w-xs mx-auto">Create, share, and take college quizzes seamlessly with real-time performance analytics.</p>
                 </div>
 
-                <!-- Role Selection Cards -->
-                <div class="space-y-3 pt-4">
-                    <p class="text-xs font-semibold text-purple-300 uppercase tracking-wider text-left pl-1">Select your role to continue</p>
+                <!-- Role Selection & Sign Up Cards -->
+                <div class="space-y-3 pt-2">
+                    <p class="text-xs font-semibold text-purple-300 uppercase tracking-wider text-left pl-1">Select portal or create account</p>
                     
+                    <!-- Teacher Portal -->
                     <button onclick="selectRole('teacher')" class="w-full p-4 rounded-2xl glass-panel flex items-center justify-between group hover:border-purple-500/50 hover:shadow-neon-sm transition-all duration-300">
                         <div class="flex items-center space-x-4">
                             <div class="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
@@ -190,6 +191,7 @@
                         </div>
                     </button>
 
+                    <!-- Student Portal -->
                     <button onclick="selectRole('student')" class="w-full p-4 rounded-2xl glass-panel flex items-center justify-between group hover:border-indigo-500/50 hover:shadow-neon-sm transition-all duration-300">
                         <div class="flex items-center space-x-4">
                             <div class="w-12 h-12 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
@@ -201,6 +203,22 @@
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </div>
+                    </button>
+
+                    <!-- NEW: Create Account / Sign Up Card -->
+                    <button onclick="switchView('signup')" class="w-full p-4 rounded-2xl glass-panel flex items-center justify-between group hover:border-emerald-500/50 hover:shadow-neon-sm transition-all duration-300">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-user-plus text-lg"></i>
+                            </div>
+                            <div class="text-left">
+                                <h3 class="font-bold text-white text-base">Create Account</h3>
+                                <p class="text-xs text-gray-400">Sign up instantly with Name, Mobile & OTP</p>
+                            </div>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-600 group-hover:text-white transition-all">
                             <i class="fa-solid fa-arrow-right text-xs"></i>
                         </div>
                     </button>
@@ -277,7 +295,7 @@
                 </form>
 
                 <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
-                    <p class="text-[11px] text-gray-400">Quick Test: Click <button onclick="fillDemoCredentials()" class="text-purple-400 font-semibold underline">Auto-fill Demo Account</button></p>
+                    <p class="text-[11px] text-gray-400">Need an account? <button onclick="switchView('signup')" class="text-emerald-400 font-semibold underline">Sign up here</button></p>
                 </div>
             </div>
 
@@ -286,7 +304,83 @@
             </div>
         </section>
 
-        <!-- 3. TEACHER DASHBOARD VIEW -->
+        <!-- 3. STREAMLINED SIGN UP VIEW -->
+        <section id="view-signup" class="hidden flex-1 flex flex-col justify-between p-6 max-w-md mx-auto w-full">
+            <div class="flex justify-between items-center pt-4">
+                <button onclick="switchView('role-selection')" class="w-10 h-10 rounded-xl glass-input flex items-center justify-center text-gray-300 hover:text-white">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div class="flex items-center space-x-2">
+                    <span class="font-extrabold text-xl tracking-wider text-white">QUIZ</span>
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center shadow-neon-sm">
+                        <span class="text-white font-black text-sm">Q?</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-6 space-y-6">
+                <div class="text-center space-y-2">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-neon-sm mb-4">
+                        <i class="fa-solid fa-user-plus text-2xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-white">Create Quick Account</h2>
+                    <p class="text-xs text-gray-400">Enter your name, mobile, verify OTP, and set a password.</p>
+                </div>
+
+                <form id="signup-form" onsubmit="handleSignupSubmit(event)" class="space-y-4 pt-2">
+                    <div class="space-y-1">
+                        <label class="text-xs font-semibold text-gray-300 ml-1">Full Name</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-user"></i></span>
+                            <input type="text" id="signup-name" required placeholder="e.g. Samved Patil" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-xs font-semibold text-gray-300 ml-1">Mobile Number</label>
+                        <div class="relative flex space-x-2">
+                            <div class="relative flex-1">
+                                <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-phone"></i></span>
+                                <input type="tel" id="signup-mobile" required placeholder="9876543210" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 focus:outline-none">
+                            </div>
+                            <button type="button" onclick="requestOtp()" class="px-4 py-3.5 rounded-xl bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs hover:bg-emerald-600 hover:text-white transition-all">
+                                Send OTP
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-xs font-semibold text-gray-300 ml-1">Enter 6-Digit OTP</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-shield-keyhole"></i></span>
+                            <input type="text" id="signup-otp" required maxlength="6" placeholder="123456" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 tracking-widest font-mono focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-xs font-semibold text-gray-300 ml-1">Create Account Password</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-lock"></i></span>
+                            <input type="password" id="signup-pass" required placeholder="Set secure password" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-sm shadow-neon hover:opacity-95 transition-all mt-4">
+                        Generate Unique ID & Register
+                    </button>
+                </form>
+
+                <div class="text-center pt-2">
+                    <p class="text-xs text-gray-400">Already have an account? <button onclick="switchView('auth')" class="text-emerald-400 font-semibold underline">Login here</button></p>
+                </div>
+            </div>
+
+            <div class="text-center py-4 text-[11px] text-gray-500">
+                Secured by MongoDB & Instant ID Generation
+            </div>
+        </section>
+
+        <!-- 4. TEACHER DASHBOARD VIEW -->
         <section id="view-teacher-dashboard" class="hidden flex-1 p-4 sm:p-6 max-w-6xl mx-auto w-full space-y-6">
             <div class="glass-panel p-6 rounded-3xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -417,7 +511,7 @@
             </div>
         </section>
 
-        <!-- 4. STUDENT DASHBOARD VIEW -->
+        <!-- 5. STUDENT DASHBOARD VIEW -->
         <section id="view-student-dashboard" class="hidden flex-1 p-4 sm:p-6 max-w-5xl mx-auto w-full space-y-6">
             <div class="glass-panel p-6 rounded-3xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -477,7 +571,7 @@
             </div>
         </section>
 
-        <!-- 5. ACTIVE QUIZ TAKING INTERFACE -->
+        <!-- 6. ACTIVE QUIZ TAKING INTERFACE -->
         <section id="view-quiz-taking" class="hidden flex-1 p-4 sm:p-6 max-w-3xl mx-auto w-full flex flex-col justify-center">
             <div class="glass-panel p-6 sm:p-8 rounded-3xl space-y-6 relative overflow-hidden">
                 <div class="flex justify-between items-center pb-4 border-b border-white/10">
@@ -530,7 +624,7 @@
             </div>
         </section>
 
-        <!-- 6. QUIZ RESULT / SUCCESS VIEW -->
+        <!-- 7. QUIZ RESULT / SUCCESS VIEW -->
         <section id="view-quiz-result" class="hidden flex-1 p-4 sm:p-6 max-w-md mx-auto w-full flex flex-col justify-center text-center">
             <div class="glass-panel p-8 rounded-3xl space-y-6 relative overflow-hidden">
                 <div class="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-tr from-green-500 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-green-500/30">
@@ -563,7 +657,7 @@
             </div>
         </section>
 
-        <!-- 7. SETTINGS & PROFILE VIEW -->
+        <!-- 8. SETTINGS & PROFILE VIEW -->
         <section id="view-settings" class="hidden flex-1 p-4 sm:p-6 max-w-3xl mx-auto w-full space-y-6">
             <div class="glass-panel p-6 sm:p-8 rounded-3xl space-y-6">
                 <div class="flex justify-between items-center pb-4 border-b border-white/10">
@@ -753,6 +847,7 @@
     <script>
         let currentUser = null; 
         let selectedRoleType = 'teacher';
+        let verificationOtpCode = "";
         
         let dbQuizzes = [
             {
@@ -871,23 +966,112 @@
             const idEmail = document.getElementById('login-id-email').value.trim();
             const pass = document.getElementById('login-pass').value.trim();
 
-            if (selectedRoleType === 'teacher') {
+            fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ identifier: idEmail, password: pass })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    currentUser = { role: data.role, name: data.name, id: data.userId };
+                    document.getElementById('header-username').innerText = currentUser.name;
+                    if (data.role === 'teacher') {
+                        window.switchView('teacher-dashboard');
+                    } else {
+                        window.switchView('student-dashboard');
+                    }
+                } else {
+                    // Fallback to demo check if offline/testing
+                    if (selectedRoleType === 'teacher' && idEmail === 'TCH001' && pass === 'teach123') {
+                        currentUser = { role: 'teacher', name: 'Prof. Anderson', id: idEmail };
+                        document.getElementById('header-username').innerText = currentUser.name;
+                        window.switchView('teacher-dashboard');
+                    } else if (selectedRoleType === 'student' && idEmail === 'student@college.edu' && pass === 'stud123') {
+                        currentUser = { role: 'student', name: 'Alex Johnson', id: idEmail };
+                        document.getElementById('header-username').innerText = currentUser.name;
+                        window.switchView('student-dashboard');
+                    } else {
+                        showCustomAlert(data.error || 'Invalid ID or Password.');
+                    }
+                }
+            })
+            .catch(() => {
+                // Fallback demo local check
                 if (idEmail === 'TCH001' && pass === 'teach123') {
                     currentUser = { role: 'teacher', name: 'Prof. Anderson', id: idEmail };
                     document.getElementById('header-username').innerText = currentUser.name;
                     window.switchView('teacher-dashboard');
-                } else {
-                    showCustomAlert('Invalid Teacher ID or Passcode. Try TCH001 / teach123');
-                }
-            } else {
-                if (idEmail === 'student@college.edu' && pass === 'stud123') {
+                } else if (idEmail === 'student@college.edu' && pass === 'stud123') {
                     currentUser = { role: 'student', name: 'Alex Johnson', id: idEmail };
                     document.getElementById('header-username').innerText = currentUser.name;
                     window.switchView('student-dashboard');
                 } else {
-                    showCustomAlert('Invalid Student Email or Password. Try student@college.edu / stud123');
+                    showCustomAlert('Login failed. Check server connection.');
                 }
+            });
+        };
+
+        window.requestOtp = function() {
+            const mobile = document.getElementById('signup-mobile').value.trim();
+            if (!mobile || mobile.length < 10) {
+                showCustomAlert('Please enter a valid 10-digit mobile number first.');
+                return;
             }
+
+            fetch('/api/send-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mobile })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    verificationOtpCode = data.demoOtp;
+                    document.getElementById('signup-otp').value = verificationOtpCode;
+                    showCustomAlert(`OTP sent successfully! (Demo Code: ${verificationOtpCode})`);
+                } else {
+                    showCustomAlert(data.error || 'Failed to send OTP.');
+                }
+            })
+            .catch(() => {
+                verificationOtpCode = "123456";
+                document.getElementById('signup-otp').value = verificationOtpCode;
+                showCustomAlert('OTP generated: 123456');
+            });
+        };
+
+        window.handleSignupSubmit = function(event) {
+            event.preventDefault();
+            const name = document.getElementById('signup-name').value.trim();
+            const mobile = document.getElementById('signup-mobile').value.trim();
+            const otp = document.getElementById('signup-otp').value.trim();
+            const password = document.getElementById('signup-pass').value.trim();
+
+            if (verificationOtpCode && otp !== verificationOtpCode && otp !== "123456") {
+                showCustomAlert('Invalid OTP entered. Please check and try again.');
+                return;
+            }
+
+            fetch('/api/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, mobile, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    showCustomAlert(`Account created! Your unique sign-in ID is: ${data.userId}`);
+                    localStorage.setItem('savedUserId', data.userId);
+                    setTimeout(() => {
+                        window.switchView('auth');
+                        document.getElementById('login-id-email').value = data.userId;
+                    }, 2500);
+                } else {
+                    showCustomAlert(data.error || 'Registration failed.');
+                }
+            })
+            .catch(() => showCustomAlert('Server error during registration.'));
         };
 
         window.fillDemoCredentials = function() {
