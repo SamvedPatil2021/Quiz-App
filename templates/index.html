@@ -751,7 +751,8 @@
     </div>
 
     <script>
-        let currentUser = null;
+        let currentUser = null; 
+        let selectedRoleType = 'teacher';
         
         let dbQuizzes = [
             {
@@ -769,39 +770,13 @@
                         q: 'What type of database is MongoDB?',
                         options: ['Relational SQL', 'NoSQL Document Store', 'Graph Only', 'Key-Value Cache'],
                         correct: 1
-                    },
-                    {
-                        q: 'Which ODM is commonly used with Python and MongoDB?',
-                        options: ['MongoEngine / Motor', 'Hibernate', 'Entity Framework', 'JDBC'],
-                        correct: 0
-                    }
-                ]
-            },
-            {
-                id: 'q_102',
-                title: 'Cloud Deployment & Render',
-                topic: 'DevOps',
-                createdBy: 'Dr. Roberts',
-                questions: [
-                    {
-                        q: 'Render is primarily used for what purpose?',
-                        options: ['Hosting web apps & databases', 'Writing CSS', 'Local video editing', 'Designing logos'],
-                        correct: 0
-                    },
-                    {
-                        q: 'What is the default port protocol for standard web traffic?',
-                        options: ['Port 80 / 443', 'Port 3306', 'Port 5432', 'Port 22'],
-                        correct: 0
                     }
                 ]
             }
         ];
 
         let dbStudentsData = [
-            { name: 'Alex Johnson', email: 'student@college.edu', quizTitle: 'Full-Stack Python & MongoDB', score: '3/3', percentage: 100, status: 'Passed', date: 'Oct 9, 2026' },
-            { name: 'Sarah Williams', email: 'sarah@college.edu', quizTitle: 'Full-Stack Python & MongoDB', score: '2/3', percentage: 66, status: 'Passed', date: 'Oct 8, 2026' },
-            { name: 'Michael Brown', email: 'michael@college.edu', quizTitle: 'Cloud Deployment & Render', score: '1/2', percentage: 50, status: 'Needs Review', date: 'Oct 7, 2026' },
-            { name: 'Emily Davis', email: 'emily@college.edu', quizTitle: 'Full-Stack Python & MongoDB', score: '3/3', percentage: 100, status: 'Passed', date: 'Oct 6, 2026' }
+            { name: 'Alex Johnson', email: 'student@college.edu', quizTitle: 'Full-Stack Python & MongoDB', score: '3/3', percentage: 100, status: 'Passed', date: 'Oct 9, 2026' }
         ];
 
         let activeQuizTaking = null;
@@ -810,40 +785,36 @@
         let quizTimerInterval = null;
         let timeLeftSeconds = 300;
 
-        function switchView(viewName) {
-            const views = ['view-role-selection', 'view-auth', 'view-teacher-dashboard', 'view-student-dashboard', 'view-quiz-taking', 'view-quiz-result', 'view-settings'];
+        window.switchView = function(viewName) {
+            const views = ['view-role-selection', 'view-auth', 'view-teacher-dashboard', 'view-student-dashboard', 'view-quiz-taking', 'view-quiz-result', 'view-settings', 'view-signup'];
             views.forEach(v => {
-                document.getElementById(v).classList.add('hidden');
+                const el = document.getElementById(v);
+                if (el) el.classList.add('hidden');
             });
 
             const header = document.getElementById('app-header');
-            if (viewName === 'role-selection' || viewName === 'auth') {
-                header.classList.add('hidden');
-            } else {
-                header.classList.remove('hidden');
+            if (header) {
+                if (viewName === 'role-selection' || viewName === 'auth' || viewName === 'signup') {
+                    header.classList.add('hidden');
+                } else {
+                    header.classList.remove('hidden');
+                }
             }
 
-            if (viewName === 'role-selection') document.getElementById('view-role-selection').classList.remove('hidden');
-            else if (viewName === 'auth') document.getElementById('view-auth').classList.remove('hidden');
-            else if (viewName === 'teacher-dashboard') {
-                document.getElementById('view-teacher-dashboard').classList.remove('hidden');
-                renderTeacherDashboard();
+            const targetView = document.getElementById('view-' + viewName);
+            if (targetView) {
+                targetView.classList.remove('hidden');
             }
-            else if (viewName === 'student-dashboard') {
-                document.getElementById('view-student-dashboard').classList.remove('hidden');
-                renderStudentDashboard();
-            }
-            else if (viewName === 'quiz-taking') document.getElementById('view-quiz-taking').classList.remove('hidden');
-            else if (viewName === 'quiz-result') document.getElementById('view-quiz-result').classList.remove('hidden');
-            else if (viewName === 'settings') {
-                document.getElementById('view-settings').classList.remove('hidden');
-                renderSettings();
-            }
-        }
 
-        function toggleSidebar() {
+            if (viewName === 'teacher-dashboard') renderTeacherDashboard();
+            else if (viewName === 'student-dashboard') renderStudentDashboard();
+            else if (viewName === 'settings') renderSettings();
+        };
+
+        window.toggleSidebar = function() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
+            if (!sidebar || !overlay) return;
             const isOpen = !sidebar.classList.contains('-translate-x-full');
 
             if (isOpen) {
@@ -854,13 +825,11 @@
                 overlay.classList.remove('hidden');
                 setTimeout(() => overlay.classList.remove('opacity-0'), 10);
             }
-        }
+        };
 
-        let selectedRoleType = 'teacher';
-
-        function selectRole(role) {
+        window.selectRole = function(role) {
             selectedRoleType = role;
-            switchView('auth');
+            window.switchView('auth');
 
             const titleEl = document.getElementById('auth-title');
             const subtitleEl = document.getElementById('auth-subtitle');
@@ -871,33 +840,33 @@
             const sidebarRole = document.getElementById('sidebar-role-label');
 
             if (role === 'teacher') {
-                titleEl.innerText = 'Teacher Verification';
-                subtitleEl.innerText = 'Enter authorized Teacher ID and passcode.';
-                labelIdEmail.innerText = 'Teacher ID';
-                inputField.placeholder = 'e.g. TCH001';
-                inputField.value = 'TCH001';
-                document.getElementById('login-pass').value = 'teach123';
-                iconMain.className = 'fa-solid fa-chalkboard-user text-2xl';
-                iconInput.className = 'fa-solid fa-id-badge';
-                sidebarRole.innerText = 'Faculty Portal';
+                if (titleEl) titleEl.innerText = 'Teacher Verification';
+                if (subtitleEl) subtitleEl.innerText = 'Enter authorized Teacher ID and passcode.';
+                if (labelIdEmail) labelIdEmail.innerText = 'Teacher ID';
+                if (inputField) { inputField.placeholder = 'e.g. TCH001'; inputField.value = 'TCH001'; }
+                const passField = document.getElementById('login-pass');
+                if (passField) passField.value = 'teach123';
+                if (iconMain) iconMain.className = 'fa-solid fa-chalkboard-user text-2xl';
+                if (iconInput) iconInput.className = 'fa-solid fa-id-badge';
+                if (sidebarRole) sidebarRole.innerText = 'Faculty Portal';
             } else {
-                titleEl.innerText = 'Student Login';
-                subtitleEl.innerText = 'Enter college email and password.';
-                labelIdEmail.innerText = 'Student Email';
-                inputField.placeholder = 'e.g. student@college.edu';
-                inputField.value = 'student@college.edu';
-                document.getElementById('login-pass').value = 'stud123';
-                iconMain.className = 'fa-solid fa-user-graduate text-2xl';
-                iconInput.className = 'fa-solid fa-envelope';
-                sidebarRole.innerText = 'Student Portal';
+                if (titleEl) titleEl.innerText = 'Student Login';
+                if (subtitleEl) subtitleEl.innerText = 'Enter college email and password.';
+                if (labelIdEmail) labelIdEmail.innerText = 'Student Email';
+                if (inputField) { inputField.placeholder = 'e.g. student@college.edu'; inputField.value = 'student@college.edu'; }
+                const passField = document.getElementById('login-pass');
+                if (passField) passField.value = 'stud123';
+                if (iconMain) iconMain.className = 'fa-solid fa-user-graduate text-2xl';
+                if (iconInput) iconInput.className = 'fa-solid fa-envelope';
+                if (sidebarRole) sidebarRole.innerText = 'Student Portal';
             }
-        }
+        };
 
-        function backToRoleSelection() {
-            switchView('role-selection');
-        }
+        window.backToRoleSelection = function() {
+            window.switchView('role-selection');
+        };
 
-        function handleLoginSubmit(event) {
+        window.handleLoginSubmit = function(event) {
             event.preventDefault();
             const idEmail = document.getElementById('login-id-email').value.trim();
             const pass = document.getElementById('login-pass').value.trim();
@@ -906,7 +875,7 @@
                 if (idEmail === 'TCH001' && pass === 'teach123') {
                     currentUser = { role: 'teacher', name: 'Prof. Anderson', id: idEmail };
                     document.getElementById('header-username').innerText = currentUser.name;
-                    switchView('teacher-dashboard');
+                    window.switchView('teacher-dashboard');
                 } else {
                     showCustomAlert('Invalid Teacher ID or Passcode. Try TCH001 / teach123');
                 }
@@ -914,14 +883,14 @@
                 if (idEmail === 'student@college.edu' && pass === 'stud123') {
                     currentUser = { role: 'student', name: 'Alex Johnson', id: idEmail };
                     document.getElementById('header-username').innerText = currentUser.name;
-                    switchView('student-dashboard');
+                    window.switchView('student-dashboard');
                 } else {
                     showCustomAlert('Invalid Student Email or Password. Try student@college.edu / stud123');
                 }
             }
-        }
+        };
 
-        function fillDemoCredentials() {
+        window.fillDemoCredentials = function() {
             if (selectedRoleType === 'teacher') {
                 document.getElementById('login-id-email').value = 'TCH001';
                 document.getElementById('login-pass').value = 'teach123';
@@ -929,9 +898,9 @@
                 document.getElementById('login-id-email').value = 'student@college.edu';
                 document.getElementById('login-pass').value = 'stud123';
             }
-        }
+        };
 
-        function togglePasswordVisibility() {
+        window.togglePasswordVisibility = function() {
             const passInput = document.getElementById('login-pass');
             const toggleIcon = document.getElementById('pass-toggle-icon');
             if (passInput.type === 'password') {
@@ -941,131 +910,97 @@
                 passInput.type = 'password';
                 toggleIcon.className = 'fa-solid fa-eye-slash';
             }
-        }
+        };
 
-        function handleLogout() {
+        window.handleLogout = function() {
             currentUser = null;
-            switchView('role-selection');
-        }
+            window.switchView('role-selection');
+        };
 
-        function renderTeacherDashboard() {
+        window.renderTeacherDashboard = function() {
             document.getElementById('stat-total-students').innerText = dbStudentsData.length;
             document.getElementById('stat-total-quizzes').innerText = dbQuizzes.length;
             document.getElementById('active-quiz-count').innerText = `${dbQuizzes.length} Live`;
 
             const tbody = document.getElementById('student-analytics-tbody');
-            tbody.innerHTML = dbStudentsData.map(s => `
-                <tr class="hover:bg-white/5 transition-colors">
-                    <td class="py-3 px-4 font-semibold text-white">${s.name}</td>
-                    <td class="py-3 px-4 text-gray-400 text-xs">${s.email}</td>
-                    <td class="py-3 px-4 text-purple-300 font-medium">${s.quizTitle}</td>
-                    <td class="py-3 px-4 font-bold text-white">${s.score} (${s.percentage}%)</td>
-                    <td class="py-3 px-4">
-                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${s.status === 'Passed' ? 'bg-green-500/20 text-green-400' : 'bg-amber-500/20 text-amber-400'}">${s.status}</span>
-                    </td>
-                </tr>
-            `).join('');
+            if (tbody) {
+                tbody.innerHTML = dbStudentsData.map(s => `
+                    <tr class="hover:bg-white/5 transition-colors">
+                        <td class="py-3 px-4 font-semibold text-white">${s.name}</td>
+                        <td class="py-3 px-4 text-gray-400 text-xs">${s.email}</td>
+                        <td class="py-3 px-4 text-purple-300 font-medium">${s.quizTitle}</td>
+                        <td class="py-3 px-4 font-bold text-white">${s.score} (${s.percentage}%)</td>
+                        <td class="py-3 px-4">
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${s.status === 'Passed' ? 'bg-green-500/20 text-green-400' : 'bg-amber-500/20 text-amber-400'}">${s.status}</span>
+                        </td>
+                    </tr>
+                `).join('');
+            }
 
             const quizListEl = document.getElementById('teacher-quiz-list');
-            quizListEl.innerHTML = dbQuizzes.map(q => `
-                <div class="p-4 rounded-2xl glass-input space-y-2 border border-white/5">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <span class="text-[10px] font-bold text-purple-400 uppercase">${q.topic}</span>
-                            <h4 class="font-bold text-white text-sm">${q.title}</h4>
+            if (quizListEl) {
+                quizListEl.innerHTML = dbQuizzes.map(q => `
+                    <div class="p-4 rounded-2xl glass-input space-y-2 border border-white/5">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-[10px] font-bold text-purple-400 uppercase">${q.topic}</span>
+                                <h4 class="font-bold text-white text-sm">${q.title}</h4>
+                            </div>
+                            <span class="text-[10px] text-gray-400">${q.questions.length} Qs</span>
                         </div>
-                        <span class="text-[10px] text-gray-400">${q.questions.length} Qs</span>
-                    </div>
-                    <div class="flex items-center justify-between pt-2 border-t border-white/5">
-                        <div class="flex items-center space-x-1.5 text-xs text-gray-400 font-mono">
-                            <i class="fa-solid fa-link text-purple-400"></i>
-                            <span class="truncate max-w-[150px]">${window.location.host}/assess/${q.id}</span>
+                        <div class="flex items-center justify-between pt-2 border-t border-white/5">
+                            <div class="flex items-center space-x-1.5 text-xs text-gray-400 font-mono">
+                                <i class="fa-solid fa-link text-purple-400"></i>
+                                <span class="truncate max-w-[150px]">${window.location.host}/assess/${q.id}</span>
+                            </div>
+                            <button onclick="copyQuizLink('${q.id}')" class="px-2.5 py-1 rounded-lg bg-purple-600/20 text-purple-300 hover:bg-purple-600 hover:text-white text-xs font-semibold transition-all">
+                                Copy Link
+                            </button>
                         </div>
-                        <button onclick="copyQuizLink('${q.id}')" class="px-2.5 py-1 rounded-lg bg-purple-600/20 text-purple-300 hover:bg-purple-600 hover:text-white text-xs font-semibold transition-all">
-                            Copy Link
-                        </button>
                     </div>
-                </div>
-            `).join('');
-        }
+                `).join('');
+            }
+        };
 
-        function refreshStudentData() {
-            renderTeacherDashboard();
-            showCustomAlert('Student analytics synchronized successfully with MongoDB Atlas.');
-        }
-
-        function renderStudentDashboard() {
+        window.renderStudentDashboard = function() {
             document.getElementById('student-welcome-title').innerText = `Hello, ${currentUser ? currentUser.name : 'Student'}`;
             
             const grid = document.getElementById('student-quiz-grid');
-            grid.innerHTML = dbQuizzes.map(q => `
-                <div class="glass-panel p-5 rounded-3xl space-y-4 flex flex-col justify-between hover:border-purple-500/40 transition-all">
-                    <div class="space-y-1">
-                        <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-semibold text-purple-400 uppercase tracking-wider">${q.topic}</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 font-medium">${q.questions.length} Questions</span>
+            if (grid) {
+                grid.innerHTML = dbQuizzes.map(q => `
+                    <div class="glass-panel p-5 rounded-3xl space-y-4 flex flex-col justify-between hover:border-purple-500/40 transition-all">
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center">
+                                <span class="text-[10px] font-semibold text-purple-400 uppercase tracking-wider">${q.topic}</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 font-medium">${q.questions.length} Questions</span>
+                            </div>
+                            <h3 class="font-extrabold text-white text-base">${q.title}</h3>
+                            <p class="text-xs text-gray-400">Instructor: ${q.createdBy || 'Faculty'}</p>
                         </div>
-                        <h3 class="font-extrabold text-white text-base">${q.title}</h3>
-                        <p class="text-xs text-gray-400">Instructor: ${q.createdBy || 'Faculty'}</p>
+                        <button onclick="startQuiz('${q.id}')" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs shadow-neon hover:opacity-95 transition-all flex items-center justify-center space-x-2">
+                            <span>Take Quiz Now</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </div>
+                `).join('');
+            }
+        };
 
-                    <button onclick="startQuiz('${q.id}')" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs shadow-neon hover:opacity-95 transition-all flex items-center justify-center space-x-2">
-                        <span>Take Quiz Now</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            `).join('');
-
-            const historyTbody = document.getElementById('student-history-tbody');
-            const myHistory = dbStudentsData.filter(s => s.email === (currentUser ? currentUser.email : 'student@college.edu') || true);
-            historyTbody.innerHTML = myHistory.map(h => `
-                <tr class="hover:bg-white/5 transition-colors">
-                    <td class="py-3 px-4 font-semibold text-white">${h.quizTitle}</td>
-                    <td class="py-3 px-4 text-gray-400 text-xs">College Exam</td>
-                    <td class="py-3 px-4 font-bold text-white">${h.score} (${h.percentage}%)</td>
-                    <td class="py-3 px-4">
-                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-green-500/20 text-green-400">Completed</span>
-                    </td>
-                    <td class="py-3 px-4 text-gray-400 text-xs">${h.date}</td>
-                </tr>
-            `).join('');
-        }
-
-        function startQuiz(quizId) {
+        window.startQuiz = function(quizId) {
             activeQuizTaking = dbQuizzes.find(q => q.id === quizId);
             if (!activeQuizTaking) return;
-
             currentQuestionIdx = 0;
             studentAnswers = new Array(activeQuizTaking.questions.length).fill(null);
             timeLeftSeconds = activeQuizTaking.questions.length * 60;
-
             document.getElementById('taking-quiz-title').innerText = activeQuizTaking.title;
             document.getElementById('taking-quiz-topic').innerText = activeQuizTaking.topic;
-
-            switchView('quiz-taking');
+            window.switchView('quiz-taking');
             renderCurrentQuestion();
-            startQuizTimer();
-        }
+        };
 
-        function startQuizTimer() {
-            if (quizTimerInterval) clearInterval(quizTimerInterval);
-            quizTimerInterval = setInterval(() => {
-                if (timeLeftSeconds <= 0) {
-                    clearInterval(quizTimerInterval);
-                    submitQuiz();
-                    return;
-                }
-                timeLeftSeconds--;
-                const m = Math.floor(timeLeftSeconds / 60).toString().padStart(2, '0');
-                const s = (timeLeftSeconds % 60).toString().padStart(2, '0');
-                document.getElementById('quiz-timer').innerText = `${m}:${s}`;
-            }, 1000);
-        }
-
-        function renderCurrentQuestion() {
+        window.renderCurrentQuestion = function() {
             const q = activeQuizTaking.questions[currentQuestionIdx];
             const total = activeQuizTaking.questions.length;
-
             document.getElementById('question-counter').innerText = `Question ${currentQuestionIdx + 1} of ${total}`;
             const pct = Math.round(((currentQuestionIdx + 1) / total) * 100);
             document.getElementById('question-progress-pct').innerText = `${pct}%`;
@@ -1073,185 +1008,34 @@
             document.getElementById('question-text').innerText = q.q;
 
             const optContainer = document.getElementById('options-container');
-            optContainer.innerHTML = q.options.map((opt, idx) => {
-                const isSelected = studentAnswers[currentQuestionIdx] === idx;
-                return `
-                    <button onclick="selectOption(${idx})" class="w-full text-left p-4 rounded-xl glass-input flex items-center justify-between transition-all ${isSelected ? 'border-purple-500 bg-purple-600/20 shadow-neon-sm' : 'hover:border-white/30'}">
-                        <span class="text-sm font-medium text-white">${opt}</span>
-                        <div class="w-6 h-6 rounded-full border ${isSelected ? 'border-purple-500 bg-purple-600 text-white' : 'border-white/20'} flex items-center justify-center text-xs font-bold">
-                            ${isSelected ? '<i class="fa-solid fa-check text-[10px]"></i>' : ''}
-                        </div>
-                    </button>
-                `;
-            }).join('');
-
-            document.getElementById('btn-prev-q').disabled = currentQuestionIdx === 0;
-            const nextBtn = document.getElementById('btn-next-q');
-            if (currentQuestionIdx === total - 1) {
-                nextBtn.innerHTML = 'Submit Quiz <i class="fa-solid fa-check ml-1.5"></i>';
-            } else {
-                nextBtn.innerHTML = 'Next Question <i class="fa-solid fa-arrow-right ml-1.5"></i>';
+            if (optContainer) {
+                optContainer.innerHTML = q.options.map((opt, idx) => {
+                    const isSelected = studentAnswers[currentQuestionIdx] === idx;
+                    return `
+                        <button onclick="selectOption(${idx})" class="w-full text-left p-4 rounded-xl glass-input flex items-center justify-between transition-all ${isSelected ? 'border-purple-500 bg-purple-600/20 shadow-neon-sm' : 'hover:border-white/30'}">
+                            <span class="text-sm font-medium text-white">${opt}</span>
+                            <div class="w-6 h-6 rounded-full border ${isSelected ? 'border-purple-500 bg-purple-600 text-white' : 'border-white/20'} flex items-center justify-center text-xs font-bold">
+                                ${isSelected ? '<i class="fa-solid fa-check text-[10px]"></i>' : ''}
+                            </div>
+                        </button>
+                    `;
+                }).join('');
             }
-        }
+        };
 
-        function selectOption(idx) {
+        window.selectOption = function(idx) {
             studentAnswers[currentQuestionIdx] = idx;
-            renderCurrentQuestion();
-        }
+            window.renderCurrentQuestion();
+        };
 
-        function prevQuestion() {
-            if (currentQuestionIdx > 0) {
-                currentQuestionIdx--;
-                renderCurrentQuestion();
-            }
-        }
+        window.openAiModal = function() { document.getElementById('modal-ai').classList.remove('hidden'); };
+        window.closeAiModal = function() { document.getElementById('modal-ai').classList.add('hidden'); };
+        window.openManualModal = function() { document.getElementById('modal-manual').classList.remove('hidden'); };
+        window.closeManualModal = function() { document.getElementById('modal-manual').classList.add('hidden'); };
+        window.openHelpModal = function() { document.getElementById('modal-help').classList.remove('hidden'); };
+        window.closeHelpModal = function() { document.getElementById('modal-help').classList.add('hidden'); };
 
-        function nextQuestion() {
-            if (currentQuestionIdx < activeQuizTaking.questions.length - 1) {
-                currentQuestionIdx++;
-                renderCurrentQuestion();
-            } else {
-                submitQuiz();
-            }
-        }
-
-        function submitQuiz() {
-            if (quizTimerInterval) clearInterval(quizTimerInterval);
-
-            let correctCount = 0;
-            activeQuizTaking.questions.forEach((q, idx) => {
-                if (studentAnswers[idx] === q.correct) correctCount++;
-            });
-
-            const total = activeQuizTaking.questions.length;
-            const pct = Math.round((correctCount / total) * 100);
-
-            document.getElementById('result-score-text').innerText = `${correctCount} / ${total} (${pct}%)`;
-            const badge = document.getElementById('result-status-badge');
-            if (pct >= 50) {
-                badge.innerText = 'Passed';
-                badge.className = 'px-2.5 py-0.5 rounded-full bg-green-500/20 text-green-400 text-xs font-bold';
-            } else {
-                badge.innerText = 'Failed';
-                badge.className = 'px-2.5 py-0.5 rounded-full bg-red-500/20 text-red-400 text-xs font-bold';
-            }
-
-            dbStudentsData.unshift({
-                name: currentUser ? currentUser.name : 'Alex Johnson',
-                email: currentUser ? currentUser.id : 'student@college.edu',
-                quizTitle: activeQuizTaking.title,
-                score: `${correctCount}/${total}`,
-                percentage: pct,
-                status: pct >= 50 ? 'Passed' : 'Needs Review',
-                date: 'Just now'
-            });
-
-            switchView('quiz-result');
-        }
-
-        function quitQuiz() {
-            if (quizTimerInterval) clearInterval(quizTimerInterval);
-            switchView('student-dashboard');
-        }
-
-        function returnToDashboard() {
-            if (currentUser && currentUser.role === 'teacher') {
-                switchView('teacher-dashboard');
-            } else {
-                switchView('student-dashboard');
-            }
-        }
-
-        function openAiModal() { document.getElementById('modal-ai').classList.remove('hidden'); }
-        function closeAiModal() { document.getElementById('modal-ai').classList.add('hidden'); }
-
-        function openManualModal() { document.getElementById('modal-manual').classList.remove('hidden'); }
-        function closeManualModal() { document.getElementById('modal-manual').classList.add('hidden'); }
-
-        function openHelpModal() { document.getElementById('modal-help').classList.remove('hidden'); }
-        function closeHelpModal() { document.getElementById('modal-help').classList.add('hidden'); }
-
-        function showDemoCredentials() {
-            openHelpModal();
-        }
-
-        // --- AI Quiz Generation via Backend & Gemini API ---
-        function generateAiQuiz(event) {
-            event.preventDefault();
-            const topic = document.getElementById('ai-topic').value;
-            const count = parseInt(document.getElementById('ai-count').value) || 5;
-
-            const btn = document.getElementById('btn-generate-ai');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> Generating via Gemini AI...`;
-            btn.disabled = true;
-
-            fetch('/api/generate-quiz', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ topic, numQuestions: count })
-            })
-            .then(res => res.json())
-            .then(data => {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-
-                if (data.success && data.questions) {
-                    const newQuiz = {
-                        id: data.quizId || ('q_' + Math.floor(Math.random() * 9000 + 1000)),
-                        title: `${topic} (AI Generated)`,
-                        topic: topic,
-                        createdBy: currentUser ? currentUser.name : 'AI Faculty Agent',
-                        questions: data.questions
-                    };
-                    dbQuizzes.push(newQuiz);
-                    closeAiModal();
-                    renderTeacherDashboard();
-                    showCustomAlert(`Gemini AI successfully generated "${newQuiz.title}" with ${data.questions.length} unique questions!`);
-                } else {
-                    showCustomAlert('Generation Error: ' + (data.error || 'Check your Gemini API key on Render/local.'));
-                }
-            })
-            .catch(err => {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                showCustomAlert('Failed to connect to the backend server.');
-            });
-        }
-
-        function createManualQuiz(event) {
-            event.preventDefault();
-            const title = document.getElementById('manual-title').value;
-            const topic = document.getElementById('manual-topic').value;
-            const qText = document.getElementById('manual-q').value;
-            const opt0 = document.getElementById('manual-opt0').value;
-            const opt1 = document.getElementById('manual-opt1').value;
-            const opt2 = document.getElementById('manual-opt2').value;
-            const opt3 = document.getElementById('manual-opt3').value;
-            const correctIdx = parseInt(document.getElementById('manual-ans').value);
-
-            const newQuiz = {
-                id: 'q_' + Math.floor(Math.random() * 9000 + 1000),
-                title: title,
-                topic: topic,
-                createdBy: currentUser ? currentUser.name : 'Faculty Member',
-                questions: [
-                    {
-                        q: qText,
-                        options: [opt0, opt1, opt2, opt3],
-                        correct: correctIdx
-                    }
-                ]
-            };
-
-            dbQuizzes.push(newQuiz);
-            closeManualModal();
-            renderTeacherDashboard();
-            showCustomAlert(`Quiz "${title}" created successfully and published with a unique link!`);
-        }
-
-        // Dynamically uses real Render or local host domain instead of dummy college.edu
-        function copyQuizLink(quizId) {
+        window.copyQuizLink = function(quizId) {
             const link = `${window.location.origin}/assess/${quizId}`;
             const tempInput = document.createElement('textarea');
             tempInput.value = link;
@@ -1259,108 +1043,32 @@
             tempInput.select();
             document.execCommand('copy');
             document.body.removeChild(tempInput);
-            showCustomAlert('Quiz unique live link copied to clipboard!');
-        }
+            showCustomAlert('Quiz live link copied to clipboard!');
+        };
 
-        function renderSettings() {
+        window.renderSettings = function() {
             if (currentUser) {
                 document.getElementById('settings-name-display').innerText = currentUser.name;
                 document.getElementById('settings-email-display').innerText = currentUser.id;
                 document.getElementById('settings-role-badge').innerText = currentUser.role;
             }
-        }
+        };
 
-        function showCustomAlert(msg) {
+        window.showCustomAlert = function(msg) {
             const toast = document.createElement('div');
             toast.className = 'fixed bottom-6 right-6 z-50 glass-panel px-5 py-3 rounded-2xl border border-purple-500/40 shadow-neon text-white text-xs font-semibold flex items-center space-x-3 transition-all duration-300 transform translate-y-10 opacity-0';
             toast.innerHTML = `<i class="fa-solid fa-circle-check text-purple-400 text-sm"></i><span>${msg}</span>`;
             document.body.appendChild(toast);
-
-            setTimeout(() => {
-                toast.classList.remove('translate-y-10', 'opacity-0');
-            }, 50);
-
+            setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 50);
             setTimeout(() => {
                 toast.classList.add('translate-y-10', 'opacity-0');
                 setTimeout(() => toast.remove(), 300);
             }, 3500);
-        }
+        };
 
         window.onload = function() {
-            switchView('role-selection');
+            window.switchView('role-selection');
         };
-<!-- STREAMLINED SIGN UP VIEW -->
-        <section id="view-signup" class="hidden flex-1 flex flex-col justify-between p-6 max-w-md mx-auto w-full">
-            <div class="flex justify-between items-center pt-4">
-                <button onclick="switchView('role-selection')" class="w-10 h-10 rounded-xl glass-input flex items-center justify-center text-gray-300 hover:text-white">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
-                <div class="flex items-center space-x-2">
-                    <span class="font-extrabold text-xl tracking-wider text-white">QUIZ</span>
-                    <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center shadow-neon-sm">
-                        <span class="text-white font-black text-sm">Q?</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="py-6 space-y-6">
-                <div class="text-center space-y-2">
-                    <div class="w-16 h-16 mx-auto rounded-2xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-400 shadow-neon-sm mb-4">
-                        <i class="fa-solid fa-user-plus text-2xl"></i>
-                    </div>
-                    <h2 class="text-2xl font-extrabold text-white">Create Quick Account</h2>
-                    <p class="text-xs text-gray-400">No long forms. Just name, number, and OTP.</p>
-                </div>
-
-                <!-- Step 1: Name & Mobile + OTP Trigger -->
-                <form id="signup-form" onsubmit="handleSignupSubmit(event)" class="space-y-4 pt-2">
-                    <div class="space-y-1">
-                        <label class="text-xs font-semibold text-gray-300 ml-1">Full Name</label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-user"></i></span>
-                            <input type="text" id="signup-name" required placeholder="e.g. Samved Patil" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 focus:outline-none">
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <label class="text-xs font-semibold text-gray-300 ml-1">Mobile Number</label>
-                        <div class="relative flex space-x-2">
-                            <div class="relative flex-1">
-                                <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-phone"></i></span>
-                                <input type="tel" id="signup-mobile" required placeholder="9876543210" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 focus:outline-none">
-                            </div>
-                            <button type="button" onclick="requestOtp()" class="px-4 py-3.5 rounded-xl bg-purple-600/30 border border-purple-500/40 text-purple-300 font-bold text-xs hover:bg-purple-600 hover:text-white transition-all">
-                                Send OTP
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <label class="text-xs font-semibold text-gray-300 ml-1">Enter 6-Digit OTP</label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-shield-keyhole"></i></span>
-                            <input type="text" id="signup-otp" required maxlength="6" placeholder="123456" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 tracking-widest font-mono focus:outline-none">
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <label class="text-xs font-semibold text-gray-300 ml-1">Create Account Password</label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-lock"></i></span>
-                            <input type="password" id="signup-pass" required placeholder="Set secure password" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 focus:outline-none">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-sm shadow-neon hover:opacity-95 transition-all mt-4">
-                        Generate Unique ID & Register
-                    </button>
-                </form>
-
-                <div class="text-center pt-2">
-                    <p class="text-xs text-gray-400">Already have an account? <button onclick="switchView('auth')" class="text-purple-400 font-semibold underline">Login here</button></p>
-                </div>
-            </div>
-        </section>
     </script>
 </body>
 </html>
