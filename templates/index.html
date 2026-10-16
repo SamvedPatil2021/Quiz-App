@@ -1289,6 +1289,78 @@
         window.onload = function() {
             switchView('role-selection');
         };
+<!-- STREAMLINED SIGN UP VIEW -->
+        <section id="view-signup" class="hidden flex-1 flex flex-col justify-between p-6 max-w-md mx-auto w-full">
+            <div class="flex justify-between items-center pt-4">
+                <button onclick="switchView('role-selection')" class="w-10 h-10 rounded-xl glass-input flex items-center justify-center text-gray-300 hover:text-white">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div class="flex items-center space-x-2">
+                    <span class="font-extrabold text-xl tracking-wider text-white">QUIZ</span>
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center shadow-neon-sm">
+                        <span class="text-white font-black text-sm">Q?</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-6 space-y-6">
+                <div class="text-center space-y-2">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-400 shadow-neon-sm mb-4">
+                        <i class="fa-solid fa-user-plus text-2xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-white">Create Quick Account</h2>
+                    <p class="text-xs text-gray-400">No long forms. Just name, number, and OTP.</p>
+                </div>
+
+                <!-- Step 1: Name & Mobile + OTP Trigger -->
+                <form id="signup-form" onsubmit="handleSignupSubmit(event)" class="space-y-4 pt-2">
+                    <div class="space-y-1">
+                        <label class="text-xs font-semibold text-gray-300 ml-1">Full Name</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-user"></i></span>
+                            <input type="text" id="signup-name" required placeholder="e.g. Samved Patil" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-xs font-semibold text-gray-300 ml-1">Mobile Number</label>
+                        <div class="relative flex space-x-2">
+                            <div class="relative flex-1">
+                                <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-phone"></i></span>
+                                <input type="tel" id="signup-mobile" required placeholder="9876543210" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 focus:outline-none">
+                            </div>
+                            <button type="button" onclick="requestOtp()" class="px-4 py-3.5 rounded-xl bg-purple-600/30 border border-purple-500/40 text-purple-300 font-bold text-xs hover:bg-purple-600 hover:text-white transition-all">
+                                Send OTP
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-xs font-semibold text-gray-300 ml-1">Enter 6-Digit OTP</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-shield-keyhole"></i></span>
+                            <input type="text" id="signup-otp" required maxlength="6" placeholder="123456" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 tracking-widest font-mono focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-xs font-semibold text-gray-300 ml-1">Create Account Password</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400"><i class="fa-solid fa-lock"></i></span>
+                            <input type="password" id="signup-pass" required placeholder="Set secure password" class="w-full pl-11 pr-4 py-3.5 rounded-xl glass-input text-sm text-white placeholder-gray-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-sm shadow-neon hover:opacity-95 transition-all mt-4">
+                        Generate Unique ID & Register
+                    </button>
+                </form>
+
+                <div class="text-center pt-2">
+                    <p class="text-xs text-gray-400">Already have an account? <button onclick="switchView('auth')" class="text-purple-400 font-semibold underline">Login here</button></p>
+                </div>
+            </div>
+        </section>
     </script>
 </body>
 </html>
