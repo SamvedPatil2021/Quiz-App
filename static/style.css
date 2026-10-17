@@ -1,0 +1,56 @@
+/* ==========================================
+   QUIZ PLATFORM CUSTOM STYLING & THEME
+   ================================---------- */
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #09090e;
+    color: #f3f4f6;
+    overflow-x: hidden;
+}
+
+.glass-panel {
+    background: rgba(18, 18, 28, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-input {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+}
+
+.glass-input:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+    outline: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #09090e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #22223b;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #8b5cf6;
+}
+
+/* Fix browser autofill background/blur interference */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #f3f4f6 !important;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(18, 18, 28, 0.9) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
