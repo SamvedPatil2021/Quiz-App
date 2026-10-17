@@ -2,10 +2,12 @@
    QUIZ.AI - BOLD & PLAYFUL NEO-BRUTALIST THEME
    ================================---------- */
 
-body {
+html, body {
+    background-color: #f7f4e9 !important; /* Cream / Off-white background */
+    color: #111111 !important;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #f7f4e9; /* Warm cream background */
-    color: #111111;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
 }
 
