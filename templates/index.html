@@ -52,14 +52,15 @@
                         Race your friends, stack streaks and climb the leaderboard. Every quiz is a mini battle.
                     </p>
 
-                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                        <input type="text" id="quiz-pin-input" placeholder="Got a PIN? Drop it here" class="px-4 py-3.5 neo-input rounded-xl text-sm w-full sm:w-64">
-                        <button onclick="joinBattle()" class="px-6 py-3.5 neo-btn neo-btn-purple rounded-xl text-sm">Join the battle</button>
-                    </div>
-
-                    <div>
-                        <button onclick="continueWithGoogle()" class="px-5 py-3 bg-white neo-btn rounded-xl text-xs font-black inline-flex items-center space-x-2">
-                            <i class="fa-brands fa-google text-black"></i> <span>Continue with Google</span>
+                    <!-- REPLACED MARKED SECTION WITH TEACHER & STUDENT PORTAL BUTTONS -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <button onclick="selectRole('teacher')" class="px-8 py-4 neo-btn neo-btn-purple rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111]">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                            <span>Teacher Portal</span>
+                        </button>
+                        <button onclick="selectRole('student')" class="px-8 py-4 neo-btn neo-card-pink rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111] text-black">
+                            <i class="fa-solid fa-user-graduate"></i>
+                            <span>Student Portal</span>
                         </button>
                     </div>
                 </div>
@@ -89,28 +90,24 @@
                 </div>
             </div>
 
-<!-- Bento Grid Portals -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                <div class="neo-card-purple p-8 rounded-3xl flex flex-col justify-between space-y-6">
-                    <div class="space-y-3">
-                        <h3 class="text-3xl font-black text-black">Teacher Portal</h3>
-                        <p class="text-sm font-extrabold text-black">Host live battles, generate AI quizzes, and manage faculty settings.</p>
-                    </div>
-                    <div>
-                        <button onclick="selectRole('teacher')" class="px-6 py-3.5 neo-btn neo-btn-green rounded-xl text-sm">Open Faculty Hub</button>
-                    </div>
-                </div>
-
-                <div class="neo-card-pink p-8 rounded-3xl flex flex-col justify-between space-y-6">
-                    <div class="space-y-3">
-                        <h3 class="text-3xl font-black text-black">Student Portal</h3>
-                        <p class="text-sm font-extrabold text-black">Jump in, earn XP, keep your streak alive and flex your rank.</p>
-                    </div>
-                    <div>
-                        <button onclick="selectRole('student')" class="px-6 py-3.5 neo-btn bg-white text-black rounded-xl text-sm">Start playing</button>
-                    </div>
+            <!-- Categories Ticker Bar -->
+            <div class="py-4 overflow-x-auto whitespace-nowrap bg-black text-white px-6 rounded-2xl border-3 border-black my-6 shadow-[5px_5px_0px_#b4ff39]">
+                <div class="inline-flex space-x-8 font-black text-sm uppercase tracking-wider">
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🎵 Music</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🧠 General Knowledge</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🔬 Science</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">💻 Tech</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🎬 Movies</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">⚽ Sports</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">📐 Maths</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">⚡ Current Affairs</span>
                 </div>
             </div>
+
+            <div class="text-center py-6 text-xs font-black text-black tracking-widest uppercase mt-6">
+                PLAY &bull; COMPETE &bull; GROW TOGETHER
+            </div>
+        </div>
 
         <!-- ================= 2. LOGIN VIEW ================= -->
         <div id="view-login" class="view-section hidden flex-col justify-center flex-1 py-12 max-w-md mx-auto w-full">
@@ -182,7 +179,7 @@
             </div>
         </div>
 
-        <!-- ================= 4. FULL TEACHER PORTAL (DASHBOARD, AI QUIZ, MANUAL QUIZ, SETTINGS, PROFILE) ================= -->
+        <!-- ================= 4. FULL TEACHER PORTAL ================= -->
         <div id="view-teacher" class="view-section hidden flex-col flex-1 py-6 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 
@@ -231,7 +228,7 @@
                         <div class="neo-card-purple p-8 rounded-3xl space-y-3">
                             <span class="bg-[#b4ff39] text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Overview</span>
                             <h2 class="text-3xl font-black text-white">Faculty Dashboard</h2>
-                            <p class="text-sm font-bold text-purple-100">Monitor active student battles, participation rates, and quick analytics.</p>
+                            <p class="text-sm font-extrabold text-white">Monitor active student battles, participation rates, and quick analytics.</p>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -259,13 +256,6 @@
                                     </div>
                                     <span class="px-3 py-1 bg-[#b4ff39] border-2 border-black text-xs font-black rounded-lg">Completed</span>
                                 </div>
-                                <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl flex justify-between items-center">
-                                    <div>
-                                        <h4 class="font-black text-sm">MongoDB Schemas & Aggregation</h4>
-                                        <p class="text-xs text-gray-600">PIN: <span class="font-mono font-bold text-black">309182</span> &bull; Live Now</p>
-                                    </div>
-                                    <span class="px-3 py-1 bg-[#ff6b81] text-white border-2 border-black text-xs font-black rounded-lg animate-pulse">Live</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -283,25 +273,6 @@
                                 <div>
                                     <label class="block text-xs font-black uppercase mb-1.5">Quiz Subject / Topic</label>
                                     <input type="text" placeholder="e.g. Data Structures in Python & Graph Algorithms" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
-                                </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-xs font-black uppercase mb-1.5">Number of Questions</label>
-                                        <select class="w-full px-4 py-3.5 neo-input rounded-xl text-sm bg-white">
-                                            <option>5 Questions</option>
-                                            <option selected>10 Questions</option>
-                                            <option>15 Questions</option>
-                                            <option>20 Questions</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-black uppercase mb-1.5">Difficulty Level</label>
-                                        <select class="w-full px-4 py-3.5 neo-input rounded-xl text-sm bg-white">
-                                            <option>Beginner / Basic</option>
-                                            <option selected>Intermediate College</option>
-                                            <option>Advanced Expert</option>
-                                        </select>
-                                    </div>
                                 </div>
                                 <button onclick="showToast('AI Generating Quiz Questions... Ready!')" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm shadow-[4px_4px_0px_#111]">
                                     <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Generate AI Assessment
@@ -324,16 +295,6 @@
                                     <label class="block text-xs font-black uppercase mb-1.5">Quiz Title</label>
                                     <input type="text" placeholder="e.g. Midterm Examination - BCA Sem 5" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-black uppercase mb-1.5">Question 1</label>
-                                    <input type="text" placeholder="Enter question statement..." class="w-full px-4 py-3.5 neo-input rounded-xl text-sm mb-2">
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                        <input type="text" placeholder="Option A" class="px-3 py-2.5 neo-input rounded-lg text-xs">
-                                        <input type="text" placeholder="Option B" class="px-3 py-2.5 neo-input rounded-lg text-xs">
-                                        <input type="text" placeholder="Option C" class="px-3 py-2.5 neo-input rounded-lg text-xs">
-                                        <input type="text" placeholder="Option D" class="px-3 py-2.5 neo-input rounded-lg text-xs">
-                                    </div>
-                                </div>
                                 <button onclick="showToast('Custom Quiz Saved Successfully!')" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm shadow-[4px_4px_0px_#111]">
                                     <i class="fa-solid fa-floppy-disk mr-2"></i> Save & Publish Quiz
                                 </button>
@@ -350,25 +311,9 @@
                                 <p class="text-sm font-bold text-gray-600">Configure notification alerts, grading scales, and security preferences.</p>
                             </div>
 
-                            <div class="space-y-4 pt-2">
-                                <div class="flex items-center justify-between p-4 bg-gray-50 border-2 border-black rounded-2xl">
-                                    <div>
-                                        <h4 class="font-black text-sm">Email Student Reports</h4>
-                                        <p class="text-xs text-gray-600">Send automatic score summaries after quiz completion.</p>
-                                    </div>
-                                    <input type="checkbox" checked class="w-5 h-5 accent-black">
-                                </div>
-                                <div class="flex items-center justify-between p-4 bg-gray-50 border-2 border-black rounded-2xl">
-                                    <div>
-                                        <h4 class="font-black text-sm">Strict Anti-Cheat Proctoring</h4>
-                                        <p class="text-xs text-gray-600">Lock fullscreen and flag tab switches during live battles.</p>
-                                    </div>
-                                    <input type="checkbox" checked class="w-5 h-5 accent-black">
-                                </div>
-                                <button onclick="showToast('Settings saved successfully!')" class="w-full py-4 neo-btn neo-btn-black rounded-xl text-sm shadow-[4px_4px_0px_#111]">
-                                    Save Preferences
-                                </button>
-                            </div>
+                            <button onclick="showToast('Settings saved successfully!')" class="w-full py-4 neo-btn neo-btn-black rounded-xl text-sm shadow-[4px_4px_0px_#111]">
+                                Save Preferences
+                            </button>
                         </div>
                     </div>
 
@@ -386,16 +331,6 @@
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-black uppercase mb-1">Email Address</label>
-                                    <input type="email" value="samved.patil@college.edu" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-black uppercase mb-1">Phone Number</label>
-                                    <input type="tel" value="+91 98765 43210" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
-                                </div>
-                            </div>
                             <button onclick="showToast('Profile updated successfully!')" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm shadow-[4px_4px_0px_#111]">
                                 Update Profile Details
                             </button>
@@ -417,7 +352,7 @@
                     <button onclick="switchView('role-selection')" class="px-5 py-2.5 bg-black text-white text-xs font-black neo-btn rounded-xl">Back Home</button>
                 </div>
                 
-                <p class="text-sm font-bold text-pink-100 relative z-10">Ready to test your knowledge? Jump into active assessments, earn XP, and climb the leaderboard.</p>
+                <p class="text-sm font-bold text-white relative z-10">Ready to test your knowledge? Jump into active assessments, earn XP, and climb the leaderboard.</p>
                 
                 <div class="p-6 bg-white border-3 border-black rounded-2xl space-y-4 shadow-[6px_6px_0px_#111] text-black relative z-10">
                     <h3 class="font-black text-xl">Active Assessments</h3>
@@ -472,17 +407,14 @@
         }
 
         function switchTeacherTab(tabId) {
-            // Hide all tabs
             document.querySelectorAll('.teacher-content-tab').forEach(el => {
                 el.classList.add('hidden');
             });
-            // Show target tab
             const target = document.getElementById('teacher-tab-' + tabId);
             if (target) {
                 target.classList.remove('hidden');
             }
 
-            // Update sidebar button styles
             document.querySelectorAll('.teacher-tab-btn').forEach(btn => {
                 btn.classList.remove('bg-black', 'text-white', 'shadow-[3px_3px_0px_#b4ff39]');
                 btn.classList.add('bg-gray-50', 'text-black');
@@ -492,15 +424,6 @@
                 activeBtn.classList.remove('bg-gray-50', 'text-black');
                 activeBtn.classList.add('bg-black', 'text-white', 'shadow-[3px_3px_0px_#b4ff39]');
             }
-        }
-
-        function joinBattle() {
-            const pin = document.getElementById('quiz-pin-input').value.trim();
-            if (!pin) {
-                showToast('Please enter a valid quiz PIN.');
-                return;
-            }
-            showToast('Joining battle with PIN: ' + pin);
         }
 
         function continueWithGoogle() {
