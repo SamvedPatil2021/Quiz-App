@@ -176,6 +176,103 @@
                         Race your friends, stack streaks and climb the leaderboard. Every quiz is a mini battle.
                     </p>
 
+                    <!-- Join Battle PIN Box -->
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                        <input type="text" placeholder="Got a PIN? Drop it here" class="px-4 py-3.5 neo-input rounded-xl text-sm w-full sm:w-64">
+                        <button onclick="showCustomAlert('Enter a valid quiz PIN to join battle!')" class="px-6 py-3.5 neo-btn neo-btn-purple rounded-xl text-sm">Join the battle</button>
+                    </div>
+
+                    <div>
+                        <button onclick="selectRole('student')" class="px-5 py-3 bg-white neo-btn rounded-xl text-xs font-black inline-flex items-center space-x-2">
+                            <i class="fa-brands fa-google text-black"></i> <span>Continue with Google</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Preview Floating Card -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="neo-card p-6 rounded-3xl relative rotate-1 hover:rotate-0 transition-transform w-full max-w-md">
+                        <div class="absolute -top-4 -left-4 bg-[#b4ff39] border-2 border-black px-3 py-1 text-xs font-black rounded-full shadow-[2px_2px_0px_#000]">
+                            🔥 5 in a row
+                        </div>
+                        <div class="bg-gray-50 border-2 border-black p-5 rounded-2xl space-y-4 mt-2">
+                            <div class="flex justify-between items-center text-xs font-bold text-gray-700">
+                                <span class="bg-white px-3 py-1 border-2 border-black rounded-lg">Question 4 of 10</span>
+                                <span class="font-mono bg-black text-white px-3 py-1 rounded-lg">0:12</span>
+                            </div>
+                            <h3 class="font-black text-black text-lg">Which language is used to style web pages?</h3>
+                            
+                            <div class="space-y-2 pt-1 text-sm font-bold">
+                                <div class="p-3 bg-white border-2 border-black rounded-xl">A. HTML</div>
+                                <div class="p-3 bg-[#b4ff39] border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">B. CSS</div>
+                                <div class="p-3 bg-white border-2 border-black rounded-xl">C. Python</div>
+                            </div>
+                            <div class="flex justify-end pt-1">
+                                <span class="bg-black text-white text-xs font-black px-3 py-1 rounded-md shadow-[2px_2px_0px_#b4ff39]">Rank #1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Categories Ticker Bar -->
+            <div class="py-4 overflow-x-auto whitespace-nowrap bg-black text-white px-6 rounded-2xl border-3 border-black my-6 shadow-[5px_5px_0px_#b4ff39]">
+                <div class="inline-flex space-x-8 font-black text-sm uppercase tracking-wider">
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🎵 Music</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🧠 General Knowledge</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🔬 Science</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">💻 Tech</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🎬 Movies</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">⚽ Sports</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">📐 Maths</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">⚡ Current Affairs</span>
+                </div>
+            </div>
+
+            <!-- Portals Bento Grid Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                
+                <!-- Teacher Portal Card -->
+                <div class="neo-card-purple p-8 rounded-3xl flex flex-col justify-between space-y-6">
+                    <div class="space-y-3">
+                        <h3 class="text-3xl font-black text-white">Teacher Portal</h3>
+                        <p class="text-sm font-bold text-gray-900">Host a live battle, watch answers roll in and see who is on top.</p>
+                    </div>
+                    <div>
+                        <button onclick="selectRole('teacher')" class="px-6 py-3.5 neo-btn neo-btn-green rounded-xl text-sm">Host a quiz</button>
+                    </div>
+                </div>
+
+                <!-- Student Portal Card -->
+                <div class="neo-card-pink p-8 rounded-3xl flex flex-col justify-between space-y-6">
+                    <div class="space-y-3">
+                        <h3 class="text-3xl font-black text-white">Student Portal</h3>
+                        <p class="text-sm font-bold text-gray-900">Jump in, earn XP, keep your streak alive and flex your rank.</p>
+                    </div>
+                    <div>
+                        <button onclick="selectRole('student')" class="px-6 py-3.5 neo-btn bg-white text-black rounded-xl text-sm">Start playing</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Create Account Banner -->
+            <div class="neo-card-green p-6 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
+                <p class="font-black text-black text-base">
+                    New here? Get your ID with just your name, mobile and an OTP.
+                </p>
+                <button onclick="switchView('signup')" class="px-6 py-3.5 neo-btn neo-btn-black rounded-xl text-sm whitespace-nowrap">
+                    Sign up in seconds
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center py-6 text-xs font-black text-black tracking-widest uppercase">
+                PLAY &bull; COMPETE &bull; GROW TOGETHER
+            </div>
+        </section>
+
 <!-- Join Battle PIN Box -->
                     <div class="flex flex-col sm:flex-row gap-3 pt-2">
                         <input type="text" placeholder="Got a PIN? Drop it here" class="px-4 py-3.5 neo-input rounded-xl text-sm w-full sm:w-64">
