@@ -205,7 +205,7 @@
             </div>
         </div>
 
-        <!-- 7. FULL TEACHER DASHBOARD (WITH MANUAL EXPLANATION INPUT) -->
+        <!-- 7. FULL TEACHER DASHBOARD -->
         <div id="view-teacher-dashboard" class="view-section hidden flex-col flex-1 py-6 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 <div class="lg:col-span-3 neo-card p-6 rounded-3xl bg-white space-y-4">
@@ -264,7 +264,7 @@
                         </div>
                     </div>
 
-                    <!-- Manual Quiz Editor Tab (WITH EXPLANATION BOX) -->
+                    <!-- Manual Quiz Editor Tab -->
                     <div id="teacher-tab-manual-quiz" class="teacher-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <div class="flex justify-between items-center">
@@ -763,11 +763,12 @@
 
         async function saveManualQuiz() {
             const title = document.getElementById('manual-quiz-title').value.trim();
-            if (!title) { showToast('Enter quiz title.'); return; }
+            if (!title) { showToast('Enter title.'); return; }
             
             const blocks = document.querySelectorAll('.question-block');
             const questions = [];
             blocks.forEach(b => {
+                const explInput = b.querySelector('.q-expl');
                 questions.push({
                     question: b.querySelector('.q-text').value,
                     options: { 
@@ -777,7 +778,7 @@
                         D: b.querySelector('.opt-d').value 
                     },
                     correct: b.querySelector('.q-correct').value.toUpperCase(),
-                    explanation: b.querySelector('.q-expl').value.trim() // <-- Properly grabs the explanation
+                    explanation: explInput ? explInput.value.trim() : ""
                 });
             });
 
