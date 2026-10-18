@@ -13,16 +13,14 @@
 
     <!-- CUSTOM TOAST -->
     <div id="custom-toast" class="fixed top-6 right-6 z-50 transform translate-x-full opacity-0 transition-all duration-300 max-w-sm w-full bg-[#b4ff39] border-3 border-black p-4 rounded-2xl shadow-[5px_5px_0px_#111] flex items-center space-x-3">
-        <div class="w-8 h-8 rounded-xl bg-black text-[#b4ff39] flex items-center justify-center font-black">
-            <i class="fa-solid fa-check"></i>
-        </div>
+        <div class="w-8 h-8 rounded-xl bg-black text-[#b4ff39] flex items-center justify-center font-black"><i class="fa-solid fa-check"></i></div>
         <div>
             <h4 class="font-black text-black text-sm">Notification</h4>
-            <p id="toast-message" class="text-xs font-bold text-gray-900">Action completed successfully!</p>
+            <p id="toast-message" class="text-xs font-bold text-gray-900">Action completed!</p>
         </div>
     </div>
 
-    <!-- STUDENT PROFILE MODAL INSPECTOR -->
+    <!-- STUDENT PROFILE MODAL -->
     <div id="student-modal" class="fixed inset-0 z-50 bg-black/50 hidden flex items-center justify-center p-4">
         <div class="neo-card p-8 rounded-3xl bg-white max-w-lg w-full space-y-6 border-3 border-black shadow-[8px_8px_0px_#111]">
             <div class="flex justify-between items-center pb-4 border-b-2 border-black">
@@ -42,15 +40,8 @@
                         <h4 id="modal-student-score" class="text-2xl font-black text-green-600">92%</h4>
                     </div>
                     <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl">
-                        <span class="text-xs font-extrabold text-gray-500 uppercase">Active Streak</span>
-                        <h4 id="modal-student-streak" class="text-2xl font-black">🔥 5 in a row</h4>
-                    </div>
-                </div>
-                <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl space-y-2">
-                    <h4 class="font-black text-sm">Test History & Reports</h4>
-                    <div id="modal-student-tests" class="text-xs space-y-1 font-bold text-gray-700">
-                        <p>&bull; Python Advanced &mdash; Score: 92% (Passed)</p>
-                        <p>&bull; Flask Web APIs &mdash; Score: 89% (Passed)</p>
+                        <span class="text-xs font-extrabold text-gray-500 uppercase">Status</span>
+                        <h4 class="text-xl font-black text-purple-600">Active</h4>
                     </div>
                 </div>
             </div>
@@ -87,11 +78,11 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                        <button onclick="promptRoleAction('teacher')" class="px-8 py-4 neo-btn neo-btn-purple rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111]">
+                        <button onclick="switchView('choose-role')" class="px-8 py-4 neo-btn neo-btn-purple rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111]">
                             <i class="fa-solid fa-chalkboard-user"></i>
                             <span>Teacher Portal</span>
                         </button>
-                        <button onclick="promptRoleAction('student')" class="px-8 py-4 neo-btn neo-card-pink rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111] text-black">
+                        <button onclick="switchView('choose-role')" class="px-8 py-4 neo-btn neo-card-pink rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111] text-black">
                             <i class="fa-solid fa-user-graduate"></i>
                             <span>Student Portal</span>
                         </button>
@@ -100,32 +91,24 @@
 
                 <div class="lg:col-span-5 flex justify-center">
                     <div class="neo-card p-6 rounded-3xl relative rotate-1 hover:rotate-0 transition-transform w-full max-w-md">
-                        <div class="absolute -top-4 -left-4 bg-[#b4ff39] border-2 border-black px-3 py-1 text-xs font-black rounded-full shadow-[2px_2px_0px_#000]">
-                            🔥 5 in a row
-                        </div>
+                        <div class="absolute -top-4 -left-4 bg-[#b4ff39] border-2 border-black px-3 py-1 text-xs font-black rounded-full shadow-[2px_2px_0px_#000]">🔥 5 in a row</div>
                         <div class="bg-gray-50 border-2 border-black p-5 rounded-2xl space-y-4 mt-2">
                             <div class="flex justify-between items-center text-xs font-bold text-gray-700">
                                 <span class="bg-white px-3 py-1 border-2 border-black rounded-lg">Question 4 of 10</span>
                                 <span class="font-mono bg-black text-white px-3 py-1 rounded-lg">0:12</span>
                             </div>
                             <h3 class="font-black text-black text-lg">Which language is used to style web pages?</h3>
-                            
                             <div class="space-y-2 pt-1 text-sm font-bold">
                                 <div class="p-3 bg-white border-2 border-black rounded-xl">A. HTML</div>
                                 <div class="p-3 bg-[#b4ff39] border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">B. CSS</div>
                                 <div class="p-3 bg-white border-2 border-black rounded-xl">C. Python</div>
-                            </div>
-                            <div class="flex justify-end pt-1">
-                                <span class="bg-black text-white text-xs font-black px-3 py-1 rounded-md shadow-[2px_2px_0px_#b4ff39]">Rank #1</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center py-6 text-xs font-black text-black tracking-widest uppercase mt-6">
-                PLAY &bull; COMPETE &bull; GROW TOGETHER
-            </div>
+            <div class="text-center py-6 text-xs font-black text-black tracking-widest uppercase mt-6">PLAY &bull; COMPETE &bull; GROW TOGETHER</div>
         </div>
 
         <!-- 2. CHOOSE ROLE -->
@@ -133,11 +116,8 @@
             <div class="neo-card p-8 sm:p-10 rounded-3xl space-y-6 bg-white">
                 <div class="flex justify-between items-center">
                     <span class="bg-[#b4ff39] px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Select Portal</span>
-                    <button onclick="switchView('role-selection')" class="p-2 bg-gray-100 hover:bg-gray-200 border-2 border-black rounded-xl text-black">
-                        <i class="fa-solid fa-xmark text-lg"></i>
-                    </button>
+                    <button onclick="switchView('role-selection')" class="p-2 bg-gray-100 hover:bg-gray-200 border-2 border-black rounded-xl"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
-                
                 <h2 class="text-3xl font-black text-black">Are you a Student or Teacher?</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                     <button onclick="selectUserRole('teacher')" class="p-6 neo-btn neo-btn-purple rounded-2xl flex flex-col items-center space-y-2 text-white">
@@ -160,38 +140,38 @@
                         <span class="bg-[#b4ff39] px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Faculty Portal</span>
                         <h2 id="teacher-auth-title" class="text-3xl font-black text-black mt-2">Teacher Login</h2>
                     </div>
-                    <button onclick="switchView('choose-role')" class="p-2 bg-gray-100 hover:bg-gray-200 border-2 border-black rounded-xl text-black"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    <button onclick="switchView('choose-role')" class="p-2 bg-gray-100 border-2 border-black rounded-xl"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
                 
                 <div id="teacher-login-form" class="space-y-4 pt-2">
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Teacher ID</label>
+                        <label class="block text-xs font-black uppercase mb-1.5">Teacher ID</label>
                         <input type="text" id="login-teacher-id" placeholder="e.g. TCH-4821" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Passcode</label>
-                        <input type="password" id="login-teacher-passcode" placeholder="Enter auto-generated passcode" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
+                        <label class="block text-xs font-black uppercase mb-1.5">Passcode</label>
+                        <input type="password" id="login-teacher-passcode" placeholder="Passcode" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
                     </div>
                     <button onclick="submitTeacherLogin()" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm mt-2">Login to Faculty Hub</button>
                     <div class="text-center pt-2">
-                        <p class="text-xs font-bold text-gray-600">Need a teacher account? <button onclick="toggleTeacherAuthMode('signup')" class="text-purple-600 underline font-black">Sign up here</button></p>
+                        <p class="text-xs font-bold text-gray-600">Need an account? <button onclick="toggleTeacherAuthMode('signup')" class="text-purple-600 underline font-black">Sign up</button></p>
                     </div>
                 </div>
 
                 <div id="teacher-signup-form" class="space-y-4 pt-2 hidden">
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Full Name</label>
+                        <label class="block text-xs font-black uppercase mb-1.5">Full Name</label>
                         <input type="text" id="signup-teacher-name" placeholder="Prof. Samved Patil" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Mobile Number</label>
+                        <label class="block text-xs font-black uppercase mb-1.5">Mobile Number</label>
                         <input type="tel" id="signup-teacher-phone" placeholder="9876543210" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Password</label>
-                        <input type="password" id="signup-teacher-password" placeholder="Create password" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                        <label class="block text-xs font-black uppercase mb-1.5">Password</label>
+                        <input type="password" id="signup-teacher-password" placeholder="Password" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
                     </div>
-                    <button onclick="submitTeacherSignup()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm mt-2">Generate Teacher ID & Register</button>
+                    <button onclick="submitTeacherSignup()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm mt-2 font-black">Register & Generate ID</button>
                     <div class="text-center pt-2">
                         <p class="text-xs font-bold text-gray-600">Already registered? <button onclick="toggleTeacherAuthMode('login')" class="text-purple-600 underline font-black">Log in</button></p>
                     </div>
@@ -217,7 +197,7 @@
             </div>
         </div>
 
-        <!-- 5. STUDENT AUTH (WITH AUTO-ID SIGN UP & LOGIN) -->
+        <!-- 5. STUDENT AUTH -->
         <div id="view-student-auth" class="view-section hidden flex-col justify-center flex-1 py-12 max-w-md mx-auto w-full">
             <div class="neo-card p-8 rounded-3xl space-y-6 bg-white">
                 <div class="flex justify-between items-center">
@@ -225,40 +205,38 @@
                         <span class="bg-[#ff6b81] text-white px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Student Portal</span>
                         <h2 id="student-auth-title" class="text-3xl font-black text-black mt-2">Student Login</h2>
                     </div>
-                    <button onclick="switchView('choose-role')" class="p-2 bg-gray-100 hover:bg-gray-200 border-2 border-black rounded-xl text-black"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    <button onclick="switchView('choose-role')" class="p-2 bg-gray-100 border-2 border-black rounded-xl"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
                 
-                <!-- Student Login Form -->
                 <div id="student-login-form" class="space-y-4 pt-2">
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Student ID</label>
+                        <label class="block text-xs font-black uppercase mb-1.5">Student ID</label>
                         <input type="text" id="login-student-id" placeholder="e.g. STU-1021" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Passcode</label>
-                        <input type="password" id="login-student-passcode" placeholder="Enter auto-generated passcode" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
+                        <label class="block text-xs font-black uppercase mb-1.5">Passcode</label>
+                        <input type="password" id="login-student-passcode" placeholder="Passcode" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
                     </div>
                     <button onclick="submitStudentLogin()" class="w-full py-4 neo-btn neo-card-pink rounded-xl text-sm mt-2 text-black font-black">Enter Student Hub</button>
                     <div class="text-center pt-2">
-                        <p class="text-xs font-bold text-gray-600">Need a student account? <button onclick="toggleStudentAuthMode('signup')" class="text-purple-600 underline font-black">Sign up here</button></p>
+                        <p class="text-xs font-bold text-gray-600">Need an account? <button onclick="toggleStudentAuthMode('signup')" class="text-purple-600 underline font-black">Sign up</button></p>
                     </div>
                 </div>
 
-                <!-- Student Signup Form -->
                 <div id="student-signup-form" class="space-y-4 pt-2 hidden">
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Full Name</label>
+                        <label class="block text-xs font-black uppercase mb-1.5">Full Name</label>
                         <input type="text" id="signup-student-name" placeholder="Samved Patil" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Mobile Number</label>
+                        <label class="block text-xs font-black uppercase mb-1.5">Mobile Number</label>
                         <input type="tel" id="signup-student-phone" placeholder="9876543210" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Password</label>
-                        <input type="password" id="signup-student-password" placeholder="Create password" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                        <label class="block text-xs font-black uppercase mb-1.5">Password</label>
+                        <input type="password" id="signup-student-password" placeholder="Password" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
                     </div>
-                    <button onclick="submitStudentSignup()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm mt-2 font-black">Generate Student ID & Register</button>
+                    <button onclick="submitStudentSignup()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm mt-2 font-black">Register & Generate ID</button>
                     <div class="text-center pt-2">
                         <p class="text-xs font-bold text-gray-600">Already registered? <button onclick="toggleStudentAuthMode('login')" class="text-purple-600 underline font-black">Log in</button></p>
                     </div>
@@ -280,11 +258,11 @@
                         <div id="display-student-passcode" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl">PASS00</div>
                     </div>
                 </div>
-                <button onclick="switchView('student-dashboard')" class="w-full py-4 neo-btn neo-card-pink rounded-xl text-sm text-black font-black">Proceed to Student Hub</button>
+                <button onclick="switchView('student-dashboard'); loadStudentPortalData();" class="w-full py-4 neo-btn neo-card-pink rounded-xl text-sm text-black font-black">Proceed to Student Hub</button>
             </div>
         </div>
 
-        <!-- 7. FULL TEACHER DASHBOARD (WITH BOLD TITLE & STUDENT PROFILE INSPECTION) -->
+        <!-- 7. FULL TEACHER DASHBOARD -->
         <div id="view-teacher-dashboard" class="view-section hidden flex-col flex-1 py-6 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 <div class="lg:col-span-3 neo-card p-6 rounded-3xl bg-white space-y-4">
@@ -292,10 +270,9 @@
                         <div class="w-12 h-12 rounded-2xl bg-[#b4ff39] border-2 border-black flex items-center justify-center font-black text-lg">SP</div>
                         <div>
                             <h4 id="sidebar-teacher-name" class="font-black text-sm">Prof. Samved Patil</h4>
-                            <span class="text-[10px] bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded-md border border-purple-300">Faculty Lead</span>
+                            <span class="text-[10px] bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded-md border">Faculty Lead</span>
                         </div>
                     </div>
-
                     <nav class="space-y-2">
                         <button onclick="switchTeacherTab('dashboard')" id="tab-btn-dashboard" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-black text-white flex items-center space-x-3 shadow-[3px_3px_0px_#b4ff39]">
                             <i class="fa-solid fa-chart-pie"></i> <span>Dashboard & Analytics</span>
@@ -313,7 +290,6 @@
                             <i class="fa-solid fa-user"></i> <span>Profile Page</span>
                         </button>
                     </nav>
-
                     <div class="pt-4 border-t-2 border-black">
                         <button onclick="switchView('role-selection')" class="w-full py-2.5 bg-red-100 text-red-800 border-2 border-black font-black text-xs rounded-xl hover:bg-red-200">
                             <i class="fa-solid fa-right-from-bracket mr-1"></i> Log Out
@@ -322,17 +298,15 @@
                 </div>
 
                 <div class="lg:col-span-9 space-y-6">
-                    <!-- Dashboard & Analytics Tab (FIXED BOLD HIGH-CONTRAST TEXT) -->
                     <div id="teacher-tab-dashboard" class="teacher-content-tab space-y-6">
                         <div class="neo-card-purple p-8 rounded-3xl space-y-3">
                             <span class="bg-[#b4ff39] text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Analytics & Reports</span>
                             <h2 class="text-3xl font-black text-black">Faculty Dashboard</h2>
-                            <p class="text-sm font-black text-black">Track student participation, test completion rates, and click any student to inspect their complete profile.</p>
+                            <p class="text-sm font-black text-black">Track student submissions, test completion rates, and individual performance reports in real time.</p>
                         </div>
-
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
-                                <p class="text-xs font-extrabold text-gray-500 uppercase">Total Quizzes Created</p>
+                                <p class="text-xs font-extrabold text-gray-500 uppercase">Total Quizzes</p>
                                 <h3 id="stat-quizzes" class="text-3xl font-black">4</h3>
                             </div>
                             <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
@@ -344,10 +318,8 @@
                                 <h3 id="stat-avg" class="text-3xl font-black">84.5%</h3>
                             </div>
                         </div>
-
-                        <!-- Student Test Reports Table (Clickable to open student profile) -->
                         <div class="neo-card p-6 rounded-3xl bg-white space-y-4">
-                            <h3 class="font-black text-xl">Student Test Reports & Submissions (Click student to inspect)</h3>
+                            <h3 class="font-black text-xl">Student Test Submissions & Reports</h3>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left border-collapse">
                                     <thead>
@@ -359,30 +331,19 @@
                                         </tr>
                                     </thead>
                                     <tbody id="reports-table-body" class="text-sm font-bold">
-                                        <tr onclick="openStudentProfile('Rahul Sharma', 'STU-1021', '92%')" class="border-b border-gray-200 hover:bg-gray-50 cursor-pointer">
-                                            <td class="p-3 text-purple-700 underline font-black">Rahul Sharma</td>
-                                            <td class="p-3">Python Advanced & Flask APIs</td>
-                                            <td class="p-3 text-green-600 font-black">92%</td>
-                                            <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">Completed</span></td>
-                                        </tr>
-                                        <tr onclick="openStudentProfile('Priya Verma', 'STU-4829', '88%')" class="border-b border-gray-200 hover:bg-gray-50 cursor-pointer">
-                                            <td class="p-3 text-purple-700 underline font-black">Priya Verma</td>
-                                            <td class="p-3">MongoDB Schemas</td>
-                                            <td class="p-3 text-green-600 font-black">88%</td>
-                                            <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">Completed</span></td>
-                                        </tr>
+                                        <!-- Dynamically populated -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
 
-                    <!-- AI Quiz Generator Tab -->
+                    <!-- AI Quiz Tab -->
                     <div id="teacher-tab-ai-quiz" class="teacher-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <h2 class="text-3xl font-black text-black">AI Quiz Generator</h2>
-                            <input type="text" placeholder="Quiz Subject (e.g. Artificial Intelligence & Neural Networks)" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
-                            <button onclick="showToast('AI Quiz Generated!')" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm">Generate Quiz</button>
+                            <input type="text" id="ai-quiz-topic" placeholder="Quiz Subject (e.g. Artificial Intelligence & Neural Networks)" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                            <button onclick="generateAIQuiz()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm">Publish AI Quiz Instantly</button>
                         </div>
                     </div>
 
@@ -390,86 +351,183 @@
                     <div id="teacher-tab-manual-quiz" class="teacher-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="bg-[#ff6b81] text-white px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Custom Builder</span>
-                                    <h2 class="text-3xl font-black text-black mt-2">Manual Quiz Editor</h2>
-                                </div>
-                                <button onclick="addQuestionField()" class="px-4 py-2 bg-black text-white text-xs font-black neo-btn rounded-xl">
-                                    <i class="fa-solid fa-plus mr-1"></i> Add Question
-                                </button>
+                                <h2 class="text-3xl font-black text-black">Manual Quiz Editor</h2>
+                                <button onclick="addQuestionField()" class="px-4 py-2 bg-black text-white text-xs font-black neo-btn rounded-xl"><i class="fa-solid fa-plus mr-1"></i> Add Question</button>
                             </div>
-
                             <div class="space-y-4">
-                                <div>
-                                    <label class="block text-xs font-black uppercase mb-1.5">Quiz Title</label>
-                                    <input type="text" id="manual-quiz-title" placeholder="e.g. Midterm Examination - BCA Sem 5" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
-                                </div>
-
+                                <input type="text" id="manual-quiz-title" placeholder="Quiz Title" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
                                 <div id="questions-container" class="space-y-6 pt-2">
                                     <div class="question-block p-5 bg-gray-50 border-2 border-black rounded-2xl space-y-3">
-                                        <div class="flex justify-between items-center">
-                                            <span class="font-black text-sm">Question 1</span>
-                                        </div>
-                                        <input type="text" placeholder="Enter question statement..." class="q-text w-full px-4 py-3 neo-input rounded-xl text-sm">
+                                        <span class="font-black text-sm">Question 1</span>
+                                        <input type="text" placeholder="Question statement..." class="q-text w-full px-4 py-3 neo-input rounded-xl text-sm">
                                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                             <input type="text" placeholder="Option A" class="opt-a px-3 py-2.5 neo-input rounded-lg text-xs">
                                             <input type="text" placeholder="Option B" class="opt-b px-3 py-2.5 neo-input rounded-lg text-xs">
                                             <input type="text" placeholder="Option C" class="opt-c px-3 py-2.5 neo-input rounded-lg text-xs">
                                             <input type="text" placeholder="Option D" class="opt-d px-3 py-2.5 neo-input rounded-lg text-xs">
                                         </div>
-                                        <div>
-                                            <label class="block text-[10px] font-black uppercase mb-1">Correct Option (A, B, C, or D)</label>
-                                            <input type="text" placeholder="e.g. A" class="q-correct w-24 px-3 py-2 neo-input rounded-lg text-xs font-bold uppercase">
-                                        </div>
+                                        <input type="text" placeholder="Correct Option (A, B, C, or D)" class="q-correct w-48 px-3 py-2 neo-input rounded-lg text-xs font-bold uppercase">
                                     </div>
                                 </div>
-
-                                <button onclick="saveManualQuiz()" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm shadow-[4px_4px_0px_#111]">
-                                    <i class="fa-solid fa-floppy-disk mr-2"></i> Save & Publish Quiz
-                                </button>
+                                <button onclick="saveManualQuiz()" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm">Save & Publish Quiz Instantly</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Settings Tab -->
+                    <!-- Settings & Profile Tabs -->
                     <div id="teacher-tab-settings" class="teacher-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <h2 class="text-3xl font-black text-black">Faculty Settings</h2>
                             <button onclick="showToast('Settings saved!')" class="w-full py-4 neo-btn neo-btn-black rounded-xl text-sm">Save Preferences</button>
                         </div>
                     </div>
-
-                    <!-- Profile Tab -->
                     <div id="teacher-tab-profile" class="teacher-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <h2 class="text-2xl font-black text-black">Prof. Samved Ratnakar Patil</h2>
-                            <p class="text-xs text-gray-600 font-bold">Maharashtra State Pharmacy Council Reg. No. 188104 &bull; BCA Student & Faculty Lead</p>
+                            <p class="text-xs text-gray-600 font-bold">Faculty Lead &bull; Wardha, Maharashtra</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 8. STUDENT DASHBOARD -->
-        <div id="view-student-dashboard" class="view-section hidden flex-col justify-center flex-1 py-10 max-w-3xl mx-auto w-full">
-            <div class="neo-card-pink p-8 sm:p-10 rounded-3xl space-y-6 relative overflow-hidden">
-                <div class="flex justify-between items-center relative z-10">
-                    <div>
-                        <span class="bg-white text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Student Hub</span>
-                        <h2 id="student-welcome-name" class="text-4xl font-black text-white mt-2">Welcome Student</h2>
-                    </div>
-                    <button onclick="switchView('role-selection')" class="px-5 py-2.5 bg-black text-white text-xs font-black neo-btn rounded-xl">Log Out</button>
-                </div>
-                <div class="p-6 bg-white border-3 border-black rounded-2xl space-y-4 shadow-[6px_6px_0px_#111] text-black relative z-10">
-                    <h3 class="font-black text-xl">Active Assessments</h3>
-                    <div class="p-4 bg-gray-50 border-2 border-black rounded-xl flex justify-between items-center">
+        <!-- 8. FULL STUDENT DASHBOARD & SIDEBAR HUB -->
+        <div id="view-student-dashboard" class="view-section hidden flex-col flex-1 py-6 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                
+                <!-- Student Sidebar -->
+                <div class="lg:col-span-3 neo-card p-6 rounded-3xl bg-white space-y-4">
+                    <div class="flex items-center space-x-3 pb-4 border-b-2 border-black">
+                        <div class="w-12 h-12 rounded-2xl bg-[#ff6b81] text-white border-2 border-black flex items-center justify-center font-black text-lg">ST</div>
                         <div>
-                            <h4 class="font-black text-sm">Full-Stack Web Development Quiz</h4>
-                            <p class="text-xs text-gray-600">10 Questions &bull; 15 Mins</p>
+                            <h4 id="sidebar-student-name" class="font-black text-sm">Student Name</h4>
+                            <span class="text-[10px] bg-pink-100 text-pink-800 font-bold px-2 py-0.5 rounded-md border">Active Learner</span>
                         </div>
-                        <button onclick="showToast('Starting assessment...')" class="px-5 py-2.5 neo-btn neo-btn-purple rounded-xl text-xs font-black">Start Test</button>
+                    </div>
+                    <nav class="space-y-2">
+                        <button onclick="switchStudentTab('dashboard')" id="stud-tab-dashboard" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-black text-white flex items-center space-x-3 shadow-[3px_3px_0px_#ff6b81]">
+                            <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
+                        </button>
+                        <button onclick="switchStudentTab('tests')" id="stud-tab-tests" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white">
+                            <i class="fa-solid fa-book-open"></i> <span>Active Tests</span>
+                        </button>
+                        <button onclick="switchStudentTab('history')" id="stud-tab-history" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white">
+                            <i class="fa-solid fa-clock-rotate-left"></i> <span>Test History</span>
+                        </button>
+                        <button onclick="switchStudentTab('settings')" id="stud-tab-settings" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white">
+                            <i class="fa-solid fa-gear"></i> <span>Settings</span>
+                        </button>
+                        <button onclick="switchStudentTab('profile')" id="stud-tab-profile" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white">
+                            <i class="fa-solid fa-user"></i> <span>Profile</span>
+                        </button>
+                    </nav>
+                    <div class="pt-4 border-t-2 border-black">
+                        <button onclick="switchView('role-selection')" class="w-full py-2.5 bg-red-100 text-red-800 border-2 border-black font-black text-xs rounded-xl hover:bg-red-200">
+                            <i class="fa-solid fa-right-from-bracket mr-1"></i> Log Out
+                        </button>
                     </div>
                 </div>
+
+                <!-- Student Content Hub -->
+                <div class="lg:col-span-9 space-y-6">
+                    
+                    <!-- 1. Student Dashboard Tab -->
+                    <div id="stud-content-dashboard" class="stud-content-tab space-y-6">
+                        <div class="neo-card-pink p-8 rounded-3xl space-y-3">
+                            <span class="bg-white text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Student Performance</span>
+                            <h2 class="text-3xl font-black text-white">Student Dashboard</h2>
+                            <p class="text-sm font-black text-white">Overview of tests completed, marks scored, and percentage analysis.</p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
+                                <p class="text-xs font-extrabold text-gray-500 uppercase">Tests Given</p>
+                                <h3 id="stud-stat-tests" class="text-3xl font-black">0</h3>
+                            </div>
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
+                                <p class="text-xs font-extrabold text-gray-500 uppercase">Avg Percentage</p>
+                                <h3 id="stud-stat-pct" class="text-3xl font-black">0%</h3>
+                            </div>
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
+                                <p class="text-xs font-extrabold text-gray-500 uppercase">Streak</p>
+                                <h3 class="text-3xl font-black">🔥 3 in a row</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Active Tests Tab (Instantly shows teacher-published quizzes) -->
+                    <div id="stud-content-tests" class="stud-content-tab hidden space-y-6">
+                        <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
+                            <h2 class="text-3xl font-black text-black">Active Assessments (Live from Teachers)</h2>
+                            <div id="active-quizzes-list" class="space-y-4">
+                                <!-- Dynamically loaded live quizzes -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Test History Tab -->
+                    <div id="stud-content-history" class="stud-content-tab hidden space-y-6">
+                        <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
+                            <h2 class="text-3xl font-black text-black">Test History & Scorecards</h2>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="border-b-2 border-black text-xs uppercase font-black bg-gray-50">
+                                            <th class="p-3">Quiz Title</th>
+                                            <th class="p-3">Score</th>
+                                            <th class="p-3">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="student-history-table" class="text-sm font-bold">
+                                        <!-- Dynamically populated history -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Settings & Profile Tabs -->
+                    <div id="stud-content-settings" class="stud-content-tab hidden space-y-6">
+                        <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
+                            <h2 class="text-3xl font-black text-black">Student Settings</h2>
+                            <button onclick="showToast('Settings saved!')" class="w-full py-4 neo-btn neo-btn-black rounded-xl text-sm">Save Preferences</button>
+                        </div>
+                    </div>
+                    <div id="stud-content-profile" class="stud-content-tab hidden space-y-6">
+                        <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
+                            <h2 id="profile-student-name" class="text-2xl font-black text-black">Student Name</h2>
+                            <p id="profile-student-id" class="text-xs text-gray-600 font-bold">ID: STU-1021</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. LIVE QUIZ SOLVING SCREEN & INSTANT SCORECARD -->
+        <div id="view-quiz-solver" class="view-section hidden flex-col justify-center flex-1 py-10 max-w-2xl mx-auto w-full">
+            <div id="quiz-question-box" class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[8px_8px_0px_#111]">
+                <div class="flex justify-between items-center pb-3 border-b-2 border-black">
+                    <span id="quiz-solver-title" class="bg-[#b4ff39] px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Quiz Title</span>
+                    <span id="quiz-progress" class="font-mono font-bold text-xs bg-black text-white px-3 py-1 rounded-lg">Q 1 of 5</span>
+                </div>
+                <h3 id="solver-q-text" class="text-xl font-black text-black">Question text goes here?</h3>
+                <div id="solver-options-list" class="space-y-3">
+                    <!-- Options buttons -->
+                </div>
+            </div>
+
+            <!-- Scorecard Modal (Shown immediately upon test completion) -->
+            <div id="quiz-scorecard-box" class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[8px_8px_0px_#111] hidden text-center">
+                <div class="w-20 h-20 mx-auto rounded-3xl bg-[#b4ff39] border-3 border-black flex items-center justify-center text-3xl font-black">🎉</div>
+                <h2 class="text-3xl font-black text-black">Test Completed!</h2>
+                <div class="p-6 bg-gray-50 border-2 border-black rounded-2xl space-y-2">
+                    <span class="text-xs font-black uppercase text-gray-500">Your Final Score</span>
+                    <h3 id="scorecard-percentage" class="text-5xl font-black text-purple-600">90%</h3>
+                    <p id="scorecard-details" class="text-sm font-bold text-gray-700">You answered 9 out of 10 questions correctly.</p>
+                </div>
+                <button onclick="switchView('student-dashboard'); switchStudentTab('dashboard'); loadStudentPortalData();" class="w-full py-4 neo-btn neo-card-pink rounded-xl text-sm font-black text-black">
+                    Return to Student Dashboard
+                </button>
             </div>
         </div>
 
@@ -477,10 +535,15 @@
 
     <!-- JavaScript Handlers -->
     <script>
+        let currentStudent = { id: "STU-1021", name: "Rahul Sharma" };
+        let activeQuizData = null;
+        let currentQuestionIndex = 0;
+        let correctAnswersCount = 0;
+        let userSelectedAnswers = [];
+
         function showToast(message) {
             const toast = document.getElementById('custom-toast');
-            const msgEl = document.getElementById('toast-message');
-            msgEl.textContent = message;
+            document.getElementById('toast-message').textContent = message;
             toast.classList.remove('translate-x-full', 'opacity-0');
             toast.classList.add('translate-x-0', 'opacity-100');
             setTimeout(() => {
@@ -501,8 +564,6 @@
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        function promptRoleAction(role) { switchView('choose-role'); }
 
         function selectUserRole(role) {
             if (role === 'teacher') {
@@ -562,6 +623,7 @@
             if (data.success) {
                 document.getElementById('display-student-id').textContent = data.student_id;
                 document.getElementById('display-student-passcode').textContent = data.passcode;
+                currentStudent = { id: data.student_id, name: name };
                 switchView('student-credentials');
             } else { showToast(data.message); }
         }
@@ -572,24 +634,122 @@
             const res = await fetch('/api/student/login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({student_id, passcode}) });
             const data = await res.json();
             if (data.success) {
+                currentStudent = { id: data.student_id, name: data.name };
                 showToast('Welcome, ' + data.name + '!');
-                document.getElementById('student-welcome-name').textContent = "Welcome, " + data.name;
-                setTimeout(() => switchView('student-dashboard'), 1000);
+                document.getElementById('sidebar-student-name').textContent = data.name;
+                document.getElementById('profile-student-name').textContent = data.name;
+                document.getElementById('profile-student-id').textContent = "ID: " + data.student_id;
+                setTimeout(() => { switchView('student-dashboard'); loadStudentPortalData(); }, 1000);
             } else { showToast(data.message); }
         }
 
-        function openStudentProfile(name, id, score) {
-            document.getElementById('modal-student-name').textContent = name;
-            document.getElementById('modal-student-id').textContent = id;
-            document.getElementById('modal-student-score').textContent = score;
-            document.getElementById('modal-student-avatar').textContent = name.split(' ').map(n => n[0]).join('');
-            document.getElementById('student-modal').classList.remove('hidden');
-            document.getElementById('student-modal').classList.add('flex');
+        async function loadStudentPortalData() {
+            try {
+                // Fetch student stats
+                const statsRes = await fetch(`/api/student/stats/${currentStudent.id}`);
+                const stats = await statsRes.json();
+                document.getElementById('stud-stat-tests').textContent = stats.tests_given;
+                document.getElementById('stud-stat-pct').textContent = stats.avg_percentage;
+
+                const historyTable = document.getElementById('student-history-table');
+                historyTable.innerHTML = '';
+                if (stats.history.length === 0) {
+                    historyTable.innerHTML = `<tr><td colspan="3" class="p-3 text-gray-500">No tests taken yet. Check Active Tests!</td></tr>`;
+                } else {
+                    stats.history.forEach(h => {
+                        historyTable.innerHTML += `
+                            <tr class="border-b border-gray-200">
+                                <td class="p-3">${h.quiz_title}</td>
+                                <td class="p-3 text-green-600 font-black">${h.score}</td>
+                                <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">${h.status}</span></td>
+                            </tr>`;
+                    });
+                }
+
+                // Fetch live quizzes published by teachers
+                const quizRes = await fetch('/api/quizzes');
+                const quizzes = await quizRes.json();
+                const listContainer = document.getElementById('active-quizzes-list');
+                listContainer.innerHTML = '';
+                quizzes.forEach(q => {
+                    listContainer.innerHTML += `
+                        <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl flex justify-between items-center shadow-[3px_3px_0px_#111]">
+                            <div>
+                                <h4 class="font-black text-base">${q.title}</h4>
+                                <p class="text-xs text-gray-600 font-bold">${q.questions.length} Questions &bull; PIN: <span class="font-mono">${q.quiz_code}</span></p>
+                            </div>
+                            <button onclick='startQuiz(${JSON.stringify(q)})' class="px-5 py-2.5 neo-btn neo-btn-purple rounded-xl text-xs font-black">Start Test</button>
+                        </div>`;
+                });
+            } catch(e) { console.error(e); }
         }
 
-        function closeStudentModal() {
-            document.getElementById('student-modal').classList.add('hidden');
-            document.getElementById('student-modal').classList.remove('flex');
+        function startQuiz(quiz) {
+            activeQuizData = quiz;
+            currentQuestionIndex = 0;
+            correctAnswersCount = 0;
+            userSelectedAnswers = [];
+            switchView('quiz-solver');
+            document.getElementById('quiz-question-box').classList.remove('hidden');
+            document.getElementById('quiz-scorecard-box').classList.add('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = activeQuizData.questions[currentQuestionIndex];
+            document.getElementById('quiz-solver-title').textContent = activeQuizData.title;
+            document.getElementById('quiz-progress').textContent = `Q ${currentQuestionIndex + 1} of ${activeQuizData.questions.length}`;
+            document.getElementById('solver-q-text').textContent = q.question;
+
+            const optsList = document.getElementById('solver-options-list');
+            optsList.innerHTML = '';
+            for (let key in q.options) {
+                if (q.options[key]) {
+                    optsList.innerHTML += `
+                        <button onclick="selectOption('${key}')" class="w-full text-left p-4 bg-gray-50 border-2 border-black rounded-xl font-bold text-sm hover:bg-[#b4ff39] transition-colors shadow-[2px_2px_0px_#111]">
+                            <strong>${key}.</strong> ${q.options[key]}
+                        </button>`;
+                }
+            }
+        }
+
+        function selectOption(selectedKey) {
+            const q = activeQuizData.questions[currentQuestionIndex];
+            if (selectedKey === q.correct) {
+                correctAnswersCount++;
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < activeQuizData.questions.length) {
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        async function finishQuiz() {
+            document.getElementById('quiz-question-box').classList.add('hidden');
+            document.getElementById('quiz-scorecard-box').classList.remove('hidden');
+
+            const total = activeQuizData.questions.length;
+            const pct = Math.round((correctAnswersCount / total) * 100);
+
+            document.getElementById('scorecard-percentage').textContent = pct + '%';
+            document.getElementById('scorecard-details').textContent = `You answered ${correctAnswersCount} out of ${total} questions correctly.`;
+
+            // Instantly update teacher's dashboard analytics and reports
+            await fetch('/api/quiz/submit', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    student_id: currentStudent.id,
+                    student_name: currentStudent.name,
+                    quiz_title: activeQuizData.title,
+                    score_pct: pct,
+                    correct_count: correctAnswersCount,
+                    total_count: total
+                })
+            });
+            showToast('Test completed! Scorecard sent to teacher dashboard.');
         }
 
         async function loadAnalytics() {
@@ -604,14 +764,37 @@
                 tbody.innerHTML = '';
                 data.reports.forEach(r => {
                     tbody.innerHTML += `
-                        <tr onclick="openStudentProfile('${r.student_name}', '${r.student_id}', '${r.score}')" class="border-b border-gray-200 hover:bg-gray-50 cursor-pointer">
-                            <td class="p-3 text-purple-700 underline font-black">${r.student_name}</td>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="p-3 font-black">${r.student_name}</td>
                             <td class="p-3">${r.quiz_title}</td>
                             <td class="p-3 text-green-600 font-black">${r.score}</td>
                             <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">${r.status}</span></td>
                         </tr>`;
                 });
             } catch(e) { console.error(e); }
+        }
+
+        async function generateAIQuiz() {
+            const topic = document.getElementById('ai-quiz-topic').value.trim();
+            if (!topic) { showToast('Enter a quiz topic.'); return; }
+            
+            const res = await fetch('/api/quiz/save', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    title: "AI Quiz: " + topic,
+                    questions: [
+                        { question: `What is a core concept in ${topic}?`, options: { A: "Fundamental Principle", B: "Random Guess", C: "Syntax Error", D: "None" }, correct: "A" },
+                        { question: `Which tool is primarily used for ${topic}?`, options: { A: "Python", B: "Hammer", C: "Paint", D: "Wrench" }, correct: "A" }
+                    ]
+                })
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast('AI Quiz published instantly! PIN: ' + data.quiz_code);
+                switchTeacherTab('dashboard');
+                loadAnalytics();
+            }
         }
 
         let questionCount = 1;
@@ -623,69 +806,55 @@
             div.innerHTML = `
                 <div class="flex justify-between items-center">
                     <span class="font-black text-sm">Question ${questionCount}</span>
-                    <button onclick="this.parentElement.parentElement.remove()" class="text-red-600 font-bold text-xs"><i class="fa-solid fa-trash"></i> Remove</button>
+                    <button onclick="this.parentElement.parentElement.remove()" class="text-red-600 font-bold text-xs">Remove</button>
                 </div>
-                <input type="text" placeholder="Enter question statement..." class="q-text w-full px-4 py-3 neo-input rounded-xl text-sm">
+                <input type="text" placeholder="Question statement..." class="q-text w-full px-4 py-3 neo-input rounded-xl text-sm">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <input type="text" placeholder="Option A" class="opt-a px-3 py-2.5 neo-input rounded-lg text-xs">
                     <input type="text" placeholder="Option B" class="opt-b px-3 py-2.5 neo-input rounded-lg text-xs">
                     <input type="text" placeholder="Option C" class="opt-c px-3 py-2.5 neo-input rounded-lg text-xs">
                     <input type="text" placeholder="Option D" class="opt-d px-3 py-2.5 neo-input rounded-lg text-xs">
                 </div>
-                <div>
-                    <label class="block text-[10px] font-black uppercase mb-1">Correct Option (A, B, C, or D)</label>
-                    <input type="text" placeholder="e.g. B" class="q-correct w-24 px-3 py-2 neo-input rounded-lg text-xs font-bold uppercase">
-                </div>
+                <input type="text" placeholder="Correct Option (A, B, C, or D)" class="q-correct w-48 px-3 py-2 neo-input rounded-lg text-xs font-bold uppercase">
             `;
             container.appendChild(div);
         }
 
         async function saveManualQuiz() {
             const title = document.getElementById('manual-quiz-title').value.trim();
-            if (!title) { showToast('Please enter a quiz title.'); return; }
-
+            if (!title) { showToast('Enter quiz title.'); return; }
             const blocks = document.querySelectorAll('.question-block');
             const questions = [];
             blocks.forEach(b => {
                 questions.push({
                     question: b.querySelector('.q-text').value,
-                    options: {
-                        A: b.querySelector('.opt-a').value,
-                        B: b.querySelector('.opt-b').value,
-                        C: b.querySelector('.opt-c').value,
-                        D: b.querySelector('.opt-d').value
-                    },
+                    options: { A: b.querySelector('.opt-a').value, B: b.querySelector('.opt-b').value, C: b.querySelector('.opt-c').value, D: b.querySelector('.opt-d').value },
                     correct: b.querySelector('.q-correct').value.toUpperCase()
                 });
             });
 
-            const res = await fetch('/api/quiz/save', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ title, questions })
-            });
+            const res = await fetch('/api/quiz/save', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ title, questions }) });
             const data = await res.json();
             if (data.success) {
-                showToast('Quiz published! PIN: ' + data.quiz_code);
+                showToast('Quiz published successfully! PIN: ' + data.quiz_code);
                 switchTeacherTab('dashboard');
                 loadAnalytics();
-            } else { showToast(data.message); }
+            }
         }
 
         function switchTeacherTab(tabId) {
             document.querySelectorAll('.teacher-content-tab').forEach(el => el.classList.add('hidden'));
-            const target = document.getElementById('teacher-tab-' + tabId);
-            if (target) target.classList.remove('hidden');
+            document.getElementById('teacher-tab-' + tabId).classList.remove('hidden');
+            document.querySelectorAll('.teacher-tab-btn').forEach(btn => btn.classList.remove('bg-black', 'text-white'));
+            document.getElementById('tab-btn-' + tabId).classList.add('bg-black', 'text-white');
+        }
 
-            document.querySelectorAll('.teacher-tab-btn').forEach(btn => {
-                btn.classList.remove('bg-black', 'text-white', 'shadow-[3px_3px_0px_#b4ff39]');
-                btn.classList.add('bg-gray-50', 'text-black');
-            });
-            const activeBtn = document.getElementById('tab-btn-' + tabId);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-gray-50', 'text-black');
-                activeBtn.classList.add('bg-black', 'text-white', 'shadow-[3px_3px_0px_#b4ff39]');
-            }
+        function switchStudentTab(tabId) {
+            document.querySelectorAll('.stud-content-tab').forEach(el => el.classList.add('hidden'));
+            document.getElementById('stud-content-' + tabId).classList.remove('hidden');
+            document.querySelectorAll('.stud-tab-btn').forEach(btn => btn.classList.remove('bg-black', 'text-white'));
+            document.getElementById('stud-tab-' + tabId).classList.add('bg-black', 'text-white');
+            if(tabId === 'tests') loadStudentPortalData();
         }
     </script>
 </body>
