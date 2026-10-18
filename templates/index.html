@@ -11,7 +11,7 @@
 </head>
 <body style="background-color: #f7f4e9 !important; color: #111111 !important;" class="min-h-screen flex flex-col selection:bg-purple-500 selection:text-white">
 
-    <!-- CUSTOM TOAST NOTIFICATION -->
+    <!-- CUSTOM TOAST -->
     <div id="custom-toast" class="fixed top-6 right-6 z-50 transform translate-x-full opacity-0 transition-all duration-300 max-w-sm w-full bg-[#b4ff39] border-3 border-black p-4 rounded-2xl shadow-[5px_5px_0px_#111] flex items-center space-x-3">
         <div class="w-8 h-8 rounded-xl bg-black text-[#b4ff39] flex items-center justify-center font-black">
             <i class="fa-solid fa-check"></i>
@@ -25,7 +25,7 @@
     <!-- MAIN CONTAINER -->
     <main class="flex-1 flex flex-col justify-between p-6 sm:p-10 max-w-6xl mx-auto w-full relative">
         
-        <!-- ================= 1. LANDING / HERO VIEW ================= -->
+        <!-- 1. LANDING VIEW -->
         <div id="view-role-selection" class="view-section flex flex-col justify-between flex-1">
             <div class="flex justify-between items-center pb-6 border-b-3 border-black">
                 <div class="flex items-center space-x-2 bg-white px-4 py-2 neo-card rounded-xl">
@@ -51,7 +51,6 @@
                         Race your friends, stack streaks and climb the leaderboard. Every quiz is a mini battle.
                     </p>
 
-                    <!-- Role Choice Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4 pt-4">
                         <button onclick="promptRoleAction('teacher')" class="px-8 py-4 neo-btn neo-btn-purple rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111]">
                             <i class="fa-solid fa-chalkboard-user"></i>
@@ -94,7 +93,7 @@
             </div>
         </div>
 
-        <!-- ================= 2. CHOOSE ROLE (STUDENT VS TEACHER) ================= -->
+        <!-- 2. CHOOSE ROLE -->
         <div id="view-choose-role" class="view-section hidden flex-col justify-center flex-1 py-12 max-w-lg mx-auto w-full text-center">
             <div class="neo-card p-8 sm:p-10 rounded-3xl space-y-6 bg-white">
                 <div class="flex justify-between items-center">
@@ -105,8 +104,6 @@
                 </div>
                 
                 <h2 class="text-3xl font-black text-black">Are you a Student or Teacher?</h2>
-                <p class="text-sm font-bold text-gray-600">Choose your designated portal to proceed with login or registration.</p>
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                     <button onclick="selectUserRole('teacher')" class="p-6 neo-btn neo-btn-purple rounded-2xl flex flex-col items-center space-y-2 text-white">
                         <i class="fa-solid fa-chalkboard-user text-3xl"></i>
@@ -120,7 +117,7 @@
             </div>
         </div>
 
-        <!-- ================= 3. TEACHER AUTH (LOGIN VS SIGNUP) ================= -->
+        <!-- 3. TEACHER AUTH -->
         <div id="view-teacher-auth" class="view-section hidden flex-col justify-center flex-1 py-12 max-w-md mx-auto w-full">
             <div class="neo-card p-8 rounded-3xl space-y-6 bg-white">
                 <div class="flex justify-between items-center">
@@ -133,7 +130,6 @@
                     </button>
                 </div>
                 
-                <!-- Teacher Login Form -->
                 <div id="teacher-login-form" class="space-y-4 pt-2">
                     <div>
                         <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Teacher ID</label>
@@ -143,19 +139,12 @@
                         <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Passcode</label>
                         <input type="password" id="login-teacher-passcode" placeholder="Enter auto-generated passcode" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
                     </div>
-                    
-                    <button onclick="submitTeacherLogin()" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm mt-2 shadow-[4px_4px_0px_#111]">
-                        Login to Faculty Hub
-                    </button>
-
+                    <button onclick="submitTeacherLogin()" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm mt-2">Login to Faculty Hub</button>
                     <div class="text-center pt-2">
-                        <p class="text-xs font-bold text-gray-600">Need a teacher account? 
-                            <button onclick="toggleTeacherAuthMode('signup')" class="text-purple-600 underline font-black">Sign up here</button>
-                        </p>
+                        <p class="text-xs font-bold text-gray-600">Need a teacher account? <button onclick="toggleTeacherAuthMode('signup')" class="text-purple-600 underline font-black">Sign up</button></p>
                     </div>
                 </div>
 
-                <!-- Teacher Signup Form -->
                 <div id="teacher-signup-form" class="space-y-4 pt-2 hidden">
                     <div>
                         <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Full Name</label>
@@ -167,89 +156,91 @@
                     </div>
                     <div>
                         <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Password</label>
-                        <input type="password" id="signup-teacher-password" placeholder="Create secure password" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                        <input type="password" id="signup-teacher-password" placeholder="Create password" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
                     </div>
-                    
-                    <button onclick="submitTeacherSignup()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm mt-2 shadow-[4px_4px_0px_#111]">
-                        Generate Teacher ID & Register
-                    </button>
-
+                    <button onclick="submitTeacherSignup()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm mt-2">Generate Teacher ID & Register</button>
                     <div class="text-center pt-2">
-                        <p class="text-xs font-bold text-gray-600">Already registered? 
-                            <button onclick="toggleTeacherAuthMode('login')" class="text-purple-600 underline font-black">Log in</button>
-                        </p>
+                        <p class="text-xs font-bold text-gray-600">Already registered? <button onclick="toggleTeacherAuthMode('login')" class="text-purple-600 underline font-black">Log in</button></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ================= 4. TEACHER CREDENTIALS DISPLAY MODAL (Auto-Generated ID & Passcode) ================= -->
+        <!-- 4. TEACHER CREDENTIALS MODAL -->
         <div id="view-teacher-credentials" class="view-section hidden flex-col justify-center flex-1 py-12 max-w-md mx-auto w-full text-center">
             <div class="neo-card p-8 rounded-3xl space-y-6 bg-white border-3 border-black shadow-[6px_6px_0px_#111]">
-                <div class="w-16 h-16 mx-auto rounded-2xl bg-[#b4ff39] border-3 border-black flex items-center justify-center text-2xl font-black shadow-[3px_3px_0px_#111]">
-                    <i class="fa-solid fa-key"></i>
-                </div>
-                <div>
-                    <span class="bg-[#b4ff39] px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Saved to Database</span>
-                    <h2 class="text-3xl font-black text-black mt-2">Your Teacher Credentials</h2>
-                    <p class="text-xs font-bold text-gray-600 mt-1">Please save your auto-generated ID and passcode. You will need them to log in.</p>
-                </div>
-
+                <h2 class="text-3xl font-black text-black">Your Teacher Credentials</h2>
                 <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl space-y-3 text-left">
                     <div>
-                        <span class="text-[10px] font-black uppercase text-gray-500">Auto-Generated Teacher ID</span>
-                        <div id="display-teacher-id" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl mt-0.5">TCH-0000</div>
+                        <span class="text-[10px] font-black uppercase text-gray-500">Teacher ID</span>
+                        <div id="display-teacher-id" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl">TCH-0000</div>
                     </div>
                     <div>
-                        <span class="text-[10px] font-black uppercase text-gray-500">Auto-Generated Passcode</span>
-                        <div id="display-teacher-passcode" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl mt-0.5">PASS00</div>
+                        <span class="text-[10px] font-black uppercase text-gray-500">Passcode</span>
+                        <div id="display-teacher-passcode" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl">PASS00</div>
                     </div>
                 </div>
-
-                <button onclick="proceedToTeacherDashboard()" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm shadow-[4px_4px_0px_#111]">
-                    Proceed to Faculty Hub <i class="fa-solid fa-arrow-right ml-2"></i>
-                </button>
+                <button onclick="switchView('teacher-dashboard'); loadAnalytics();" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm">Proceed to Faculty Hub</button>
             </div>
         </div>
 
-        <!-- ================= 5. STUDENT PORTAL AUTH ================= -->
+        <!-- 5. STUDENT AUTH (WITH SIGN UP & LOGIN TOGGLE) -->
         <div id="view-student-auth" class="view-section hidden flex-col justify-center flex-1 py-12 max-w-md mx-auto w-full">
             <div class="neo-card p-8 rounded-3xl space-y-6 bg-white">
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="bg-[#ff6b81] text-white px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Student Portal</span>
-                        <h2 class="text-3xl font-black text-black mt-2">Student Login</h2>
+                        <h2 id="student-auth-title" class="text-3xl font-black text-black mt-2">Student Login</h2>
                     </div>
                     <button onclick="switchView('choose-role')" class="p-2 bg-gray-100 hover:bg-gray-200 border-2 border-black rounded-xl text-black">
                         <i class="fa-solid fa-xmark text-lg"></i>
                     </button>
                 </div>
                 
-                <div class="space-y-4 pt-2">
+                <!-- Student Login Form -->
+                <div id="student-login-form" class="space-y-4 pt-2">
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Student Email / ID</label>
-                        <input type="text" placeholder="student@college.edu" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
+                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Email Address</label>
+                        <input type="email" id="login-student-email" placeholder="student@college.edu" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Password</label>
-                        <input type="password" placeholder="••••••••••••" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
+                        <input type="password" id="login-student-password" placeholder="••••••••••••" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
                     </div>
-                    
-                    <button onclick="showToast('Logged in to Student Portal!'); setTimeout(() => switchView('student-dashboard'), 1000);" class="w-full py-4 neo-btn neo-card-pink rounded-xl text-sm mt-2 shadow-[4px_4px_0px_#111] text-black font-black">
-                        Enter Student Hub
-                    </button>
+                    <button onclick="submitStudentLogin()" class="w-full py-4 neo-btn neo-card-pink rounded-xl text-sm mt-2 text-black font-black">Enter Student Hub</button>
+                    <div class="text-center pt-2">
+                        <p class="text-xs font-bold text-gray-600">Don't have a student account? <button onclick="toggleStudentAuthMode('signup')" class="text-purple-600 underline font-black">Sign up here</button></p>
+                    </div>
+                </div>
+
+                <!-- Student Signup Form -->
+                <div id="student-signup-form" class="space-y-4 pt-2 hidden">
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Full Name</label>
+                        <input type="text" id="signup-student-name" placeholder="Samved Patil" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Email Address</label>
+                        <input type="email" id="signup-student-email" placeholder="student@college.edu" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1.5 text-gray-800">Password</label>
+                        <input type="password" id="signup-student-password" placeholder="Create password" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                    </div>
+                    <button onclick="submitStudentSignup()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm mt-2 font-black">Complete Student Sign Up</button>
+                    <div class="text-center pt-2">
+                        <p class="text-xs font-bold text-gray-600">Already have an account? <button onclick="toggleStudentAuthMode('login')" class="text-purple-600 underline font-black">Log in</button></p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- ================= 6. FULL TEACHER DASHBOARD ================= -->
+        <!-- 6. FULL TEACHER DASHBOARD (WITH ANALYTICS & REPORTS) -->
         <div id="view-teacher-dashboard" class="view-section hidden flex-col flex-1 py-6 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 <div class="lg:col-span-3 neo-card p-6 rounded-3xl bg-white space-y-4">
                     <div class="flex items-center space-x-3 pb-4 border-b-2 border-black">
-                        <div class="w-12 h-12 rounded-2xl bg-[#b4ff39] border-2 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0px_#111]">
-                            SP
-                        </div>
+                        <div class="w-12 h-12 rounded-2xl bg-[#b4ff39] border-2 border-black flex items-center justify-center font-black text-lg">SP</div>
                         <div>
                             <h4 id="sidebar-teacher-name" class="font-black text-sm">Prof. Samved Patil</h4>
                             <span class="text-[10px] bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded-md border border-purple-300">Faculty Lead</span>
@@ -258,18 +249,18 @@
 
                     <nav class="space-y-2">
                         <button onclick="switchTeacherTab('dashboard')" id="tab-btn-dashboard" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-black text-white flex items-center space-x-3 shadow-[3px_3px_0px_#b4ff39]">
-                            <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
+                            <i class="fa-solid fa-chart-pie"></i> <span>Dashboard & Analytics</span>
                         </button>
-                        <button onclick="switchTeacherTab('ai-quiz')" id="tab-btn-ai-quiz" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39] transition-colors">
+                        <button onclick="switchTeacherTab('ai-quiz')" id="tab-btn-ai-quiz" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]">
                             <i class="fa-solid fa-wand-magic-sparkles"></i> <span>AI Quiz Generator</span>
                         </button>
-                        <button onclick="switchTeacherTab('manual-quiz')" id="tab-btn-manual-quiz" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39] transition-colors">
-                            <i class="fa-solid fa-pen-to-square"></i> <span>Manual Quiz</span>
+                        <button onclick="switchTeacherTab('manual-quiz')" id="tab-btn-manual-quiz" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]">
+                            <i class="fa-solid fa-pen-to-square"></i> <span>Manual Quiz Editor</span>
                         </button>
-                        <button onclick="switchTeacherTab('settings')" id="tab-btn-settings" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39] transition-colors">
+                        <button onclick="switchTeacherTab('settings')" id="tab-btn-settings" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]">
                             <i class="fa-solid fa-gear"></i> <span>Settings</span>
                         </button>
-                        <button onclick="switchTeacherTab('profile')" id="tab-btn-profile" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39] transition-colors">
+                        <button onclick="switchTeacherTab('profile')" id="tab-btn-profile" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]">
                             <i class="fa-solid fa-user"></i> <span>Profile Page</span>
                         </button>
                     </nav>
@@ -282,30 +273,117 @@
                 </div>
 
                 <div class="lg:col-span-9 space-y-6">
-                    <!-- Dashboard Tab -->
+                    <!-- Dashboard & Analytics Tab -->
                     <div id="teacher-tab-dashboard" class="teacher-content-tab space-y-6">
                         <div class="neo-card-purple p-8 rounded-3xl space-y-3">
-                            <span class="bg-[#b4ff39] text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Overview</span>
+                            <span class="bg-[#b4ff39] text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Analytics & Reports</span>
                             <h2 class="text-3xl font-black text-white">Faculty Dashboard</h2>
-                            <p class="text-sm font-extrabold text-white">Monitor active student battles, participation rates, and quick analytics.</p>
+                            <p class="text-sm font-extrabold text-white">Track student participation, test completion rates, and individual performance reports.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
+                                <p class="text-xs font-extrabold text-gray-500 uppercase">Total Quizzes Created</p>
+                                <h3 id="stat-quizzes" class="text-3xl font-black">4</h3>
+                            </div>
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
+                                <p class="text-xs font-extrabold text-gray-500 uppercase">Active Students</p>
+                                <h3 id="stat-students" class="text-3xl font-black">142</h3>
+                            </div>
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
+                                <p class="text-xs font-extrabold text-gray-500 uppercase">Average Score</p>
+                                <h3 id="stat-avg" class="text-3xl font-black">84.5%</h3>
+                            </div>
+                        </div>
+
+                        <!-- Student Test Reports Table -->
+                        <div class="neo-card p-6 rounded-3xl bg-white space-y-4">
+                            <h3 class="font-black text-xl">Student Test Reports & Submissions</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="border-b-2 border-black text-xs uppercase font-black bg-gray-50">
+                                            <th class="p-3">Student Name</th>
+                                            <th class="p-3">Quiz Title</th>
+                                            <th class="p-3">Score</th>
+                                            <th class="p-3">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reports-table-body" class="text-sm font-bold">
+                                        <tr class="border-b border-gray-200">
+                                            <td class="p-3">Rahul Sharma</td>
+                                            <td class="p-3">Python Advanced & Flask APIs</td>
+                                            <td class="p-3 text-green-600 font-black">92%</td>
+                                            <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">Passed</span></td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200">
+                                            <td class="p-3">Priya Verma</td>
+                                            <td class="p-3">MongoDB Schemas</td>
+                                            <td class="p-3 text-green-600 font-black">88%</td>
+                                            <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">Passed</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <!-- AI Quiz Tab -->
+
+                    <!-- AI Quiz Generator Tab -->
                     <div id="teacher-tab-ai-quiz" class="teacher-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <h2 class="text-3xl font-black text-black">AI Quiz Generator</h2>
-                            <input type="text" placeholder="Quiz Topic (e.g. Python Flask APIs)" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
-                            <button onclick="showToast('AI Quiz Generated!')" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm">Generate</button>
+                            <input type="text" placeholder="Quiz Subject (e.g. Artificial Intelligence & Neural Networks)" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                            <button onclick="showToast('AI Quiz Generated!')" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm">Generate Quiz</button>
                         </div>
                     </div>
-                    <!-- Manual Quiz Tab -->
+
+                    <!-- Manual Quiz Editor Tab (WITH ADD QUESTIONS & OPTIONS) -->
                     <div id="teacher-tab-manual-quiz" class="teacher-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
-                            <h2 class="text-3xl font-black text-black">Manual Quiz Editor</h2>
-                            <input type="text" placeholder="Quiz Title" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
-                            <button onclick="showToast('Quiz Saved!')" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm">Save Quiz</button>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="bg-[#ff6b81] text-white px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Custom Builder</span>
+                                    <h2 class="text-3xl font-black text-black mt-2">Manual Quiz Editor</h2>
+                                </div>
+                                <button onclick="addQuestionField()" class="px-4 py-2 bg-black text-white text-xs font-black neo-btn rounded-xl">
+                                    <i class="fa-solid fa-plus mr-1"></i> Add Question
+                                </button>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-black uppercase mb-1.5">Quiz Title</label>
+                                    <input type="text" id="manual-quiz-title" placeholder="e.g. Midterm Examination - BCA Sem 5" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
+                                </div>
+
+                                <!-- Dynamic Questions Container -->
+                                <div id="questions-container" class="space-y-6 pt-2">
+                                    <!-- Question Item -->
+                                    <div class="question-block p-5 bg-gray-50 border-2 border-black rounded-2xl space-y-3">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-black text-sm">Question 1</span>
+                                        </div>
+                                        <input type="text" placeholder="Enter question statement..." class="q-text w-full px-4 py-3 neo-input rounded-xl text-sm">
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                            <input type="text" placeholder="Option A" class="opt-a px-3 py-2.5 neo-input rounded-lg text-xs">
+                                            <input type="text" placeholder="Option B" class="opt-b px-3 py-2.5 neo-input rounded-lg text-xs">
+                                            <input type="text" placeholder="Option C" class="opt-c px-3 py-2.5 neo-input rounded-lg text-xs">
+                                            <input type="text" placeholder="Option D" class="opt-d px-3 py-2.5 neo-input rounded-lg text-xs">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-black uppercase mb-1">Correct Option (A, B, C, or D)</label>
+                                            <input type="text" placeholder="e.g. A" class="q-correct w-24 px-3 py-2 neo-input rounded-lg text-xs font-bold uppercase">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button onclick="saveManualQuiz()" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm shadow-[4px_4px_0px_#111]">
+                                    <i class="fa-solid fa-floppy-disk mr-2"></i> Save & Publish Quiz
+                                </button>
+                            </div>
                         </div>
                     </div>
+
                     <!-- Settings Tab -->
                     <div id="teacher-tab-settings" class="teacher-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
@@ -313,32 +391,36 @@
                             <button onclick="showToast('Settings saved!')" class="w-full py-4 neo-btn neo-btn-black rounded-xl text-sm">Save Preferences</button>
                         </div>
                     </div>
+
                     <!-- Profile Tab -->
                     <div id="teacher-tab-profile" class="teacher-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <h2 class="text-2xl font-black text-black">Prof. Samved Ratnakar Patil</h2>
-                            <p class="text-xs text-gray-600 font-bold">Maharashtra State Pharmacy Council Reg. No. 188104 &bull; BCA Student</p>
+                            <p class="text-xs text-gray-600 font-bold">Maharashtra State Pharmacy Council Reg. No. 188104 &bull; BCA Student & Faculty Lead</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ================= 7. STUDENT DASHBOARD ================= -->
+        <!-- 7. STUDENT DASHBOARD -->
         <div id="view-student-dashboard" class="view-section hidden flex-col justify-center flex-1 py-10 max-w-3xl mx-auto w-full">
             <div class="neo-card-pink p-8 sm:p-10 rounded-3xl space-y-6 relative overflow-hidden">
                 <div class="flex justify-between items-center relative z-10">
-                    <h2 class="text-4xl font-black text-white">Student Hub</h2>
+                    <div>
+                        <span class="bg-white text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Student Hub</span>
+                        <h2 id="student-welcome-name" class="text-4xl font-black text-white mt-2">Welcome Student</h2>
+                    </div>
                     <button onclick="switchView('role-selection')" class="px-5 py-2.5 bg-black text-white text-xs font-black neo-btn rounded-xl">Log Out</button>
                 </div>
-                <div class="p-6 bg-white border-3 border-black rounded-2xl space-y-4 shadow-[6px_6px_0px_#111] text-black">
+                <div class="p-6 bg-white border-3 border-black rounded-2xl space-y-4 shadow-[6px_6px_0px_#111] text-black relative z-10">
                     <h3 class="font-black text-xl">Active Assessments</h3>
                     <div class="p-4 bg-gray-50 border-2 border-black rounded-xl flex justify-between items-center">
                         <div>
                             <h4 class="font-black text-sm">Full-Stack Web Development Quiz</h4>
                             <p class="text-xs text-gray-600">10 Questions &bull; 15 Mins</p>
                         </div>
-                        <button onclick="showToast('Starting assessment...')" class="px-5 py-2.5 neo-btn neo-btn-purple rounded-xl text-xs font-black">Start</button>
+                        <button onclick="showToast('Starting assessment...')" class="px-5 py-2.5 neo-btn neo-btn-purple rounded-xl text-xs font-black">Start Test</button>
                     </div>
                 </div>
             </div>
@@ -383,23 +465,20 @@
                 toggleTeacherAuthMode('login');
             } else if (role === 'student') {
                 switchView('student-auth');
+                toggleStudentAuthMode('login');
             }
         }
 
         function toggleTeacherAuthMode(mode) {
-            const loginForm = document.getElementById('teacher-login-form');
-            const signupForm = document.getElementById('teacher-signup-form');
-            const title = document.getElementById('teacher-auth-title');
+            document.getElementById('teacher-login-form').classList.toggle('hidden', mode === 'signup');
+            document.getElementById('teacher-signup-form').classList.toggle('hidden', mode === 'login');
+            document.getElementById('teacher-auth-title').textContent = mode === 'signup' ? 'Teacher Sign Up' : 'Teacher Login';
+        }
 
-            if (mode === 'signup') {
-                loginForm.classList.add('hidden');
-                signupForm.classList.remove('hidden');
-                title.textContent = 'Teacher Sign Up';
-            } else {
-                signupForm.classList.add('hidden');
-                loginForm.classList.remove('hidden');
-                title.textContent = 'Teacher Login';
-            }
+        function toggleStudentAuthMode(mode) {
+            document.getElementById('student-login-form').classList.toggle('hidden', mode === 'signup');
+            document.getElementById('student-signup-form').classList.toggle('hidden', mode === 'login');
+            document.getElementById('student-auth-title').textContent = mode === 'signup' ? 'Student Sign Up' : 'Student Login';
         }
 
         async function submitTeacherSignup() {
@@ -407,62 +486,132 @@
             const phone = document.getElementById('signup-teacher-phone').value.trim();
             const password = document.getElementById('signup-teacher-password').value.trim();
 
-            if (!name || !phone || !password) {
-                showToast('Please fill in all details.');
-                return;
-            }
-
-            try {
-                const response = await fetch('/api/teacher/signup', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, phone, password })
-                });
-                const result = await response.json();
-
-                if (result.success) {
-                    document.getElementById('display-teacher-id').textContent = result.teacher_id;
-                    document.getElementById('display-teacher-passcode').textContent = result.passcode;
-                    document.getElementById('sidebar-teacher-name').textContent = name;
-                    switchView('teacher-credentials');
-                } else {
-                    showToast(result.message || 'Signup failed.');
-                }
-            } catch (err) {
-                showToast('Server error during signup.');
-            }
+            if (!name || !phone || !password) { showToast('Fill all fields.'); return; }
+            const res = await fetch('/api/teacher/signup', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({name, phone, password}) });
+            const data = await res.json();
+            if (data.success) {
+                document.getElementById('display-teacher-id').textContent = data.teacher_id;
+                document.getElementById('display-teacher-passcode').textContent = data.passcode;
+                document.getElementById('sidebar-teacher-name').textContent = name;
+                switchView('teacher-credentials');
+            } else { showToast(data.message); }
         }
 
         async function submitTeacherLogin() {
             const teacher_id = document.getElementById('login-teacher-id').value.trim();
             const passcode = document.getElementById('login-teacher-passcode').value.trim();
-
-            if (!teacher_id || !passcode) {
-                showToast('Please enter Teacher ID and Passcode.');
-                return;
-            }
-
-            try {
-                const response = await fetch('/api/teacher/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ teacher_id, passcode })
-                });
-                const result = await response.json();
-
-                if (result.success) {
-                    showToast('Login successful!');
-                    setTimeout(() => switchView('teacher-dashboard'), 1000);
-                } else {
-                    showToast(result.message || 'Invalid credentials.');
-                }
-            } catch (err) {
-                showToast('Server connection error.');
-            }
+            const res = await fetch('/api/teacher/login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({teacher_id, passcode}) });
+            const data = await res.json();
+            if (data.success) {
+                showToast('Login successful!');
+                setTimeout(() => { switchView('teacher-dashboard'); loadAnalytics(); }, 1000);
+            } else { showToast(data.message); }
         }
 
-        function proceedToTeacherDashboard() {
-            switchView('teacher-dashboard');
+        async function submitStudentSignup() {
+            const name = document.getElementById('signup-student-name').value.trim();
+            const email = document.getElementById('signup-student-email').value.trim();
+            const password = document.getElementById('signup-student-password').value.trim();
+            if (!name || !email || !password) { showToast('Fill all fields.'); return; }
+            const res = await fetch('/api/student/signup', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({name, email, password}) });
+            const data = await res.json();
+            if (data.success) {
+                showToast('Student account created! Please log in.');
+                toggleStudentAuthMode('login');
+            } else { showToast(data.message); }
+        }
+
+        async function submitStudentLogin() {
+            const email = document.getElementById('login-student-email').value.trim();
+            const password = document.getElementById('login-student-password').value.trim();
+            const res = await fetch('/api/student/login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email, password}) });
+            const data = await res.json();
+            if (data.success) {
+                showToast('Welcome, ' + data.name + '!');
+                document.getElementById('student-welcome-name').textContent = "Welcome, " + data.name;
+                setTimeout(() => switchView('student-dashboard'), 1000);
+            } else { showToast(data.message); }
+        }
+
+        async function loadAnalytics() {
+            try {
+                const res = await fetch('/api/analytics');
+                const data = await res.json();
+                document.getElementById('stat-quizzes').textContent = data.total_quizzes;
+                document.getElementById('stat-students').textContent = data.total_students;
+                document.getElementById('stat-avg').textContent = data.avg_score;
+                
+                const tbody = document.getElementById('reports-table-body');
+                tbody.innerHTML = '';
+                data.reports.forEach(r => {
+                    tbody.innerHTML += `
+                        <tr class="border-b border-gray-200">
+                            <td class="p-3">${r.student_name}</td>
+                            <td class="p-3">${r.quiz_title}</td>
+                            <td class="p-3 text-green-600 font-black">${r.score}</td>
+                            <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">${r.status}</span></td>
+                        </tr>`;
+                });
+            } catch(e) { console.error(e); }
+        }
+
+        // Manual Quiz Builder: Add Question Dynamically
+        let questionCount = 1;
+        function addQuestionField() {
+            questionCount++;
+            const container = document.getElementById('questions-container');
+            const div = document.createElement('div');
+            div.className = "question-block p-5 bg-gray-50 border-2 border-black rounded-2xl space-y-3 mt-4";
+            div.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="font-black text-sm">Question ${questionCount}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" class="text-red-600 font-bold text-xs"><i class="fa-solid fa-trash"></i> Remove</button>
+                </div>
+                <input type="text" placeholder="Enter question statement..." class="q-text w-full px-4 py-3 neo-input rounded-xl text-sm">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <input type="text" placeholder="Option A" class="opt-a px-3 py-2.5 neo-input rounded-lg text-xs">
+                    <input type="text" placeholder="Option B" class="opt-b px-3 py-2.5 neo-input rounded-lg text-xs">
+                    <input type="text" placeholder="Option C" class="opt-c px-3 py-2.5 neo-input rounded-lg text-xs">
+                    <input type="text" placeholder="Option D" class="opt-d px-3 py-2.5 neo-input rounded-lg text-xs">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase mb-1">Correct Option (A, B, C, or D)</label>
+                    <input type="text" placeholder="e.g. B" class="q-correct w-24 px-3 py-2 neo-input rounded-lg text-xs font-bold uppercase">
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        async function saveManualQuiz() {
+            const title = document.getElementById('manual-quiz-title').value.trim();
+            if (!title) { showToast('Please enter a quiz title.'); return; }
+
+            const blocks = document.querySelectorAll('.question-block');
+            const questions = [];
+            blocks.forEach(b => {
+                questions.push({
+                    question: b.querySelector('.q-text').value,
+                    options: {
+                        A: b.querySelector('.opt-a').value,
+                        B: b.querySelector('.opt-b').value,
+                        C: b.querySelector('.opt-c').value,
+                        D: b.querySelector('.opt-d').value
+                    },
+                    correct: b.querySelector('.q-correct').value.toUpperCase()
+                });
+            });
+
+            const res = await fetch('/api/quiz/save', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ title, questions })
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast('Quiz published! PIN: ' + data.quiz_code);
+                switchTeacherTab('dashboard');
+                loadAnalytics();
+            } else { showToast(data.message); }
         }
 
         function switchTeacherTab(tabId) {
