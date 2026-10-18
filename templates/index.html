@@ -16,142 +16,242 @@
     <!-- MAIN CONTAINER -->
     <main class="flex-1 flex flex-col justify-between p-6 sm:p-10 max-w-6xl mx-auto w-full relative">
         
-        <!-- Top Navigation Header -->
-        <div class="flex justify-between items-center pb-6 border-b-3 border-black">
-            <div class="flex items-center space-x-2 bg-white px-4 py-2 neo-card rounded-xl">
-                <span class="font-black text-xl tracking-wider text-black">QUIZ<span class="text-purple-600">.</span>AI</span>
+        <!-- 1. LANDING / ROLE SELECTION VIEW -->
+        <div id="view-role-selection" class="view-section flex flex-col justify-between flex-1">
+            
+            <!-- Top Navigation Header -->
+            <div class="flex justify-between items-center pb-6 border-b-3 border-black">
+                <div class="flex items-center space-x-2 bg-white px-4 py-2 neo-card rounded-xl">
+                    <span class="font-black text-xl tracking-wider text-black">QUIZ<span class="text-purple-600">.</span>AI</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button onclick="selectRole('teacher')" class="px-5 py-2.5 text-sm font-extrabold text-black bg-white neo-btn rounded-xl">Log in</button>
+                    <button onclick="switchView('signup')" class="px-6 py-2.5 text-sm font-extrabold text-white bg-black neo-btn rounded-xl">Sign up</button>
+                </div>
             </div>
-            <div class="flex items-center space-x-3">
-                <button onclick="selectRole('teacher')" class="px-5 py-2.5 text-sm font-extrabold text-black bg-white neo-btn rounded-xl">Log in</button>
-                <button onclick="switchView('signup')" class="px-6 py-2.5 text-sm font-extrabold text-white bg-black neo-btn rounded-xl">Sign up</button>
+
+            <!-- Hero Section Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 py-10 items-center">
+                
+                <!-- Left Hero Text & Battle PIN Box -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 bg-[#ff6b81] text-white font-extrabold text-xs uppercase tracking-wider neo-btn rounded-full">
+                        <i class="fa-solid fa-fire mr-1"></i> Live quiz battles are here
+                    </div>
+                    
+                    <h1 class="text-6xl sm:text-7xl font-black text-black tracking-tight leading-none">
+                        Think fast.<br>
+                        <span class="bg-[#b4ff39] px-4 py-1 border-3 border-black inline-block mt-3 shadow-[5px_5px_0px_#000]">Win loud.</span>
+                    </h1>
+                    
+                    <p class="text-lg font-bold text-gray-800 max-w-md">
+                        Race your friends, stack streaks and climb the leaderboard. Every quiz is a mini battle.
+                    </p>
+
+                    <!-- Join Battle PIN Box -->
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                        <input type="text" id="quiz-pin-input" placeholder="Got a PIN? Drop it here" class="px-4 py-3.5 neo-input rounded-xl text-sm w-full sm:w-64">
+                        <button onclick="joinBattle()" class="px-6 py-3.5 neo-btn neo-btn-purple rounded-xl text-sm">Join the battle</button>
+                    </div>
+
+                    <div>
+                        <button onclick="continueWithGoogle()" class="px-5 py-3 bg-white neo-btn rounded-xl text-xs font-black inline-flex items-center space-x-2">
+                            <i class="fa-brands fa-google text-black"></i> <span>Continue with Google</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Preview Floating Card -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="neo-card p-6 rounded-3xl relative rotate-1 hover:rotate-0 transition-transform w-full max-w-md">
+                        <div class="absolute -top-4 -left-4 bg-[#b4ff39] border-2 border-black px-3 py-1 text-xs font-black rounded-full shadow-[2px_2px_0px_#000]">
+                            🔥 5 in a row
+                        </div>
+                        <div class="bg-gray-50 border-2 border-black p-5 rounded-2xl space-y-4 mt-2">
+                            <div class="flex justify-between items-center text-xs font-bold text-gray-700">
+                                <span class="bg-white px-3 py-1 border-2 border-black rounded-lg">Question 4 of 10</span>
+                                <span class="font-mono bg-black text-white px-3 py-1 rounded-lg">0:12</span>
+                            </div>
+                            <h3 class="font-black text-black text-lg">Which language is used to style web pages?</h3>
+                            
+                            <div class="space-y-2 pt-1 text-sm font-bold">
+                                <div class="p-3 bg-white border-2 border-black rounded-xl">A. HTML</div>
+                                <div class="p-3 bg-[#b4ff39] border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">B. CSS</div>
+                                <div class="p-3 bg-white border-2 border-black rounded-xl">C. Python</div>
+                            </div>
+                            <div class="flex justify-end pt-1">
+                                <span class="bg-black text-white text-xs font-black px-3 py-1 rounded-md shadow-[2px_2px_0px_#b4ff39]">Rank #1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            <!-- Categories Ticker Bar -->
+            <div class="py-4 overflow-x-auto whitespace-nowrap bg-black text-white px-6 rounded-2xl border-3 border-black my-6 shadow-[5px_5px_0px_#b4ff39]">
+                <div class="inline-flex space-x-8 font-black text-sm uppercase tracking-wider">
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🎵 Music</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🧠 General Knowledge</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🔬 Science</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">💻 Tech</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">🎬 Movies</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">⚽ Sports</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">📐 Maths</span>
+                    <span class="hover:text-[#b4ff39] cursor-pointer">⚡ Current Affairs</span>
+                </div>
+            </div>
+
+            <!-- Portals Bento Grid Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                
+                <!-- Teacher Portal Card -->
+                <div class="neo-card-purple p-8 rounded-3xl flex flex-col justify-between space-y-6">
+                    <div class="space-y-3">
+                        <h3 class="text-3xl font-black text-white">Teacher Portal</h3>
+                        <p class="text-sm font-bold text-gray-900">Host a live battle, watch answers roll in and see who is on top.</p>
+                    </div>
+                    <div>
+                        <button onclick="selectRole('teacher')" class="px-6 py-3.5 neo-btn neo-btn-green rounded-xl text-sm">Host a quiz</button>
+                    </div>
+                </div>
+
+                <!-- Student Portal Card -->
+                <div class="neo-card-pink p-8 rounded-3xl flex flex-col justify-between space-y-6">
+                    <div class="space-y-3">
+                        <h3 class="text-3xl font-black text-white">Student Portal</h3>
+                        <p class="text-sm font-bold text-gray-900">Jump in, earn XP, keep your streak alive and flex your rank.</p>
+                    </div>
+                    <div>
+                        <button onclick="selectRole('student')" class="px-6 py-3.5 neo-btn bg-white text-black rounded-xl text-sm">Start playing</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Create Account Banner -->
+            <div class="neo-card-green p-6 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
+                <p class="font-black text-black text-base">
+                    New here? Get your ID with just your name, mobile and an OTP.
+                </p>
+                <button onclick="switchView('signup')" class="px-6 py-3.5 neo-btn neo-btn-black rounded-xl text-sm whitespace-nowrap">
+                    Sign up in seconds
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center py-6 text-xs font-black text-black tracking-widest uppercase">
+                PLAY &bull; COMPETE &bull; GROW TOGETHER
+            </div>
+
         </div>
 
-        <!-- Hero Section Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 py-10 items-center">
-            
-            <!-- Left Hero Text & Battle PIN Box -->
-            <div class="lg:col-span-7 space-y-6">
-                <div class="inline-flex items-center space-x-2 px-4 py-1.5 bg-[#ff6b81] text-white font-extrabold text-xs uppercase tracking-wider neo-btn rounded-full">
-                    <i class="fa-solid fa-fire mr-1"></i> Live quiz battles are here
+        <!-- 2. SIGN UP VIEW (Hidden by default) -->
+        <div id="view-signup" class="view-section hidden flex-col justify-between flex-1 py-10 max-w-md mx-auto w-full">
+            <div class="neo-card p-8 rounded-3xl space-y-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-black text-black">Create Account</h2>
+                    <button onclick="switchView('role-selection')" class="text-sm font-black text-gray-600 hover:text-black">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
                 </div>
-                
-                <h1 class="text-6xl sm:text-7xl font-black text-black tracking-tight leading-none">
-                    Think fast.<br>
-                    <span class="bg-[#b4ff39] px-4 py-1 border-3 border-black inline-block mt-3 shadow-[5px_5px_0px_#000]">Win loud.</span>
-                </h1>
-                
-                <p class="text-lg font-bold text-gray-800 max-w-md">
-                    Race your friends, stack streaks and climb the leaderboard. Every quiz is a mini battle.
-                </p>
-
-                <!-- Join Battle PIN Box -->
-                <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                    <input type="text" placeholder="Got a PIN? Drop it here" class="px-4 py-3.5 neo-input rounded-xl text-sm w-full sm:w-64">
-                    <button onclick="showCustomAlert('Enter a valid quiz PIN to join battle!')" class="px-6 py-3.5 neo-btn neo-btn-purple rounded-xl text-sm">Join the battle</button>
-                </div>
-
-                <div>
-                    <button onclick="selectRole('student')" class="px-5 py-3 bg-white neo-btn rounded-xl text-xs font-black inline-flex items-center space-x-2">
-                        <i class="fa-brands fa-google text-black"></i> <span>Continue with Google</span>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-extrabold uppercase mb-1">Full Name</label>
+                        <input type="text" placeholder="e.g. Samved Patil" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-extrabold uppercase mb-1">Mobile Number</label>
+                        <input type="tel" placeholder="9876543210" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-extrabold uppercase mb-1">Create Password</label>
+                        <input type="password" placeholder="Set secure password" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                    </div>
+                    <button onclick="showCustomAlert('Account created successfully!')" class="w-full py-3.5 neo-btn neo-btn-purple rounded-xl text-sm mt-2">
+                        Complete Sign Up
                     </button>
                 </div>
             </div>
+        </div>
 
-            <!-- Right Preview Floating Card -->
-            <div class="lg:col-span-5 flex justify-center">
-                <div class="neo-card p-6 rounded-3xl relative rotate-1 hover:rotate-0 transition-transform w-full max-w-md">
-                    <div class="absolute -top-4 -left-4 bg-[#b4ff39] border-2 border-black px-3 py-1 text-xs font-black rounded-full shadow-[2px_2px_0px_#000]">
-                        🔥 5 in a row
+        <!-- 3. TEACHER PORTAL VIEW (Hidden by default) -->
+        <div id="view-teacher" class="view-section hidden flex-col justify-between flex-1 py-10 max-w-2xl mx-auto w-full">
+            <div class="neo-card p-8 rounded-3xl space-y-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-black text-black">Teacher Portal</h2>
+                    <button onclick="switchView('role-selection')" class="px-3 py-1.5 bg-black text-white text-xs font-black neo-btn rounded-lg">Back</button>
+                </div>
+                <p class="text-sm font-bold text-gray-700">Welcome faculty! Create quizzes and monitor live student scores.</p>
+                <div class="p-6 bg-gray-50 border-2 border-black rounded-2xl space-y-4">
+                    <h3 class="font-black text-lg">Host New Live Quiz</h3>
+                    <input type="text" placeholder="Quiz Title (e.g. Python Advanced)" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
+                    <button onclick="showCustomAlert('Live quiz session created!')" class="w-full py-3.5 neo-btn neo-btn-green rounded-xl text-sm">Generate Quiz PIN</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. STUDENT PORTAL VIEW (Hidden by default) -->
+        <div id="view-student" class="view-section hidden flex-col justify-between flex-1 py-10 max-w-2xl mx-auto w-full">
+            <div class="neo-card p-8 rounded-3xl space-y-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-black text-black">Student Portal</h2>
+                    <button onclick="switchView('role-selection')" class="px-3 py-1.5 bg-black text-white text-xs font-black neo-btn rounded-lg">Back</button>
+                </div>
+                <p class="text-sm font-bold text-gray-700">Ready to test your knowledge? Enter your active assessment or browse active quizzes.</p>
+                <div class="p-6 bg-gray-50 border-2 border-black rounded-2xl space-y-4">
+                    <h3 class="font-black text-lg">Active Assessments</h3>
+                    <div class="p-4 bg-white border-2 border-black rounded-xl flex justify-between items-center">
+                        <div>
+                            <h4 class="font-black text-sm">Full-Stack Web Development Quiz</h4>
+                            <p class="text-xs text-gray-600">10 Questions &bull; 15 Mins</p>
+                        </div>
+                        <button onclick="showCustomAlert('Starting assessment...')" class="px-4 py-2 neo-btn neo-btn-purple rounded-xl text-xs">Start</button>
                     </div>
-                    <div class="bg-gray-50 border-2 border-black p-5 rounded-2xl space-y-4 mt-2">
-                        <div class="flex justify-between items-center text-xs font-bold text-gray-700">
-                            <span class="bg-white px-3 py-1 border-2 border-black rounded-lg">Question 4 of 10</span>
-                            <span class="font-mono bg-black text-white px-3 py-1 rounded-lg">0:12</span>
-                        </div>
-                        <h3 class="font-black text-black text-lg">Which language is used to style web pages?</h3>
-                        
-                        <div class="space-y-2 pt-1 text-sm font-bold">
-                            <div class="p-3 bg-white border-2 border-black rounded-xl">A. HTML</div>
-                            <div class="p-3 bg-[#b4ff39] border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">B. CSS</div>
-                            <div class="p-3 bg-white border-2 border-black rounded-xl">C. Python</div>
-                        </div>
-                        <div class="flex justify-end pt-1">
-                            <span class="bg-black text-white text-xs font-black px-3 py-1 rounded-md shadow-[2px_2px_0px_#b4ff39]">Rank #1</span>
-                        </div>
-                    </div>
                 </div>
             </div>
-
-        </div>
-
-        <!-- Categories Ticker Bar -->
-        <div class="py-4 overflow-x-auto whitespace-nowrap bg-black text-white px-6 rounded-2xl border-3 border-black my-6 shadow-[5px_5px_0px_#b4ff39]">
-            <div class="inline-flex space-x-8 font-black text-sm uppercase tracking-wider">
-                <span class="hover:text-[#b4ff39] cursor-pointer">🎵 Music</span>
-                <span class="hover:text-[#b4ff39] cursor-pointer">🧠 General Knowledge</span>
-                <span class="hover:text-[#b4ff39] cursor-pointer">🔬 Science</span>
-                <span class="hover:text-[#b4ff39] cursor-pointer">💻 Tech</span>
-                <span class="hover:text-[#b4ff39] cursor-pointer">🎬 Movies</span>
-                <span class="hover:text-[#b4ff39] cursor-pointer">⚽ Sports</span>
-                <span class="hover:text-[#b4ff39] cursor-pointer">📐 Maths</span>
-                <span class="hover:text-[#b4ff39] cursor-pointer">⚡ Current Affairs</span>
-            </div>
-        </div>
-
-        <!-- Portals Bento Grid Section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-            
-            <!-- Teacher Portal Card -->
-            <div class="neo-card-purple p-8 rounded-3xl flex flex-col justify-between space-y-6">
-                <div class="space-y-3">
-                    <h3 class="text-3xl font-black text-white">Teacher Portal</h3>
-                    <p class="text-sm font-bold text-gray-900">Host a live battle, watch answers roll in and see who is on top.</p>
-                </div>
-                <div>
-                    <button onclick="selectRole('teacher')" class="px-6 py-3.5 neo-btn neo-btn-green rounded-xl text-sm">Host a quiz</button>
-                </div>
-            </div>
-
-            <!-- Student Portal Card -->
-            <div class="neo-card-pink p-8 rounded-3xl flex flex-col justify-between space-y-6">
-                <div class="space-y-3">
-                    <h3 class="text-3xl font-black text-white">Student Portal</h3>
-                    <p class="text-sm font-bold text-gray-900">Jump in, earn XP, keep your streak alive and flex your rank.</p>
-                </div>
-                <div>
-                    <button onclick="selectRole('student')" class="px-6 py-3.5 neo-btn bg-white text-black rounded-xl text-sm">Start playing</button>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Create Account Banner -->
-        <div class="neo-card-green p-6 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
-            <p class="font-black text-black text-base">
-                New here? Get your ID with just your name, mobile and an OTP.
-            </p>
-            <button onclick="switchView('signup')" class="px-6 py-3.5 neo-btn neo-btn-black rounded-xl text-sm whitespace-nowrap">
-                Sign up in seconds
-            </button>
-        </div>
-
-        <!-- Footer -->
-        <div class="text-center py-6 text-xs font-black text-black tracking-widest uppercase">
-            PLAY &bull; COMPETE &bull; GROW TOGETHER
         </div>
 
     </main>
 
+    <!-- JavaScript Navigation Handlers -->
     <script>
+        function switchView(viewId) {
+            // Hide all view sections
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+            });
+            // Show target view section
+            const target = document.getElementById('view-' + viewId);
+            if (target) {
+                target.classList.remove('hidden');
+                target.classList.add('flex');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function selectRole(role) {
-            // Role selection handler logic
-            console.log("Selected role:", role);
+            if (role === 'teacher') {
+                switchView('teacher');
+            } else if (role === 'student') {
+                switchView('student');
+            }
         }
-        function switchView(view) {
-            // View switcher logic
-            console.log("Switching view to:", view);
+
+        function joinBattle() {
+            const pin = document.getElementById('quiz-pin-input').value.trim();
+            if (!pin) {
+                alert('Please enter a valid quiz PIN.');
+                return;
+            }
+            alert('Joining battle with PIN: ' + pin);
         }
+
+        function continueWithGoogle() {
+            alert('Redirecting to Google Authentication...');
+        }
+
         function showCustomAlert(msg) {
             alert(msg);
         }
