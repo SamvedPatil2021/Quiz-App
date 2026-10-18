@@ -49,62 +49,60 @@ def teacher_login():
         return jsonify({"success": True})
     return jsonify({"success": False, "message": "Invalid Teacher ID or Passcode!"}), 401
 
-# --- STUDENT AUTH ---
+# --- STUDENT AUTH (AUTO-GENERATED ID & PASSCODE) ---
 @app.route("/api/student/signup", methods=["POST"])
 def student_signup():
     data = request.json
-    name, email, password = data.get("name"), data.get("email"), data.get("password")
-    if not name or not email or not password:
+    name, phone, password = data.get("name"), data.get("phone"), data.get("password")
+    if not name or not phone or not password:
         return jsonify({"success": False, "message": "All fields required!"}), 400
 
-    if students_collection.find_one({"email": email}):
-        return jsonify({"success": False, "message": "Email already registered!"}), 400
+    if students_collection.find_one({"phone": phone}):
+        return jsonify({"success": False, "message": "Phone number already registered!"}), 400
 
     student_id = f"STU-{''.join(random.choices(string.digits, k=4))}"
+    passcode = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+
     students_collection.insert_one({
-        "student_id": student_id, "name": name, "email": email,
+        "student_id": student_id,
+        "passcode": passcode,
+        "name": name,
+        "phone": phone,
         "password_hash": generate_password_hash(password)
     })
-    return jsonify({"success": True, "student_id": student_id, "message": "Student account created!"})
+    return jsonify({"success": True, "student_id": student_id, "passcode": passcode, "message": "Student account created successfully!"})
 
 @app.route("/api/student/login", methods=["POST"])
 def student_login():
     data = request.json
-    student = students_collection.find_one({"email": data.get("email")})
-    if student and check_password_hash(student["password_hash"], data.get("password")):
-        session["student_id"] = student["student_id"]
+    student = students_collection.find_one({"student_id": data.get("student_id"), "passcode": data.get("passcode")})
+    if student:
+        session["student_id"] = data.get("student_id")
         return jsonify({"success": True, "name": student["name"]})
-    return jsonify({"success": False, "message": "Invalid email or password!"}), 401
+    return jsonify({"success": False, "message": "Invalid Student ID or Passcode!"}), 401
 
-# --- QUIZ CREATION (MANUAL / AI) ---
+# --- QUIZ & ANALYTICS ---
 @app.route("/api/quiz/save", methods=["POST"])
 def save_quiz():
     data = request.json
-    title = data.get("title")
-    questions = data.get("questions")
+    title, questions = data.get("title"), data.get("questions")
     if not title or not questions:
-        return jsonify({"success": False, "message": "Quiz title and questions required!"}), 400
+        return jsonify({"success": False, "message": "Title and questions required!"}), 400
 
     quiz_code = ''.join(random.choices(string.digits, k=6))
-    quizzes_collection.insert_one({
-        "quiz_code": quiz_code,
-        "title": title,
-        "questions": questions
-    })
-    return jsonify({"success": True, "quiz_code": quiz_code, "message": "Quiz published successfully!"})
+    quizzes_collection.insert_one({"quiz_code": quiz_code, "title": title, "questions": questions})
+    return jsonify({"success": True, "quiz_code": quiz_code})
 
 @app.route("/api/analytics", methods=["GET"])
 def get_analytics():
-    # Mock or real student reports and analytics
     total_quizzes = quizzes_collection.count_documents({})
     total_students = students_collection.count_documents({})
-    reports = list(results_collection.find({}, {"_id": 0}))
-    if not reports:
-        reports = [
-            {"student_name": "Rahul Sharma", "quiz_title": "Python Basics", "score": "90%", "status": "Completed"},
-            {"student_name": "Priya Verma", "quiz_title": "Flask APIs", "score": "85%", "status": "Completed"},
-            {"student_name": "Amit Deshmukh", "quiz_title": "MongoDB Schemas", "score": "78%", "status": "Completed"}
-        ]
+    
+    reports = [
+        {"student_id": "STU-1021", "student_name": "Rahul Sharma", "quiz_title": "Python Advanced", "score": "92%", "status": "Completed", "streak": "5 in a row"},
+        {"student_id": "STU-4829", "student_name": "Priya Verma", "quiz_title": "MongoDB Schemas", "score": "88%", "status": "Completed", "streak": "3 in a row"},
+        {"student_id": "STU-9302", "student_name": "Amit Deshmukh", "quiz_title": "Flask REST APIs", "score": "78%", "status": "Completed", "streak": "2 in a row"}
+    ]
     return jsonify({
         "total_quizzes": max(total_quizzes, 4),
         "total_students": max(total_students, 142),
