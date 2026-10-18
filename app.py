@@ -79,7 +79,8 @@ def student_login():
 @app.route("/api/quiz/save", methods=["POST"])
 def save_quiz():
     data = request.json
-    title, questions = data.get("title"), data.get("questions")
+    title = data.get("title")
+    questions = data.get("questions")
     if not title or not questions:
         return jsonify({"success": False, "message": "Title and questions required!"}), 400
 
@@ -87,7 +88,7 @@ def save_quiz():
     quizzes_collection.insert_one({
         "quiz_code": quiz_code,
         "title": title,
-        "questions": questions,
+        "questions": questions, # This saves questions along with their 'explanation' fields
         "total_questions": len(questions)
     })
     return jsonify({"success": True, "quiz_code": quiz_code})
