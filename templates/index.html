@@ -765,16 +765,57 @@
                 
                 const tbody = document.getElementById('reports-table-body');
                 tbody.innerHTML = '';
+                
+                if (!data.reports || data.reports.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-500 font-bold">No student test submissions yet.</td></tr>`;
+                    return;
+                }
+
                 data.reports.forEach(r => {
+                    const studentId = r.student_id || 'STU-1021';
+                    const studentName = r.student_name || 'Student';
+                    const quizTitle = r.quiz_title || 'Quiz';
+                    const score = r.score || '0%';
+                    const status = r.status || 'Completed';
+
                     tbody.innerHTML += `
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="p-3 font-black">${r.student_name}</td>
-                            <td class="p-3">${r.quiz_title}</td>
-                            <td class="p-3 text-green-600 font-black">${r.score}</td>
-                            <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">${r.status}</span></td>
+                        <tr onclick="openStudentProfile('${studentName}', '${studentId}', '${score}', '${quizTitle}')" class="border-b border-gray-200 hover:bg-purple-50 cursor-pointer transition-colors">
+                            <td class="p-3 text-purple-700 underline font-black">${studentName}</td>
+                            <td class="p-3 font-bold">${quizTitle}</td>
+                            <td class="p-3 text-green-600 font-black">${score}</td>
+                            <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md font-bold">${status}</span></td>
                         </tr>`;
                 });
-            } catch(e) { console.error(e); }
+            } catch(e) { 
+                console.error("Error loading analytics:", e); 
+            }
+        }
+
+        function openStudentProfile(name, id, score, quizTitle) {
+            document.getElementById('modal-student-name').textContent = name;
+            document.getElementById('modal-student-id').textContent = id;
+            document.getElementById('modal-student-score').textContent = score;
+            document.getElementById('modal-student-avatar').textContent = name.split(' ').map(n => n[0]).join('');
+            
+            // Populate individual student scorecard history
+            const testsContainer = document.getElementById('modal-student-tests');
+            if (testsContainer) {
+                testsContainer.innerHTML = `<p class="font-black text-gray-800">&bull; ${quizTitle} &mdash; Score: <span class="text-green-600">${score}</span> (Passed)</p>`;
+            }
+
+            const modal = document.getElementById('student-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closeStudentModal() {
+            const modal = document.getElementById('student-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
         }
 
         async function generateAIQuiz() {
