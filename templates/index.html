@@ -78,11 +78,13 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                        <button onclick="switchView('choose-role')" class="px-8 py-4 neo-btn neo-btn-purple rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111]">
+                        <!-- Direct redirection to Teacher Login -->
+                        <button onclick="selectUserRole('teacher')" class="px-8 py-4 neo-btn neo-btn-purple rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111]">
                             <i class="fa-solid fa-chalkboard-user"></i>
                             <span>Teacher Portal</span>
                         </button>
-                        <button onclick="switchView('choose-role')" class="px-8 py-4 neo-btn neo-card-pink rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111] text-black">
+                        <!-- Direct redirection to Student Login -->
+                        <button onclick="selectUserRole('student')" class="px-8 py-4 neo-btn neo-card-pink rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111] text-black">
                             <i class="fa-solid fa-user-graduate"></i>
                             <span>Student Portal</span>
                         </button>
