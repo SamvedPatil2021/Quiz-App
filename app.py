@@ -78,7 +78,7 @@ def student_login():
         return jsonify({"success": True, "name": student["name"], "student_id": student["student_id"]})
     return jsonify({"success": False, "message": "Invalid Student ID or Passcode!"}), 401
 
-# --- QUIZ MANAGEMENT ---
+# --- QUIZ & SUBMISSION MANAGEMENT ---
 @app.route("/api/quiz/save", methods=["POST"])
 def save_quiz():
     data = request.json
@@ -102,13 +102,10 @@ def get_quizzes():
         quizzes = [{
             "quiz_code": "102938",
             "title": "Full-Stack Web Development Quiz",
-            "total_questions": 10,
+            "total_questions": 2,
             "questions": [
-                {
-                    "question": "Which language is used to style web pages?",
-                    "options": {"A": "HTML", "B": "CSS", "C": "Python", "D": "Java"},
-                    "correct": "B"
-                }
+                {"question": "Which language is used to style web pages?", "options": {"A": "HTML", "B": "CSS", "C": "Python", "D": "Java"}, "correct": "B"},
+                {"question": "Which backend framework is Python-based?", "options": {"A": "React", "B": "Flask", "C": "Spring", "D": "Laravel"}, "correct": "B"}
             ]
         }]
     return jsonify(quizzes)
@@ -122,6 +119,7 @@ def submit_quiz():
     score_pct = data.get("score_pct")
     correct_count = data.get("correct_count")
     total_count = data.get("total_count")
+    question_breakdown = data.get("question_breakdown", [])
 
     results_collection.insert_one({
         "student_id": student_id,
@@ -130,6 +128,7 @@ def submit_quiz():
         "score": f"{score_pct}%",
         "correct": correct_count,
         "total": total_count,
+        "question_breakdown": question_breakdown,
         "status": "Completed"
     })
     return jsonify({"success": True, "message": "Quiz submitted successfully!"})
@@ -153,8 +152,10 @@ def get_analytics():
     reports = list(results_collection.find({}, {"_id": 0}))
     if not reports:
         reports = [
-            {"student_id": "STU-1021", "student_name": "Rahul Sharma", "quiz_title": "Python Basics", "score": "90%", "status": "Completed"},
-            {"student_id": "STU-4829", "student_name": "Priya Verma", "quiz_title": "Flask APIs", "score": "85%", "status": "Completed"}
+            {
+                "student_id": "STU-1021", "student_name": "Samved Patil", "quiz_title": "Python", "score": "100%", "status": "Completed",
+                "question_breakdown": [{"q": "Styling language?", "passed": True}, {"q": "Backend framework?", "passed": True}]
+            }
         ]
     return jsonify({
         "total_quizzes": max(total_quizzes, 4),

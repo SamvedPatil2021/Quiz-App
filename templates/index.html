@@ -20,28 +20,36 @@
         </div>
     </div>
 
-    <!-- STUDENT PROFILE MODAL -->
+    <!-- DETAILED STUDENT PROFILE MODAL -->
     <div id="student-modal" class="fixed inset-0 z-50 bg-black/50 hidden flex items-center justify-center p-4">
-        <div class="neo-card p-8 rounded-3xl bg-white max-w-lg w-full space-y-6 border-3 border-black shadow-[8px_8px_0px_#111]">
+        <div class="neo-card p-8 rounded-3xl bg-white max-w-xl w-full space-y-6 border-3 border-black shadow-[8px_8px_0px_#111] max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center pb-4 border-b-2 border-black">
                 <div class="flex items-center space-x-3">
-                    <div id="modal-student-avatar" class="w-12 h-12 rounded-2xl bg-[#ff6b81] text-white border-2 border-black flex items-center justify-center font-black text-lg">RS</div>
+                    <div id="modal-student-avatar" class="w-12 h-12 rounded-2xl bg-[#ff6b81] text-white border-2 border-black flex items-center justify-center font-black text-lg">SP</div>
                     <div>
-                        <h3 id="modal-student-name" class="font-black text-lg">Rahul Sharma</h3>
-                        <span id="modal-student-id" class="text-xs font-bold text-gray-500">STU-1021</span>
+                        <h3 id="modal-student-name" class="font-black text-lg">Samved Patil</h3>
+                        <span id="modal-student-id" class="text-xs font-bold text-gray-500">STU-3233</span>
                     </div>
                 </div>
                 <button onclick="closeStudentModal()" class="p-2 bg-gray-100 hover:bg-gray-200 border-2 border-black rounded-xl"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
+            
             <div class="space-y-4">
                 <div class="grid grid-cols-2 gap-3">
                     <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl">
-                        <span class="text-xs font-extrabold text-gray-500 uppercase">Average Score</span>
-                        <h4 id="modal-student-score" class="text-2xl font-black text-green-600">92%</h4>
+                        <span class="text-xs font-extrabold text-gray-500 uppercase">Test Percentage</span>
+                        <h4 id="modal-student-score" class="text-2xl font-black text-green-600">100%</h4>
                     </div>
                     <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl">
                         <span class="text-xs font-extrabold text-gray-500 uppercase">Status</span>
-                        <h4 class="text-xl font-black text-purple-600">Active</h4>
+                        <h4 class="text-xl font-black text-purple-600">Completed</h4>
+                    </div>
+                </div>
+
+                <div class="p-5 bg-gray-50 border-2 border-black rounded-2xl space-y-3">
+                    <h4 class="font-black text-sm uppercase tracking-wider">Question Breakdown (Passed vs Failed)</h4>
+                    <div id="modal-question-breakdown" class="space-y-2 text-xs font-bold">
+                        <!-- Dynamically populated question pass/fail list -->
                     </div>
                 </div>
             </div>
@@ -67,26 +75,17 @@
                     <div class="inline-flex items-center space-x-2 px-4 py-1.5 bg-[#ff6b81] text-white font-extrabold text-xs uppercase tracking-wider neo-btn rounded-full">
                         <i class="fa-solid fa-fire mr-1"></i> Live quiz battles are here
                     </div>
-                    
                     <h1 class="text-6xl sm:text-7xl font-black text-black tracking-tight leading-none">
-                        Think fast.<br>
-                        <span class="bg-[#b4ff39] px-4 py-1 border-3 border-black inline-block mt-3 shadow-[5px_5px_0px_#000]">Win loud.</span>
+                        Think fast.<br><span class="bg-[#b4ff39] px-4 py-1 border-3 border-black inline-block mt-3 shadow-[5px_5px_0px_#000]">Win loud.</span>
                     </h1>
-                    
-                    <p class="text-lg font-bold text-gray-800 max-w-md">
-                        Race your friends, stack streaks and climb the leaderboard. Every quiz is a mini battle.
-                    </p>
+                    <p class="text-lg font-bold text-gray-800 max-w-md">Race your friends, stack streaks and climb the leaderboard. Every quiz is a mini battle.</p>
 
                     <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                        <!-- Direct redirection to Teacher Login -->
                         <button onclick="selectUserRole('teacher')" class="px-8 py-4 neo-btn neo-btn-purple rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111]">
-                            <i class="fa-solid fa-chalkboard-user"></i>
-                            <span>Teacher Portal</span>
+                            <i class="fa-solid fa-chalkboard-user"></i><span>Teacher Portal</span>
                         </button>
-                        <!-- Direct redirection to Student Login -->
                         <button onclick="selectUserRole('student')" class="px-8 py-4 neo-btn neo-card-pink rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111] text-black">
-                            <i class="fa-solid fa-user-graduate"></i>
-                            <span>Student Portal</span>
+                            <i class="fa-solid fa-user-graduate"></i><span>Student Portal</span>
                         </button>
                     </div>
                 </div>
@@ -103,13 +102,11 @@
                             <div class="space-y-2 pt-1 text-sm font-bold">
                                 <div class="p-3 bg-white border-2 border-black rounded-xl">A. HTML</div>
                                 <div class="p-3 bg-[#b4ff39] border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">B. CSS</div>
-                                <div class="p-3 bg-white border-2 border-black rounded-xl">C. Python</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="text-center py-6 text-xs font-black text-black tracking-widest uppercase mt-6">PLAY &bull; COMPETE &bull; GROW TOGETHER</div>
         </div>
 
@@ -118,17 +115,15 @@
             <div class="neo-card p-8 sm:p-10 rounded-3xl space-y-6 bg-white">
                 <div class="flex justify-between items-center">
                     <span class="bg-[#b4ff39] px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Select Portal</span>
-                    <button onclick="switchView('role-selection')" class="p-2 bg-gray-100 hover:bg-gray-200 border-2 border-black rounded-xl"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    <button onclick="switchView('role-selection')" class="p-2 bg-gray-100 border-2 border-black rounded-xl"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
                 <h2 class="text-3xl font-black text-black">Are you a Student or Teacher?</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                     <button onclick="selectUserRole('teacher')" class="p-6 neo-btn neo-btn-purple rounded-2xl flex flex-col items-center space-y-2 text-white">
-                        <i class="fa-solid fa-chalkboard-user text-3xl"></i>
-                        <span class="font-black text-lg">Teacher</span>
+                        <i class="fa-solid fa-chalkboard-user text-3xl"></i><span class="font-black text-lg">Teacher</span>
                     </button>
                     <button onclick="selectUserRole('student')" class="p-6 neo-btn neo-card-pink rounded-2xl flex flex-col items-center space-y-2 text-black">
-                        <i class="fa-solid fa-user-graduate text-3xl"></i>
-                        <span class="font-black text-lg">Student</span>
+                        <i class="fa-solid fa-user-graduate text-3xl"></i><span class="font-black text-lg">Student</span>
                     </button>
                 </div>
             </div>
@@ -146,37 +141,18 @@
                 </div>
                 
                 <div id="teacher-login-form" class="space-y-4 pt-2">
-                    <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Teacher ID</label>
-                        <input type="text" id="login-teacher-id" placeholder="e.g. TCH-4821" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Passcode</label>
-                        <input type="password" id="login-teacher-passcode" placeholder="Passcode" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
-                    </div>
+                    <div><label class="block text-xs font-black uppercase mb-1.5">Teacher ID</label><input type="text" id="login-teacher-id" placeholder="e.g. TCH-4821" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm"></div>
+                    <div><label class="block text-xs font-black uppercase mb-1.5">Passcode</label><input type="password" id="login-teacher-passcode" placeholder="Passcode" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm"></div>
                     <button onclick="submitTeacherLogin()" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm mt-2">Login to Faculty Hub</button>
-                    <div class="text-center pt-2">
-                        <p class="text-xs font-bold text-gray-600">Need an account? <button onclick="toggleTeacherAuthMode('signup')" class="text-purple-600 underline font-black">Sign up</button></p>
-                    </div>
+                    <div class="text-center pt-2"><p class="text-xs font-bold text-gray-600">Need an account? <button onclick="toggleTeacherAuthMode('signup')" class="text-purple-600 underline font-black">Sign up</button></p></div>
                 </div>
 
                 <div id="teacher-signup-form" class="space-y-4 pt-2 hidden">
-                    <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Full Name</label>
-                        <input type="text" id="signup-teacher-name" placeholder="Prof. Samved Patil" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Mobile Number</label>
-                        <input type="tel" id="signup-teacher-phone" placeholder="9876543210" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Password</label>
-                        <input type="password" id="signup-teacher-password" placeholder="Password" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
-                    </div>
+                    <div><label class="block text-xs font-black uppercase mb-1.5">Full Name</label><input type="text" id="signup-teacher-name" placeholder="Prof. Samved Patil" class="w-full px-4 py-3 neo-input rounded-xl text-sm"></div>
+                    <div><label class="block text-xs font-black uppercase mb-1.5">Mobile Number</label><input type="tel" id="signup-teacher-phone" placeholder="9876543210" class="w-full px-4 py-3 neo-input rounded-xl text-sm"></div>
+                    <div><label class="block text-xs font-black uppercase mb-1.5">Password</label><input type="password" id="signup-teacher-password" placeholder="Password" class="w-full px-4 py-3 neo-input rounded-xl text-sm"></div>
                     <button onclick="submitTeacherSignup()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm mt-2 font-black">Register & Generate ID</button>
-                    <div class="text-center pt-2">
-                        <p class="text-xs font-bold text-gray-600">Already registered? <button onclick="toggleTeacherAuthMode('login')" class="text-purple-600 underline font-black">Log in</button></p>
-                    </div>
+                    <div class="text-center pt-2"><p class="text-xs font-bold text-gray-600">Already registered? <button onclick="toggleTeacherAuthMode('login')" class="text-purple-600 underline font-black">Log in</button></p></div>
                 </div>
             </div>
         </div>
@@ -186,14 +162,8 @@
             <div class="neo-card p-8 rounded-3xl space-y-6 bg-white border-3 border-black shadow-[6px_6px_0px_#111]">
                 <h2 class="text-3xl font-black text-black">Your Teacher Credentials</h2>
                 <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl space-y-3 text-left">
-                    <div>
-                        <span class="text-[10px] font-black uppercase text-gray-500">Teacher ID</span>
-                        <div id="display-teacher-id" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl">TCH-0000</div>
-                    </div>
-                    <div>
-                        <span class="text-[10px] font-black uppercase text-gray-500">Passcode</span>
-                        <div id="display-teacher-passcode" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl">PASS00</div>
-                    </div>
+                    <div><span class="text-[10px] font-black uppercase text-gray-500">Teacher ID</span><div id="display-teacher-id" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl">TCH-0000</div></div>
+                    <div><span class="text-[10px] font-black uppercase text-gray-500">Passcode</span><div id="display-teacher-passcode" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl">PASS00</div></div>
                 </div>
                 <button onclick="switchView('teacher-dashboard'); loadAnalytics();" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm">Proceed to Faculty Hub</button>
             </div>
@@ -211,37 +181,18 @@
                 </div>
                 
                 <div id="student-login-form" class="space-y-4 pt-2">
-                    <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Student ID</label>
-                        <input type="text" id="login-student-id" placeholder="e.g. STU-1021" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Passcode</label>
-                        <input type="password" id="login-student-passcode" placeholder="Passcode" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
-                    </div>
+                    <div><label class="block text-xs font-black uppercase mb-1.5">Student ID</label><input type="text" id="login-student-id" placeholder="e.g. STU-1021" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm"></div>
+                    <div><label class="block text-xs font-black uppercase mb-1.5">Passcode</label><input type="password" id="login-student-passcode" placeholder="Passcode" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm"></div>
                     <button onclick="submitStudentLogin()" class="w-full py-4 neo-btn neo-card-pink rounded-xl text-sm mt-2 text-black font-black">Enter Student Hub</button>
-                    <div class="text-center pt-2">
-                        <p class="text-xs font-bold text-gray-600">Need an account? <button onclick="toggleStudentAuthMode('signup')" class="text-purple-600 underline font-black">Sign up</button></p>
-                    </div>
+                    <div class="text-center pt-2"><p class="text-xs font-bold text-gray-600">Need an account? <button onclick="toggleStudentAuthMode('signup')" class="text-purple-600 underline font-black">Sign up</button></p></div>
                 </div>
 
                 <div id="student-signup-form" class="space-y-4 pt-2 hidden">
-                    <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Full Name</label>
-                        <input type="text" id="signup-student-name" placeholder="Samved Patil" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Mobile Number</label>
-                        <input type="tel" id="signup-student-phone" placeholder="9876543210" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Password</label>
-                        <input type="password" id="signup-student-password" placeholder="Password" class="w-full px-4 py-3 neo-input rounded-xl text-sm">
-                    </div>
+                    <div><label class="block text-xs font-black uppercase mb-1.5">Full Name</label><input type="text" id="signup-student-name" placeholder="Samved Patil" class="w-full px-4 py-3 neo-input rounded-xl text-sm"></div>
+                    <div><label class="block text-xs font-black uppercase mb-1.5">Mobile Number</label><input type="tel" id="signup-student-phone" placeholder="9876543210" class="w-full px-4 py-3 neo-input rounded-xl text-sm"></div>
+                    <div><label class="block text-xs font-black uppercase mb-1.5">Password</label><input type="password" id="signup-student-password" placeholder="Password" class="w-full px-4 py-3 neo-input rounded-xl text-sm"></div>
                     <button onclick="submitStudentSignup()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm mt-2 font-black">Register & Generate ID</button>
-                    <div class="text-center pt-2">
-                        <p class="text-xs font-bold text-gray-600">Already registered? <button onclick="toggleStudentAuthMode('login')" class="text-purple-600 underline font-black">Log in</button></p>
-                    </div>
+                    <div class="text-center pt-2"><p class="text-xs font-bold text-gray-600">Already registered? <button onclick="toggleStudentAuthMode('login')" class="text-purple-600 underline font-black">Log in</button></p></div>
                 </div>
             </div>
         </div>
@@ -251,14 +202,8 @@
             <div class="neo-card p-8 rounded-3xl space-y-6 bg-white border-3 border-black shadow-[6px_6px_0px_#111]">
                 <h2 class="text-3xl font-black text-black">Your Student Credentials</h2>
                 <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl space-y-3 text-left">
-                    <div>
-                        <span class="text-[10px] font-black uppercase text-gray-500">Student ID</span>
-                        <div id="display-student-id" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl">STU-0000</div>
-                    </div>
-                    <div>
-                        <span class="text-[10px] font-black uppercase text-gray-500">Passcode</span>
-                        <div id="display-student-passcode" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl">PASS00</div>
-                    </div>
+                    <div><span class="text-[10px] font-black uppercase text-gray-500">Student ID</span><div id="display-student-id" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl">STU-0000</div></div>
+                    <div><span class="text-[10px] font-black uppercase text-gray-500">Passcode</span><div id="display-student-passcode" class="text-lg font-mono font-black bg-white p-2.5 border-2 border-black rounded-xl">PASS00</div></div>
                 </div>
                 <button onclick="switchView('student-dashboard'); loadStudentPortalData();" class="w-full py-4 neo-btn neo-card-pink rounded-xl text-sm text-black font-black">Proceed to Student Hub</button>
             </div>
@@ -276,26 +221,14 @@
                         </div>
                     </div>
                     <nav class="space-y-2">
-                        <button onclick="switchTeacherTab('dashboard')" id="tab-btn-dashboard" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-black text-white flex items-center space-x-3 shadow-[3px_3px_0px_#b4ff39]">
-                            <i class="fa-solid fa-chart-pie"></i> <span>Dashboard & Analytics</span>
-                        </button>
-                        <button onclick="switchTeacherTab('ai-quiz')" id="tab-btn-ai-quiz" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i> <span>AI Quiz Generator</span>
-                        </button>
-                        <button onclick="switchTeacherTab('manual-quiz')" id="tab-btn-manual-quiz" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]">
-                            <i class="fa-solid fa-pen-to-square"></i> <span>Manual Quiz Editor</span>
-                        </button>
-                        <button onclick="switchTeacherTab('settings')" id="tab-btn-settings" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]">
-                            <i class="fa-solid fa-gear"></i> <span>Settings</span>
-                        </button>
-                        <button onclick="switchTeacherTab('profile')" id="tab-btn-profile" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]">
-                            <i class="fa-solid fa-user"></i> <span>Profile Page</span>
-                        </button>
+                        <button onclick="switchTeacherTab('dashboard')" id="tab-btn-dashboard" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-black text-white flex items-center space-x-3 shadow-[3px_3px_0px_#b4ff39]"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard & Analytics</span></button>
+                        <button onclick="switchTeacherTab('ai-quiz')" id="tab-btn-ai-quiz" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]"><i class="fa-solid fa-wand-magic-sparkles"></i> <span>AI Quiz Generator</span></button>
+                        <button onclick="switchTeacherTab('manual-quiz')" id="tab-btn-manual-quiz" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]"><i class="fa-solid fa-pen-to-square"></i> <span>Manual Quiz Editor</span></button>
+                        <button onclick="switchTeacherTab('settings')" id="tab-btn-settings" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]"><i class="fa-solid fa-gear"></i> <span>Settings</span></button>
+                        <button onclick="switchTeacherTab('profile')" id="tab-btn-profile" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]"><i class="fa-solid fa-user"></i> <span>Profile Page</span></button>
                     </nav>
                     <div class="pt-4 border-t-2 border-black">
-                        <button onclick="switchView('role-selection')" class="w-full py-2.5 bg-red-100 text-red-800 border-2 border-black font-black text-xs rounded-xl hover:bg-red-200">
-                            <i class="fa-solid fa-right-from-bracket mr-1"></i> Log Out
-                        </button>
+                        <button onclick="switchView('role-selection')" class="w-full py-2.5 bg-red-100 text-red-800 border-2 border-black font-black text-xs rounded-xl hover:bg-red-200"><i class="fa-solid fa-right-from-bracket mr-1"></i> Log Out</button>
                     </div>
                 </div>
 
@@ -304,32 +237,20 @@
                         <div class="neo-card-purple p-8 rounded-3xl space-y-3">
                             <span class="bg-[#b4ff39] text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Analytics & Reports</span>
                             <h2 class="text-3xl font-black text-black">Faculty Dashboard</h2>
-                            <p class="text-sm font-black text-black">Track student submissions, test completion rates, and individual performance reports in real time.</p>
+                            <p class="text-sm font-black text-black">Track student submissions, test completion rates, and click any student to inspect their complete profile and question breakdown.</p>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
-                                <p class="text-xs font-extrabold text-gray-500 uppercase">Total Quizzes</p>
-                                <h3 id="stat-quizzes" class="text-3xl font-black">4</h3>
-                            </div>
-                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
-                                <p class="text-xs font-extrabold text-gray-500 uppercase">Active Students</p>
-                                <h3 id="stat-students" class="text-3xl font-black">142</h3>
-                            </div>
-                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
-                                <p class="text-xs font-extrabold text-gray-500 uppercase">Average Score</p>
-                                <h3 id="stat-avg" class="text-3xl font-black">84.5%</h3>
-                            </div>
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1"><p class="text-xs font-extrabold text-gray-500 uppercase">Total Quizzes</p><h3 id="stat-quizzes" class="text-3xl font-black">4</h3></div>
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1"><p class="text-xs font-extrabold text-gray-500 uppercase">Active Students</p><h3 id="stat-students" class="text-3xl font-black">142</h3></div>
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1"><p class="text-xs font-extrabold text-gray-500 uppercase">Average Score</p><h3 id="stat-avg" class="text-3xl font-black">84.5%</h3></div>
                         </div>
                         <div class="neo-card p-6 rounded-3xl bg-white space-y-4">
-                            <h3 class="font-black text-xl">Student Test Submissions & Reports</h3>
+                            <h3 class="font-black text-xl">Student Test Submissions & Reports (Click student to inspect)</h3>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left border-collapse">
                                     <thead>
                                         <tr class="border-b-2 border-black text-xs uppercase font-black bg-gray-50">
-                                            <th class="p-3">Student Name</th>
-                                            <th class="p-3">Quiz Title</th>
-                                            <th class="p-3">Score</th>
-                                            <th class="p-3">Status</th>
+                                            <th class="p-3">Student Name</th><th class="p-3">Quiz Title</th><th class="p-3">Score</th><th class="p-3">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="reports-table-body" class="text-sm font-bold">
@@ -407,88 +328,53 @@
                         </div>
                     </div>
                     <nav class="space-y-2">
-                        <button onclick="switchStudentTab('dashboard')" id="stud-tab-dashboard" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-black text-white flex items-center space-x-3 shadow-[3px_3px_0px_#ff6b81]">
-                            <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
-                        </button>
-                        <button onclick="switchStudentTab('tests')" id="stud-tab-tests" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white">
-                            <i class="fa-solid fa-book-open"></i> <span>Active Tests</span>
-                        </button>
-                        <button onclick="switchStudentTab('history')" id="stud-tab-history" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white">
-                            <i class="fa-solid fa-clock-rotate-left"></i> <span>Test History</span>
-                        </button>
-                        <button onclick="switchStudentTab('settings')" id="stud-tab-settings" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white">
-                            <i class="fa-solid fa-gear"></i> <span>Settings</span>
-                        </button>
-                        <button onclick="switchStudentTab('profile')" id="stud-tab-profile" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white">
-                            <i class="fa-solid fa-user"></i> <span>Profile</span>
-                        </button>
+                        <button onclick="switchStudentTab('dashboard')" id="stud-tab-dashboard" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-black text-white flex items-center space-x-3 shadow-[3px_3px_0px_#ff6b81]"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></button>
+                        <button onclick="switchStudentTab('tests')" id="stud-tab-tests" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white"><i class="fa-solid fa-book-open"></i> <span>Active Tests</span></button>
+                        <button onclick="switchStudentTab('history')" id="stud-tab-history" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white"><i class="fa-solid fa-clock-rotate-left"></i> <span>Test History</span></button>
+                        <button onclick="switchStudentTab('settings')" id="stud-tab-settings" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white"><i class="fa-solid fa-gear"></i> <span>Settings</span></button>
+                        <button onclick="switchStudentTab('profile')" id="stud-tab-profile" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white"><i class="fa-solid fa-user"></i> <span>Profile</span></button>
                     </nav>
                     <div class="pt-4 border-t-2 border-black">
-                        <button onclick="switchView('role-selection')" class="w-full py-2.5 bg-red-100 text-red-800 border-2 border-black font-black text-xs rounded-xl hover:bg-red-200">
-                            <i class="fa-solid fa-right-from-bracket mr-1"></i> Log Out
-                        </button>
+                        <button onclick="switchView('role-selection')" class="w-full py-2.5 bg-red-100 text-red-800 border-2 border-black font-black text-xs rounded-xl hover:bg-red-200"><i class="fa-solid fa-right-from-bracket mr-1"></i> Log Out</button>
                     </div>
                 </div>
 
                 <!-- Student Content Hub -->
                 <div class="lg:col-span-9 space-y-6">
-                    
-                   <!-- 1. Student Dashboard Tab -->
                     <div id="stud-content-dashboard" class="stud-content-tab space-y-6">
                         <div class="neo-card-pink p-8 rounded-3xl space-y-3">
                             <span class="bg-white text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Student Performance</span>
-                            <!-- Changed text color to bold high-contrast black -->
                             <h2 class="text-3xl font-black text-black">Student Dashboard</h2>
                             <p class="text-sm font-black text-black">Overview of tests completed, marks scored, and percentage analysis.</p>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
-                                <p class="text-xs font-extrabold text-gray-500 uppercase">Tests Given</p>
-                                <h3 id="stud-stat-tests" class="text-3xl font-black">0</h3>
-                            </div>
-                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
-                                <p class="text-xs font-extrabold text-gray-500 uppercase">Avg Percentage</p>
-                                <h3 id="stud-stat-pct" class="text-3xl font-black">0%</h3>
-                            </div>
-                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1">
-                                <p class="text-xs font-extrabold text-gray-500 uppercase">Streak</p>
-                                <h3 class="text-3xl font-black">🔥 3 in a row</h3>
-                            </div>
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1"><p class="text-xs font-extrabold text-gray-500 uppercase">Tests Given</p><h3 id="stud-stat-tests" class="text-3xl font-black">0</h3></div>
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1"><p class="text-xs font-extrabold text-gray-500 uppercase">Avg Percentage</p><h3 id="stud-stat-pct" class="text-3xl font-black">0%</h3></div>
+                            <div class="neo-card p-5 rounded-2xl bg-white space-y-1"><p class="text-xs font-extrabold text-gray-500 uppercase">Streak</p><h3 class="text-3xl font-black">🔥 3 in a row</h3></div>
                         </div>
                     </div>
 
-                    <!-- 2. Active Tests Tab (Instantly shows teacher-published quizzes) -->
                     <div id="stud-content-tests" class="stud-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <h2 class="text-3xl font-black text-black">Active Assessments (Live from Teachers)</h2>
-                            <div id="active-quizzes-list" class="space-y-4">
-                                <!-- Dynamically loaded live quizzes -->
-                            </div>
+                            <div id="active-quizzes-list" class="space-y-4"></div>
                         </div>
                     </div>
 
-                    <!-- 3. Test History Tab -->
                     <div id="stud-content-history" class="stud-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <h2 class="text-3xl font-black text-black">Test History & Scorecards</h2>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left border-collapse">
                                     <thead>
-                                        <tr class="border-b-2 border-black text-xs uppercase font-black bg-gray-50">
-                                            <th class="p-3">Quiz Title</th>
-                                            <th class="p-3">Score</th>
-                                            <th class="p-3">Status</th>
-                                        </tr>
+                                        <tr class="border-b-2 border-black text-xs uppercase font-black bg-gray-50"><th class="p-3">Quiz Title</th><th class="p-3">Score</th><th class="p-3">Status</th></tr>
                                     </thead>
-                                    <tbody id="student-history-table" class="text-sm font-bold">
-                                        <!-- Dynamically populated history -->
-                                    </tbody>
+                                    <tbody id="student-history-table" class="text-sm font-bold"></tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 4. Settings & Profile Tabs -->
                     <div id="stud-content-settings" class="stud-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <h2 class="text-3xl font-black text-black">Student Settings</h2>
@@ -501,7 +387,6 @@
                             <p id="profile-student-id" class="text-xs text-gray-600 font-bold">ID: STU-1021</p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -514,17 +399,14 @@
                     <span id="quiz-progress" class="font-mono font-bold text-xs bg-black text-white px-3 py-1 rounded-lg">Q 1 of 5</span>
                 </div>
                 <h3 id="solver-q-text" class="text-xl font-black text-black">Question text goes here?</h3>
-                <div id="solver-options-list" class="space-y-3">
-                    <!-- Options buttons -->
-                </div>
+                <div id="solver-options-list" class="space-y-3"></div>
             </div>
 
-            <!-- Scorecard Modal (Shown immediately upon test completion) -->
             <div id="quiz-scorecard-box" class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[8px_8px_0px_#111] hidden text-center">
                 <div class="w-20 h-20 mx-auto rounded-3xl bg-[#b4ff39] border-3 border-black flex items-center justify-center text-3xl font-black">🎉</div>
                 <h2 class="text-3xl font-black text-black">Test Completed!</h2>
                 <div class="p-6 bg-gray-50 border-2 border-black rounded-2xl space-y-2">
-                    <span class="text-xs font-black uppercase text-gray-500">Your Final Score</span>
+                    <span class="text-xs font-black uppercase text-gray-500">Your Final Percentage</span>
                     <h3 id="scorecard-percentage" class="text-5xl font-black text-purple-600">90%</h3>
                     <p id="scorecard-details" class="text-sm font-bold text-gray-700">You answered 9 out of 10 questions correctly.</p>
                 </div>
@@ -538,11 +420,11 @@
 
     <!-- JavaScript Handlers -->
     <script>
-        let currentStudent = { id: "STU-1021", name: "Rahul Sharma" };
+        let currentStudent = { id: "STU-1021", name: "Samved Patil" };
         let activeQuizData = null;
         let currentQuestionIndex = 0;
         let correctAnswersCount = 0;
-        let userSelectedAnswers = [];
+        let questionBreakdownList = [];
 
         function showToast(message) {
             const toast = document.getElementById('custom-toast');
@@ -648,7 +530,6 @@
 
         async function loadStudentPortalData() {
             try {
-                // Fetch student stats
                 const statsRes = await fetch(`/api/student/stats/${currentStudent.id}`);
                 const stats = await statsRes.json();
                 document.getElementById('stud-stat-tests').textContent = stats.tests_given;
@@ -669,7 +550,6 @@
                     });
                 }
 
-                // Fetch live quizzes published by teachers
                 const quizRes = await fetch('/api/quizzes');
                 const quizzes = await quizRes.json();
                 const listContainer = document.getElementById('active-quizzes-list');
@@ -691,7 +571,7 @@
             activeQuizData = quiz;
             currentQuestionIndex = 0;
             correctAnswersCount = 0;
-            userSelectedAnswers = [];
+            questionBreakdownList = [];
             switchView('quiz-solver');
             document.getElementById('quiz-question-box').classList.remove('hidden');
             document.getElementById('quiz-scorecard-box').classList.add('hidden');
@@ -718,9 +598,17 @@
 
         function selectOption(selectedKey) {
             const q = activeQuizData.questions[currentQuestionIndex];
-            if (selectedKey === q.correct) {
+            const isPassed = (selectedKey === q.correct);
+            if (isPassed) {
                 correctAnswersCount++;
             }
+            questionBreakdownList.push({
+                question: q.question,
+                passed: isPassed,
+                selected: selectedKey,
+                correct: q.correct
+            });
+
             currentQuestionIndex++;
             if (currentQuestionIndex < activeQuizData.questions.length) {
                 renderQuestion();
@@ -739,7 +627,6 @@
             document.getElementById('scorecard-percentage').textContent = pct + '%';
             document.getElementById('scorecard-details').textContent = `You answered ${correctAnswersCount} out of ${total} questions correctly.`;
 
-            // Instantly update teacher's dashboard analytics and reports
             await fetch('/api/quiz/submit', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -749,10 +636,11 @@
                     quiz_title: activeQuizData.title,
                     score_pct: pct,
                     correct_count: correctAnswersCount,
-                    total_count: total
+                    total_count: total,
+                    question_breakdown: questionBreakdownList
                 })
             });
-            showToast('Test completed! Scorecard sent to teacher dashboard.');
+            showToast('Test completed & scorecard generated!');
         }
 
         async function loadAnalytics() {
@@ -765,63 +653,60 @@
                 
                 const tbody = document.getElementById('reports-table-body');
                 tbody.innerHTML = '';
-                
-                if (!data.reports || data.reports.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-500 font-bold">No student test submissions yet.</td></tr>`;
-                    return;
-                }
-
                 data.reports.forEach(r => {
-                    const studentId = r.student_id || 'STU-1021';
-                    const studentName = r.student_name || 'Student';
-                    const quizTitle = r.quiz_title || 'Quiz';
-                    const score = r.score || '0%';
-                    const status = r.status || 'Completed';
-
+                    const breakdown = r.question_breakdown || [];
                     tbody.innerHTML += `
-                        <tr onclick="openStudentProfile('${studentName}', '${studentId}', '${score}', '${quizTitle}')" class="border-b border-gray-200 hover:bg-purple-50 cursor-pointer transition-colors">
-                            <td class="p-3 text-purple-700 underline font-black">${studentName}</td>
-                            <td class="p-3 font-bold">${quizTitle}</td>
-                            <td class="p-3 text-green-600 font-black">${score}</td>
-                            <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md font-bold">${status}</span></td>
+                        <tr onclick='openStudentProfile(${JSON.stringify(r)})' class="border-b border-gray-200 hover:bg-gray-50 cursor-pointer">
+                            <td class="p-3 text-purple-700 underline font-black">${r.student_name}</td>
+                            <td class="p-3">${r.quiz_title}</td>
+                            <td class="p-3 text-green-600 font-black">${r.score}</td>
+                            <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">${r.status}</span></td>
                         </tr>`;
                 });
-            } catch(e) { 
-                console.error("Error loading analytics:", e); 
-            }
+            } catch(e) { console.error(e); }
         }
 
-        function openStudentProfile(name, id, score, quizTitle) {
-            document.getElementById('modal-student-name').textContent = name;
-            document.getElementById('modal-student-id').textContent = id;
-            document.getElementById('modal-student-score').textContent = score;
-            document.getElementById('modal-student-avatar').textContent = name.split(' ').map(n => n[0]).join('');
+        function openStudentProfile(report) {
+            document.getElementById('modal-student-name').textContent = report.student_name;
+            document.getElementById('modal-student-id').textContent = report.student_id || 'STU-1021';
+            document.getElementById('modal-student-score').textContent = report.score;
+            document.getElementById('modal-student-avatar').textContent = report.student_name.split(' ').map(n => n[0]).join('');
+
+            const breakdownContainer = document.getElementById('modal-question-breakdown');
+            breakdownContainer.innerHTML = '';
             
-            // Populate individual student scorecard history
-            const testsContainer = document.getElementById('modal-student-tests');
-            if (testsContainer) {
-                testsContainer.innerHTML = `<p class="font-black text-gray-800">&bull; ${quizTitle} &mdash; Score: <span class="text-green-600">${score}</span> (Passed)</p>`;
+            if (!report.question_breakdown || report.question_breakdown.length === 0) {
+                breakdownContainer.innerHTML = `<p class="text-gray-500">No question breakdown available.</p>`;
+            } else {
+                report.question_breakdown.forEach((qb, idx) => {
+                    const badge = qb.passed 
+                        ? `<span class="px-2 py-0.5 bg-green-100 text-green-800 border border-green-300 rounded font-black text-[10px]">PASSED</span>`
+                        : `<span class="px-2 py-0.5 bg-red-100 text-red-800 border border-red-300 rounded font-black text-[10px]">FAILED TO SOLVE</span>`;
+                    
+                    breakdownContainer.innerHTML += `
+                        <div class="p-3 bg-white border-2 border-black rounded-xl space-y-1 shadow-[2px_2px_0px_#111]">
+                            <div class="flex justify-between items-center">
+                                <span class="font-black text-xs">Q${idx + 1}: ${qb.question}</span>
+                                ${badge}
+                            </div>
+                        </div>`;
+                });
             }
 
             const modal = document.getElementById('student-modal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
         }
 
         function closeStudentModal() {
             const modal = document.getElementById('student-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
 
         async function generateAIQuiz() {
             const topic = document.getElementById('ai-quiz-topic').value.trim();
-            if (!topic) { showToast('Enter a quiz topic.'); return; }
-            
+            if (!topic) { showToast('Enter a topic.'); return; }
             const res = await fetch('/api/quiz/save', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -835,7 +720,7 @@
             });
             const data = await res.json();
             if (data.success) {
-                showToast('AI Quiz published instantly! PIN: ' + data.quiz_code);
+                showToast('AI Quiz published! PIN: ' + data.quiz_code);
                 switchTeacherTab('dashboard');
                 loadAnalytics();
             }
@@ -848,10 +733,7 @@
             const div = document.createElement('div');
             div.className = "question-block p-5 bg-gray-50 border-2 border-black rounded-2xl space-y-3 mt-4";
             div.innerHTML = `
-                <div class="flex justify-between items-center">
-                    <span class="font-black text-sm">Question ${questionCount}</span>
-                    <button onclick="this.parentElement.parentElement.remove()" class="text-red-600 font-bold text-xs">Remove</button>
-                </div>
+                <div class="flex justify-between items-center"><span class="font-black text-sm">Question ${questionCount}</span><button onclick="this.parentElement.parentElement.remove()" class="text-red-600 font-bold text-xs">Remove</button></div>
                 <input type="text" placeholder="Question statement..." class="q-text w-full px-4 py-3 neo-input rounded-xl text-sm">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <input type="text" placeholder="Option A" class="opt-a px-3 py-2.5 neo-input rounded-lg text-xs">
@@ -866,7 +748,7 @@
 
         async function saveManualQuiz() {
             const title = document.getElementById('manual-quiz-title').value.trim();
-            if (!title) { showToast('Enter quiz title.'); return; }
+            if (!title) { showToast('Enter title.'); return; }
             const blocks = document.querySelectorAll('.question-block');
             const questions = [];
             blocks.forEach(b => {
@@ -880,7 +762,7 @@
             const res = await fetch('/api/quiz/save', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ title, questions }) });
             const data = await res.json();
             if (data.success) {
-                showToast('Quiz published successfully! PIN: ' + data.quiz_code);
+                showToast('Quiz published! PIN: ' + data.quiz_code);
                 switchTeacherTab('dashboard');
                 loadAnalytics();
             }
