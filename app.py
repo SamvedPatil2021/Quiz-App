@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-# MongoDB Configuration (uses local or environment MONGO_URI)
+# MongoDB Configuration
 MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
 client = MongoClient(MONGO_URI)
 db = client["quiz_ai_db"]
@@ -29,18 +29,16 @@ def teacher_signup():
     if not name or not phone or not password:
         return jsonify({"success": False, "message": "All fields are required!"}), 400
 
-    # Check if phone already exists
     if teachers_collection.find_one({"phone": phone}):
         return jsonify({"success": False, "message": "Phone number already registered!"}), 400
 
-    # Auto-generate Teacher ID (e.g., TCH-8492) and Passcode (e.g., A7x9P2)
     random_num = ''.join(random.choices(string.digits, k=4))
     teacher_id = f"TCH-{random_num}"
     passcode = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
 
     teacher_doc = {
         "teacher_id": teacher_id,
-        "passcode": passcode, # In production, hash passcode or store securely
+        "passcode": passcode,
         "name": name,
         "phone": phone,
         "password_hash": generate_password_hash(password)
@@ -68,6 +66,7 @@ def teacher_login():
     
     return jsonify({"success": False, "message": "Invalid Teacher ID or Passcode!"}), 401
 
+# CRITICAL FOR RENDER PORT BINDING
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
