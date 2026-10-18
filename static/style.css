@@ -59,6 +59,7 @@ html, body {
     border-color: #7d5fff;
     box-shadow: 5px 5px 0px #7d5fff;
 }
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
