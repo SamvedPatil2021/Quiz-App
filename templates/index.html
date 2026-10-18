@@ -20,24 +20,23 @@
         </div>
     </div>
 
-    <!-- DETAILED STUDENT PROFILE MODAL -->
+    <!-- STUDENT PROFILE MODAL -->
     <div id="student-modal" class="fixed inset-0 z-50 bg-black/50 hidden flex items-center justify-center p-4">
         <div class="neo-card p-8 rounded-3xl bg-white max-w-xl w-full space-y-6 border-3 border-black shadow-[8px_8px_0px_#111] max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center pb-4 border-b-2 border-black">
                 <div class="flex items-center space-x-3">
                     <div id="modal-student-avatar" class="w-12 h-12 rounded-2xl bg-[#ff6b81] text-white border-2 border-black flex items-center justify-center font-black text-lg">SP</div>
                     <div>
-                        <h3 id="modal-student-name" class="font-black text-lg">Samved Patil</h3>
-                        <span id="modal-student-id" class="text-xs font-bold text-gray-500">STU-3233</span>
+                        <h3 id="modal-student-name" class="font-black text-lg">Student Name</h3>
+                        <span id="modal-student-id" class="text-xs font-bold text-gray-500">STU-0000</span>
                     </div>
                 </div>
                 <button onclick="closeStudentModal()" class="p-2 bg-gray-100 hover:bg-gray-200 border-2 border-black rounded-xl"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            
             <div class="space-y-4">
                 <div class="grid grid-cols-2 gap-3">
                     <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl">
-                        <span class="text-xs font-extrabold text-gray-500 uppercase">Test Percentage</span>
+                        <span class="text-xs font-extrabold text-gray-500 uppercase">Score</span>
                         <h4 id="modal-student-score" class="text-2xl font-black text-green-600">100%</h4>
                     </div>
                     <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl">
@@ -45,12 +44,9 @@
                         <h4 class="text-xl font-black text-purple-600">Completed</h4>
                     </div>
                 </div>
-
                 <div class="p-5 bg-gray-50 border-2 border-black rounded-2xl space-y-3">
-                    <h4 class="font-black text-sm uppercase tracking-wider">Question Breakdown (Passed vs Failed)</h4>
-                    <div id="modal-question-breakdown" class="space-y-2 text-xs font-bold">
-                        <!-- Dynamically populated question pass/fail list -->
-                    </div>
+                    <h4 class="font-black text-sm uppercase tracking-wider">Question Breakdown & Explanations</h4>
+                    <div id="modal-question-breakdown" class="space-y-2 text-xs font-bold"></div>
                 </div>
             </div>
         </div>
@@ -209,7 +205,7 @@
             </div>
         </div>
 
-        <!-- 7. FULL TEACHER DASHBOARD -->
+        <!-- 7. FULL TEACHER DASHBOARD (WITH MANUAL EXPLANATION INPUT) -->
         <div id="view-teacher-dashboard" class="view-section hidden flex-col flex-1 py-6 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 <div class="lg:col-span-3 neo-card p-6 rounded-3xl bg-white space-y-4">
@@ -237,7 +233,7 @@
                         <div class="neo-card-purple p-8 rounded-3xl space-y-3">
                             <span class="bg-[#b4ff39] text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Analytics & Reports</span>
                             <h2 class="text-3xl font-black text-black">Faculty Dashboard</h2>
-                            <p class="text-sm font-black text-black">Track student submissions, test completion rates, and click any student to inspect their complete profile and question breakdown.</p>
+                            <p class="text-sm font-black text-black">Track student submissions, test completion rates, and click any student to inspect their scorecard and question-level review.</p>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div class="neo-card p-5 rounded-2xl bg-white space-y-1"><p class="text-xs font-extrabold text-gray-500 uppercase">Total Quizzes</p><h3 id="stat-quizzes" class="text-3xl font-black">4</h3></div>
@@ -253,9 +249,7 @@
                                             <th class="p-3">Student Name</th><th class="p-3">Quiz Title</th><th class="p-3">Score</th><th class="p-3">Status</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="reports-table-body" class="text-sm font-bold">
-                                        <!-- Dynamically populated -->
-                                    </tbody>
+                                    <tbody id="reports-table-body" class="text-sm font-bold"></tbody>
                                 </table>
                             </div>
                         </div>
@@ -270,7 +264,7 @@
                         </div>
                     </div>
 
-                    <!-- Manual Quiz Editor Tab -->
+                    <!-- Manual Quiz Editor Tab (WITH EXPLANATION BOX) -->
                     <div id="teacher-tab-manual-quiz" class="teacher-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <div class="flex justify-between items-center">
@@ -289,7 +283,10 @@
                                             <input type="text" placeholder="Option C" class="opt-c px-3 py-2.5 neo-input rounded-lg text-xs">
                                             <input type="text" placeholder="Option D" class="opt-d px-3 py-2.5 neo-input rounded-lg text-xs">
                                         </div>
-                                        <input type="text" placeholder="Correct Option (A, B, C, or D)" class="q-correct w-48 px-3 py-2 neo-input rounded-lg text-xs font-bold uppercase">
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                                            <input type="text" placeholder="Correct Option (A, B, C, or D)" class="q-correct px-3 py-2 neo-input rounded-lg text-xs font-bold uppercase">
+                                            <input type="text" placeholder="Explanation for students..." class="q-expl px-3 py-2 neo-input rounded-lg text-xs">
+                                        </div>
                                     </div>
                                 </div>
                                 <button onclick="saveManualQuiz()" class="w-full py-4 neo-btn neo-btn-purple rounded-xl text-sm">Save & Publish Quiz Instantly</button>
@@ -391,25 +388,36 @@
             </div>
         </div>
 
-        <!-- 9. LIVE QUIZ SOLVING SCREEN & INSTANT SCORECARD -->
+        <!-- 9. LIVE QUIZ SOLVING & COMPLETE QUESTION REVIEW SCORECARD -->
         <div id="view-quiz-solver" class="view-section hidden flex-col justify-center flex-1 py-10 max-w-2xl mx-auto w-full">
             <div id="quiz-question-box" class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[8px_8px_0px_#111]">
                 <div class="flex justify-between items-center pb-3 border-b-2 border-black">
                     <span id="quiz-solver-title" class="bg-[#b4ff39] px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Quiz Title</span>
                     <span id="quiz-progress" class="font-mono font-bold text-xs bg-black text-white px-3 py-1 rounded-lg">Q 1 of 5</span>
                 </div>
-                <h3 id="solver-q-text" class="text-xl font-black text-black">Question text goes here?</h3>
+                <h3 id="solver-q-text" class="text-xl font-black text-black">Question text?</h3>
                 <div id="solver-options-list" class="space-y-3"></div>
             </div>
 
-            <div id="quiz-scorecard-box" class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[8px_8px_0px_#111] hidden text-center">
-                <div class="w-20 h-20 mx-auto rounded-3xl bg-[#b4ff39] border-3 border-black flex items-center justify-center text-3xl font-black">🎉</div>
-                <h2 class="text-3xl font-black text-black">Test Completed!</h2>
-                <div class="p-6 bg-gray-50 border-2 border-black rounded-2xl space-y-2">
-                    <span class="text-xs font-black uppercase text-gray-500">Your Final Percentage</span>
-                    <h3 id="scorecard-percentage" class="text-5xl font-black text-purple-600">90%</h3>
-                    <p id="scorecard-details" class="text-sm font-bold text-gray-700">You answered 9 out of 10 questions correctly.</p>
+            <!-- Scorecard with Full Question Review & Explanations -->
+            <div id="quiz-scorecard-box" class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[8px_8px_0px_#111] hidden max-h-[90vh] overflow-y-auto">
+                <div class="text-center space-y-3">
+                    <div class="w-16 h-16 mx-auto rounded-3xl bg-[#b4ff39] border-3 border-black flex items-center justify-center text-2xl font-black">🎉</div>
+                    <h2 class="text-3xl font-black text-black">Test Completed!</h2>
+                    <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl inline-block px-8">
+                        <span class="text-xs font-black uppercase text-gray-500">Your Final Percentage</span>
+                        <h3 id="scorecard-percentage" class="text-4xl font-black text-purple-600">100%</h3>
+                        <p id="scorecard-details" class="text-xs font-bold text-gray-700">You answered all questions correctly.</p>
+                    </div>
                 </div>
+
+                <div class="space-y-4 pt-2">
+                    <h3 class="font-black text-lg">Question-by-Question Review & Explanations</h3>
+                    <div id="scorecard-breakdown-list" class="space-y-3">
+                        <!-- Dynamically populated review with explanations -->
+                    </div>
+                </div>
+
                 <button onclick="switchView('student-dashboard'); switchStudentTab('dashboard'); loadStudentPortalData();" class="w-full py-4 neo-btn neo-card-pink rounded-xl text-sm font-black text-black">
                     Return to Student Dashboard
                 </button>
@@ -606,7 +614,8 @@
                 question: q.question,
                 passed: isPassed,
                 selected: selectedKey,
-                correct: q.correct
+                correct: q.correct,
+                explanation: q.explanation || "No explanation provided by teacher."
             });
 
             currentQuestionIndex++;
@@ -627,6 +636,26 @@
             document.getElementById('scorecard-percentage').textContent = pct + '%';
             document.getElementById('scorecard-details').textContent = `You answered ${correctAnswersCount} out of ${total} questions correctly.`;
 
+            const breakdownListContainer = document.getElementById('scorecard-breakdown-list');
+            breakdownListContainer.innerHTML = '';
+            questionBreakdownList.forEach((item, idx) => {
+                const badge = item.passed 
+                    ? `<span class="px-2 py-0.5 bg-green-100 text-green-800 border border-green-300 rounded font-black text-[10px]">PASSED</span>`
+                    : `<span class="px-2 py-0.5 bg-red-100 text-red-800 border border-red-300 rounded font-black text-[10px]">FAILED TO SOLVE</span>`;
+                
+                breakdownListContainer.innerHTML += `
+                    <div class="p-4 bg-gray-50 border-2 border-black rounded-2xl space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="font-black text-xs">Q${idx + 1}: ${item.question}</span>
+                            ${badge}
+                        </div>
+                        <p class="text-xs text-gray-700 font-bold">Your answer: <strong>${item.selected}</strong> | Correct: <strong>${item.correct}</strong></p>
+                        <div class="p-2.5 bg-purple-50 border border-purple-200 rounded-xl text-xs font-medium text-purple-900">
+                            <strong>Teacher's Explanation:</strong> ${item.explanation}
+                        </div>
+                    </div>`;
+            });
+
             await fetch('/api/quiz/submit', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -640,7 +669,7 @@
                     question_breakdown: questionBreakdownList
                 })
             });
-            showToast('Test completed & scorecard generated!');
+            showToast('Test completed! Scorecard generated.');
         }
 
         async function loadAnalytics() {
@@ -653,8 +682,11 @@
                 
                 const tbody = document.getElementById('reports-table-body');
                 tbody.innerHTML = '';
+                if (!data.reports || data.reports.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-500">No student submissions yet.</td></tr>`;
+                    return;
+                }
                 data.reports.forEach(r => {
-                    const breakdown = r.question_breakdown || [];
                     tbody.innerHTML += `
                         <tr onclick='openStudentProfile(${JSON.stringify(r)})' class="border-b border-gray-200 hover:bg-gray-50 cursor-pointer">
                             <td class="p-3 text-purple-700 underline font-black">${r.student_name}</td>
@@ -676,7 +708,7 @@
             breakdownContainer.innerHTML = '';
             
             if (!report.question_breakdown || report.question_breakdown.length === 0) {
-                breakdownContainer.innerHTML = `<p class="text-gray-500">No question breakdown available.</p>`;
+                breakdownContainer.innerHTML = `<p class="text-gray-500">No breakdown available.</p>`;
             } else {
                 report.question_breakdown.forEach((qb, idx) => {
                     const badge = qb.passed 
@@ -689,41 +721,21 @@
                                 <span class="font-black text-xs">Q${idx + 1}: ${qb.question}</span>
                                 ${badge}
                             </div>
+                            <p class="text-[11px] text-gray-600">Selected: <strong>${qb.selected}</strong> | Correct: <strong>${qb.correct}</strong></p>
+                            <div class="p-2 bg-purple-50 border border-purple-200 rounded-lg text-[11px] text-purple-900">
+                                <strong>Explanation:</strong> ${qb.explanation || 'No explanation provided.'}
+                            </div>
                         </div>`;
                 });
             }
 
-            const modal = document.getElementById('student-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            document.getElementById('student-modal').classList.remove('hidden');
+            document.getElementById('student-modal').classList.add('flex');
         }
 
         function closeStudentModal() {
-            const modal = document.getElementById('student-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        async function generateAIQuiz() {
-            const topic = document.getElementById('ai-quiz-topic').value.trim();
-            if (!topic) { showToast('Enter a topic.'); return; }
-            const res = await fetch('/api/quiz/save', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    title: "AI Quiz: " + topic,
-                    questions: [
-                        { question: `What is a core concept in ${topic}?`, options: { A: "Fundamental Principle", B: "Random Guess", C: "Syntax Error", D: "None" }, correct: "A" },
-                        { question: `Which tool is primarily used for ${topic}?`, options: { A: "Python", B: "Hammer", C: "Paint", D: "Wrench" }, correct: "A" }
-                    ]
-                })
-            });
-            const data = await res.json();
-            if (data.success) {
-                showToast('AI Quiz published! PIN: ' + data.quiz_code);
-                switchTeacherTab('dashboard');
-                loadAnalytics();
-            }
+            document.getElementById('student-modal').classList.add('hidden');
+            document.getElementById('student-modal').classList.remove('flex');
         }
 
         let questionCount = 1;
@@ -741,7 +753,10 @@
                     <input type="text" placeholder="Option C" class="opt-c px-3 py-2.5 neo-input rounded-lg text-xs">
                     <input type="text" placeholder="Option D" class="opt-d px-3 py-2.5 neo-input rounded-lg text-xs">
                 </div>
-                <input type="text" placeholder="Correct Option (A, B, C, or D)" class="q-correct w-48 px-3 py-2 neo-input rounded-lg text-xs font-bold uppercase">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                    <input type="text" placeholder="Correct Option (A, B, C, or D)" class="q-correct px-3 py-2 neo-input rounded-lg text-xs font-bold uppercase">
+                    <input type="text" placeholder="Explanation for students..." class="q-expl px-3 py-2 neo-input rounded-lg text-xs">
+                </div>
             `;
             container.appendChild(div);
         }
@@ -755,14 +770,15 @@
                 questions.push({
                     question: b.querySelector('.q-text').value,
                     options: { A: b.querySelector('.opt-a').value, B: b.querySelector('.opt-b').value, C: b.querySelector('.opt-c').value, D: b.querySelector('.opt-d').value },
-                    correct: b.querySelector('.q-correct').value.toUpperCase()
+                    correct: b.querySelector('.q-correct').value.toUpperCase(),
+                    explanation: b.querySelector('.q-expl').value.trim()
                 });
             });
 
             const res = await fetch('/api/quiz/save', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ title, questions }) });
             const data = await res.json();
             if (data.success) {
-                showToast('Quiz published! PIN: ' + data.quiz_code);
+                showToast('Quiz published with explanations! PIN: ' + data.quiz_code);
                 switchTeacherTab('dashboard');
                 loadAnalytics();
             }

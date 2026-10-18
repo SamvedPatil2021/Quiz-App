@@ -20,7 +20,6 @@ results_collection = db["results"]
 def index():
     return render_template("index.html")
 
-# --- TEACHER AUTH ---
 @app.route("/api/teacher/signup", methods=["POST"])
 def teacher_signup():
     data = request.json
@@ -49,7 +48,6 @@ def teacher_login():
         return jsonify({"success": True})
     return jsonify({"success": False, "message": "Invalid Teacher ID or Passcode!"}), 401
 
-# --- STUDENT AUTH ---
 @app.route("/api/student/signup", methods=["POST"])
 def student_signup():
     data = request.json
@@ -78,7 +76,6 @@ def student_login():
         return jsonify({"success": True, "name": student["name"], "student_id": student["student_id"]})
     return jsonify({"success": False, "message": "Invalid Student ID or Passcode!"}), 401
 
-# --- QUIZ & SUBMISSION MANAGEMENT ---
 @app.route("/api/quiz/save", methods=["POST"])
 def save_quiz():
     data = request.json
@@ -102,10 +99,14 @@ def get_quizzes():
         quizzes = [{
             "quiz_code": "102938",
             "title": "Full-Stack Web Development Quiz",
-            "total_questions": 2,
+            "total_questions": 1,
             "questions": [
-                {"question": "Which language is used to style web pages?", "options": {"A": "HTML", "B": "CSS", "C": "Python", "D": "Java"}, "correct": "B"},
-                {"question": "Which backend framework is Python-based?", "options": {"A": "React", "B": "Flask", "C": "Spring", "D": "Laravel"}, "correct": "B"}
+                {
+                    "question": "Which language is used to style web pages?",
+                    "options": {"A": "HTML", "B": "CSS", "C": "Python", "D": "Java"},
+                    "correct": "B",
+                    "explanation": "CSS (Cascading Style Sheets) is specifically designed to style and layout web pages."
+                }
             ]
         }]
     return jsonify(quizzes)
@@ -113,25 +114,17 @@ def get_quizzes():
 @app.route("/api/quiz/submit", methods=["POST"])
 def submit_quiz():
     data = request.json
-    student_id = data.get("student_id")
-    student_name = data.get("student_name")
-    quiz_title = data.get("quiz_title")
-    score_pct = data.get("score_pct")
-    correct_count = data.get("correct_count")
-    total_count = data.get("total_count")
-    question_breakdown = data.get("question_breakdown", [])
-
     results_collection.insert_one({
-        "student_id": student_id,
-        "student_name": student_name,
-        "quiz_title": quiz_title,
-        "score": f"{score_pct}%",
-        "correct": correct_count,
-        "total": total_count,
-        "question_breakdown": question_breakdown,
+        "student_id": data.get("student_id"),
+        "student_name": data.get("student_name"),
+        "quiz_title": data.get("quiz_title"),
+        "score": f"{data.get('score_pct')}%",
+        "correct": data.get("correct_count"),
+        "total": data.get("total_count"),
+        "question_breakdown": data.get("question_breakdown", []),
         "status": "Completed"
     })
-    return jsonify({"success": True, "message": "Quiz submitted successfully!"})
+    return jsonify({"success": True})
 
 @app.route("/api/student/stats/<student_id>", methods=["GET"])
 def student_stats(student_id):
@@ -150,13 +143,6 @@ def get_analytics():
     total_quizzes = quizzes_collection.count_documents({})
     total_students = students_collection.count_documents({})
     reports = list(results_collection.find({}, {"_id": 0}))
-    if not reports:
-        reports = [
-            {
-                "student_id": "STU-1021", "student_name": "Samved Patil", "quiz_title": "Python", "score": "100%", "status": "Completed",
-                "question_breakdown": [{"q": "Styling language?", "passed": True}, {"q": "Backend framework?", "passed": True}]
-            }
-        ]
     return jsonify({
         "total_quizzes": max(total_quizzes, 4),
         "total_students": max(total_students, 142),
