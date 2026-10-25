@@ -363,6 +363,55 @@
                             <div class="neo-card p-5 rounded-2xl bg-white space-y-1"><p class="text-xs font-extrabold text-gray-500 uppercase">Streak</p><h3 class="text-3xl font-black">🔥 3 in a row</h3></div>
                         </div>
                     </div>
+<!-- Track Record Graph & Analytics Breakdown Card -->
+<div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
+    <div class="flex justify-between items-center pb-4 border-b-2 border-black">
+        <div class="flex items-center space-x-3">
+            <span class="bg-[#b4ff39] px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Analytics</span>
+            <h3 class="font-black text-xl">Track Record & Success Breakdown</h3>
+        </div>
+        <span id="graph-total-badge" class="font-mono text-xs font-bold bg-black text-white px-3 py-1 rounded-lg">0 Tests Logged</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="p-4 bg-purple-50 border-2 border-black rounded-2xl">
+            <span class="text-xs font-black uppercase text-purple-800">Total Completed</span>
+            <h4 id="graph-completed-count" class="text-3xl font-black text-purple-900 mt-1">0</h4>
+        </div>
+        <div class="p-4 bg-green-50 border-2 border-black rounded-2xl">
+            <span class="text-xs font-black uppercase text-green-800">Successful Tests</span>
+            <h4 id="graph-success-count" class="text-3xl font-black text-green-600 mt-1">0</h4>
+        </div>
+        <div class="p-4 bg-red-50 border-2 border-black rounded-2xl">
+            <span class="text-xs font-black uppercase text-red-800">Failed Tests</span>
+            <h4 id="graph-failed-count" class="text-3xl font-black text-red-600 mt-1">0</h4>
+        </div>
+    </div>
+
+    <div class="space-y-4 pt-2">
+        <h4 class="font-black text-sm uppercase tracking-wider text-gray-700">Visual Progress Track</h4>
+        <div class="space-y-3 font-bold text-xs">
+            <div>
+                <div class="flex justify-between mb-1">
+                    <span>Successful / Passed Tests</span>
+                    <span id="bar-success-label">0%</span>
+                </div>
+                <div class="w-full bg-gray-100 h-6 border-2 border-black rounded-xl overflow-hidden p-0.5">
+                    <div id="bar-success-fill" class="bg-[#b4ff39] h-full rounded-lg transition-all duration-500" style="width: 0%;"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between mb-1">
+                    <span>Failed / Needs Improvement (&lt; 50%)</span>
+                    <span id="bar-failed-label">0%</span>
+                </div>
+                <div class="w-full bg-gray-100 h-6 border-2 border-black rounded-xl overflow-hidden p-0.5">
+                    <div id="bar-failed-fill" class="bg-[#ff6b81] h-full rounded-lg transition-all duration-500" style="width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                     <!-- Active Tests Tab -->
                     <div id="stud-content-tests" class="stud-content-tab hidden space-y-6">

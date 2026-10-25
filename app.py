@@ -197,9 +197,16 @@ def student_stats(student_id):
     tests_given = len(history)
     total_score_sum = sum([int(h["score"].replace("%", "")) for h in history]) if history else 0
     avg_pct = round(total_score_sum / tests_given, 1) if tests_given > 0 else 0
+    
+    # Calculate successful vs failed tests on the Python backend
+    successful_tests = sum(1 for h in history if int(h["score"].replace("%", "")) >= 50)
+    failed_tests = tests_given - successful_tests
+
     return jsonify({
         "tests_given": tests_given,
         "avg_percentage": f"{avg_pct}%",
+        "successful_tests": successful_tests,
+        "failed_tests": failed_tests,
         "history": history
     })
 
