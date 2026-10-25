@@ -92,6 +92,8 @@ def save_quiz():
     for q in questions:
         if not q.get("explanation"):
             q["explanation"] = q.get("expl", "") or "No explanation provided by teacher."
+        if not q.get("explanation_img"):
+            q["explanation_img"] = q.get("explanation_img", "")
 
     quiz_code = ''.join(random.choices(string.digits, k=6))
     quizzes_collection.insert_one({
@@ -115,7 +117,8 @@ def get_quizzes():
                     "question": "Which language is used to style web pages?",
                     "options": {"A": "HTML", "B": "CSS", "C": "Python", "D": "Java"},
                     "correct": "B",
-                    "explanation": "CSS (Cascading Style Sheets) is specifically designed to style and layout web pages."
+                    "explanation": "CSS (Cascading Style Sheets) is specifically designed to style and layout web pages.",
+                    "explanation_img": ""
                 }
             ]
         }]
@@ -198,7 +201,6 @@ def student_stats(student_id):
     total_score_sum = sum([int(h["score"].replace("%", "")) for h in history]) if history else 0
     avg_pct = round(total_score_sum / tests_given, 1) if tests_given > 0 else 0
     
-    # Calculate successful vs failed tests on the Python backend
     successful_tests = sum(1 for h in history if int(h["score"].replace("%", "")) >= 50)
     failed_tests = tests_given - successful_tests
 
