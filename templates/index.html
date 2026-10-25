@@ -246,7 +246,7 @@
                                 <table class="w-full text-left border-collapse">
                                     <thead>
                                         <tr class="border-b-2 border-black text-xs uppercase font-black bg-gray-50">
-                                            <th class="p-3">Student Name</th><th class="p-3">Date</th><th class="p-3">Quiz Title</th><th class="p-3">Score</th><th class="p-3">Status</th>
+                                            <th class="p-3">Student Name</th><th class="p-3">Date</th><th class="p-3">Time</th><th class="p-3">Quiz Title</th><th class="p-3">Score</th><th class="p-3">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="reports-table-body" class="text-sm font-bold"></tbody>
@@ -754,7 +754,7 @@
                 const tbody = document.getElementById('reports-table-body');
                 tbody.innerHTML = '';
                 if (!data.reports || data.reports.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-500">No student submissions yet.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-gray-500">No student submissions yet.</td></tr>`;
                     return;
                 }
                 data.reports.forEach(r => {
@@ -762,6 +762,7 @@
                         <tr onclick='openStudentProfile(${JSON.stringify(r)})' class="border-b border-gray-200 hover:bg-gray-50 cursor-pointer">
                             <td class="p-3 text-purple-700 underline font-black">${r.student_name}</td>
                             <td class="p-3 text-xs font-bold text-gray-600">${r.date || 'Oct 25, 2026'}</td>
+                            <td class="p-3 text-xs font-bold text-gray-500 font-mono">${r.time || '07:56 PM'}</td>
                             <td class="p-3">${r.quiz_title}</td>
                             <td class="p-3 text-green-600 font-black">${r.score}</td>
                             <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">${r.status}</span></td>

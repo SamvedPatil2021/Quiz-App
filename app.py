@@ -174,7 +174,9 @@ def ai_grade():
 @app.route("/api/quiz/submit", methods=["POST"])
 def submit_quiz():
     data = request.json
-    current_date = datetime.datetime.now().strftime("%b %d, %Y")
+    now = datetime.datetime.now()
+    current_date = now.strftime("%b %d, %Y")
+    current_time = now.strftime("%I:%M %p")
     results_collection.insert_one({
         "student_id": data.get("student_id"),
         "student_name": data.get("student_name"),
@@ -184,6 +186,7 @@ def submit_quiz():
         "total": data.get("total_count"),
         "question_breakdown": data.get("question_breakdown", []),
         "date": data.get("date", current_date),
+        "time": data.get("time", current_time),
         "status": "Completed"
     })
     return jsonify({"success": True})
