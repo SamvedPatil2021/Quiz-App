@@ -558,18 +558,48 @@
         }
 
         async function submitStudentLogin() {
-            const student_id = document.getElementById('login-student-id').value.trim();
-            const passcode = document.getElementById('login-student-passcode').value.trim();
-            const res = await fetch('/api/student/login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({student_id, passcode}) });
-            const data = await res.json();
-            if (data.success) {
-                currentStudent = { id: data.student_id, name: data.name };
-                showToast('Welcome, ' + data.name + '!');
-                document.getElementById('sidebar-student-name').textContent = data.name;
-                document.getElementById('profile-student-name').textContent = data.name;
-                document.getElementById('profile-student-id').textContent = "ID: " + data.student_id;
-                setTimeout(() => { switchView('student-dashboard'); loadStudentPortalData(); }, 1000);
-            } else { showToast(data.message); }
+            const studentIdInput = document.getElementById('login-student-id');
+            const passcodeInput = document.getElementById('login-student-passcode');
+            if (!studentIdInput || !passcodeInput) {
+                showToast("Login form elements missing.");
+                return;
+            }
+
+            const student_id = studentIdInput.value.trim();
+            const passcode = passcodeInput.value.trim();
+
+            if (!student_id || !passcode) {
+                showToast("Please enter Student ID and Passcode.");
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/student/login', { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({ student_id, passcode }) 
+                });
+                const data = await res.json();
+                
+                if (data && data.success) {
+                    currentStudent = { id: data.student_id || student_id, name: data.name || "Student" };
+                    showToast('Welcome, ' + currentStudent.name + '!');
+                    
+                    try {
+                        const sidebarName = document.getElementById('sidebar-student-name');
+                        if (sidebarName) sidebarName.textContent = currentStudent.name;
+                    } catch(e) { console.warn(e); }
+
+                    switchView('student-dashboard');
+                    switchStudentTab('dashboard');
+                    loadStudentPortalData();
+                } else { 
+                    showToast((data && data.message) || 'Invalid ID or Passcode.'); 
+                }
+            } catch(err) {
+                console.error("Login fetch error:", err);
+                showToast("Connection error during login.");
+            }
         }
 
         async function hostLiveBattle() {
@@ -762,7 +792,7 @@
                         <tr onclick='openStudentProfile(${JSON.stringify(r)})' class="border-b border-gray-200 hover:bg-gray-50 cursor-pointer">
                             <td class="p-3 text-purple-700 underline font-black">${r.student_name}</td>
                             <td class="p-3 text-xs font-bold text-gray-600">${r.date || 'Oct 25, 2026'}</td>
-                            <td class="p-3 text-xs font-bold text-gray-500 font-mono">${r.time || '07:56 PM'}</td>
+                            <td class="p-3 text-xs font-bold text-gray-500 font-mono">${r.time || '08:36 PM'}</td>
                             <td class="p-3">${r.quiz_title}</td>
                             <td class="p-3 text-green-600 font-black">${r.score}</td>
                             <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">${r.status}</span></td>
