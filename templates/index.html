@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUIZ.AI - Interactive Learning Platform</title>
+    <title>QUIZ.AI - Interactive Learning Platform & Live Battles</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -69,12 +69,12 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 py-10 items-center">
                 <div class="lg:col-span-7 space-y-6">
                     <div class="inline-flex items-center space-x-2 px-4 py-1.5 bg-[#ff6b81] text-white font-extrabold text-xs uppercase tracking-wider neo-btn rounded-full">
-                        <i class="fa-solid fa-fire mr-1"></i> Live quiz battles are here
+                        <i class="fa-solid fa-fire mr-1"></i> Live classroom battles & AI grading are here
                     </div>
                     <h1 class="text-6xl sm:text-7xl font-black text-black tracking-tight leading-none">
                         Think fast.<br><span class="bg-[#b4ff39] px-4 py-1 border-3 border-black inline-block mt-3 shadow-[5px_5px_0px_#000]">Win loud.</span>
                     </h1>
-                    <p class="text-lg font-bold text-gray-800 max-w-md">Race your friends, stack streaks and climb the leaderboard. Every quiz is a mini battle.</p>
+                    <p class="text-lg font-bold text-gray-800 max-w-md">Race your peers, test your knowledge, and track detailed explanations instantly.</p>
 
                     <div class="flex flex-col sm:flex-row gap-4 pt-4">
                         <button onclick="selectUserRole('teacher')" class="px-8 py-4 neo-btn neo-btn-purple rounded-2xl text-base flex items-center justify-center space-x-3 shadow-[5px_5px_0px_#111]">
@@ -88,16 +88,16 @@
 
                 <div class="lg:col-span-5 flex justify-center">
                     <div class="neo-card p-6 rounded-3xl relative rotate-1 hover:rotate-0 transition-transform w-full max-w-md">
-                        <div class="absolute -top-4 -left-4 bg-[#b4ff39] border-2 border-black px-3 py-1 text-xs font-black rounded-full shadow-[2px_2px_0px_#000]">🔥 5 in a row</div>
+                        <div class="absolute -top-4 -left-4 bg-[#b4ff39] border-2 border-black px-3 py-1 text-xs font-black rounded-full shadow-[2px_2px_0px_#000]">🔥 Live Battle Ready</div>
                         <div class="bg-gray-50 border-2 border-black p-5 rounded-2xl space-y-4 mt-2">
                             <div class="flex justify-between items-center text-xs font-bold text-gray-700">
-                                <span class="bg-white px-3 py-1 border-2 border-black rounded-lg">Question 4 of 10</span>
-                                <span class="font-mono bg-black text-white px-3 py-1 rounded-lg">0:12</span>
+                                <span class="bg-white px-3 py-1 border-2 border-black rounded-lg">Question 1 of 5</span>
+                                <span class="font-mono bg-black text-white px-3 py-1 rounded-lg">0:15</span>
                             </div>
-                            <h3 class="font-black text-black text-lg">Which language is used to style web pages?</h3>
+                            <h3 class="font-black text-black text-lg">What is Flask in Python?</h3>
                             <div class="space-y-2 pt-1 text-sm font-bold">
-                                <div class="p-3 bg-white border-2 border-black rounded-xl">A. HTML</div>
-                                <div class="p-3 bg-[#b4ff39] border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">B. CSS</div>
+                                <div class="p-3 bg-white border-2 border-black rounded-xl">A. Micro Web Framework</div>
+                                <div class="p-3 bg-[#b4ff39] border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">B. Database</div>
                             </div>
                         </div>
                     </div>
@@ -218,10 +218,10 @@
                     </div>
                     <nav class="space-y-2">
                         <button onclick="switchTeacherTab('dashboard')" id="tab-btn-dashboard" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-black text-white flex items-center space-x-3 shadow-[3px_3px_0px_#b4ff39]"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard & Analytics</span></button>
+                        <button onclick="switchTeacherTab('live-battle')" id="tab-btn-live-battle" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]"><i class="fa-solid fa-bolt"></i> <span>Live Battle Host</span></button>
                         <button onclick="switchTeacherTab('ai-quiz')" id="tab-btn-ai-quiz" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]"><i class="fa-solid fa-wand-magic-sparkles"></i> <span>AI Quiz Generator</span></button>
                         <button onclick="switchTeacherTab('manual-quiz')" id="tab-btn-manual-quiz" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]"><i class="fa-solid fa-pen-to-square"></i> <span>Manual Quiz Editor</span></button>
                         <button onclick="switchTeacherTab('settings')" id="tab-btn-settings" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]"><i class="fa-solid fa-gear"></i> <span>Settings</span></button>
-                        <button onclick="switchTeacherTab('profile')" id="tab-btn-profile" class="teacher-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#b4ff39]"><i class="fa-solid fa-user"></i> <span>Profile Page</span></button>
                     </nav>
                     <div class="pt-4 border-t-2 border-black">
                         <button onclick="switchView('role-selection')" class="w-full py-2.5 bg-red-100 text-red-800 border-2 border-black font-black text-xs rounded-xl hover:bg-red-200"><i class="fa-solid fa-right-from-bracket mr-1"></i> Log Out</button>
@@ -233,7 +233,7 @@
                         <div class="neo-card-purple p-8 rounded-3xl space-y-3">
                             <span class="bg-[#b4ff39] text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Analytics & Reports</span>
                             <h2 class="text-3xl font-black text-black">Faculty Dashboard</h2>
-                            <p class="text-sm font-black text-black">Track student submissions, test completion rates, and click any student to inspect their scorecard and question-level review.</p>
+                            <p class="text-sm font-black text-black">Track student submissions, test completion rates, and click any student to inspect their scorecard and explanations.</p>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div class="neo-card p-5 rounded-2xl bg-white space-y-1"><p class="text-xs font-extrabold text-gray-500 uppercase">Total Quizzes</p><h3 id="stat-quizzes" class="text-3xl font-black">4</h3></div>
@@ -246,11 +246,30 @@
                                 <table class="w-full text-left border-collapse">
                                     <thead>
                                         <tr class="border-b-2 border-black text-xs uppercase font-black bg-gray-50">
-                                            <th class="p-3">Student Name</th><th class="p-3">Quiz Title</th><th class="p-3">Score</th><th class="p-3">Status</th>
+                                            <th class="p-3">Student Name</th><th class="p-3">Date</th><th class="p-3">Quiz Title</th><th class="p-3">Score</th><th class="p-3">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="reports-table-body" class="text-sm font-bold"></tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Battle Host Tab -->
+                    <div id="teacher-tab-live-battle" class="teacher-content-tab hidden space-y-6">
+                        <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
+                            <span class="bg-[#ff6b81] text-white px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Kahoot-Style Battle</span>
+                            <h2 class="text-3xl font-black text-black">Host Live Classroom Battle</h2>
+                            <p class="text-xs font-bold text-gray-700">Select an existing quiz PIN to launch a real-time multiplayer battle on students' screens.</p>
+                            <div>
+                                <label class="block text-xs font-black uppercase mb-1.5">Quiz Code / PIN</label>
+                                <input type="text" id="host-quiz-code" placeholder="e.g. 102938" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm">
+                            </div>
+                            <button onclick="hostLiveBattle()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm font-black">Launch Live Battle Room</button>
+                            <div id="battle-room-display" class="hidden p-6 bg-purple-50 border-2 border-black rounded-2xl text-center space-y-3">
+                                <span class="text-xs font-black uppercase text-purple-700">Battle Room PIN</span>
+                                <h3 id="display-battle-pin" class="text-6xl font-mono font-black tracking-widest text-black">2841</h3>
+                                <p class="text-xs font-bold text-gray-700">Waiting for students to join live...</p>
                             </div>
                         </div>
                     </div>
@@ -294,17 +313,11 @@
                         </div>
                     </div>
 
-                    <!-- Settings & Profile Tabs -->
+                    <!-- Settings Tab -->
                     <div id="teacher-tab-settings" class="teacher-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <h2 class="text-3xl font-black text-black">Faculty Settings</h2>
                             <button onclick="showToast('Settings saved!')" class="w-full py-4 neo-btn neo-btn-black rounded-xl text-sm">Save Preferences</button>
-                        </div>
-                    </div>
-                    <div id="teacher-tab-profile" class="teacher-content-tab hidden space-y-6">
-                        <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
-                            <h2 class="text-2xl font-black text-black">Prof. Samved Ratnakar Patil</h2>
-                            <p class="text-xs text-gray-600 font-bold">Faculty Lead &bull; Wardha, Maharashtra</p>
                         </div>
                     </div>
                 </div>
@@ -327,9 +340,9 @@
                     <nav class="space-y-2">
                         <button onclick="switchStudentTab('dashboard')" id="stud-tab-dashboard" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-black text-white flex items-center space-x-3 shadow-[3px_3px_0px_#ff6b81]"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></button>
                         <button onclick="switchStudentTab('tests')" id="stud-tab-tests" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white"><i class="fa-solid fa-book-open"></i> <span>Active Tests</span></button>
+                        <button onclick="switchStudentTab('live-battle')" id="stud-tab-live-battle" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white"><i class="fa-solid fa-bolt"></i> <span>Join Live Battle</span></button>
+                        <button onclick="switchStudentTab('ai-grader')" id="stud-tab-ai-grader" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white"><i class="fa-solid fa-robot"></i> <span>AI Essay Grader</span></button>
                         <button onclick="switchStudentTab('history')" id="stud-tab-history" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white"><i class="fa-solid fa-clock-rotate-left"></i> <span>Test History</span></button>
-                        <button onclick="switchStudentTab('settings')" id="stud-tab-settings" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white"><i class="fa-solid fa-gear"></i> <span>Settings</span></button>
-                        <button onclick="switchStudentTab('profile')" id="stud-tab-profile" class="stud-tab-btn w-full text-left px-4 py-3 rounded-xl font-black text-sm bg-gray-50 text-black border-2 border-black flex items-center space-x-3 hover:bg-[#ff6b81] hover:text-white"><i class="fa-solid fa-user"></i> <span>Profile</span></button>
                     </nav>
                     <div class="pt-4 border-t-2 border-black">
                         <button onclick="switchView('role-selection')" class="w-full py-2.5 bg-red-100 text-red-800 border-2 border-black font-black text-xs rounded-xl hover:bg-red-200"><i class="fa-solid fa-right-from-bracket mr-1"></i> Log Out</button>
@@ -351,10 +364,48 @@
                         </div>
                     </div>
 
+                    <!-- Active Tests Tab -->
                     <div id="stud-content-tests" class="stud-content-tab hidden space-y-6">
                         <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
                             <h2 class="text-3xl font-black text-black">Active Assessments (Live from Teachers)</h2>
                             <div id="active-quizzes-list" class="space-y-4"></div>
+                        </div>
+                    </div>
+
+                    <!-- Join Live Battle Tab -->
+                    <div id="stud-content-live-battle" class="stud-content-tab hidden space-y-6">
+                        <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
+                            <span class="bg-[#b4ff39] text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">Multiplayer Arena</span>
+                            <h2 class="text-3xl font-black text-black">Join Live Classroom Battle</h2>
+                            <p class="text-xs font-bold text-gray-700">Enter the 4-digit Battle PIN provided by your teacher to compete live.</p>
+                            <div>
+                                <label class="block text-xs font-black uppercase mb-1.5">Battle PIN</label>
+                                <input type="text" id="join-battle-pin" placeholder="e.g. 2841" class="w-full px-4 py-3.5 neo-input rounded-xl text-sm font-mono tracking-widest text-center text-xl">
+                            </div>
+                            <button onclick="joinLiveBattle()" class="w-full py-4 neo-btn neo-card-pink rounded-xl text-sm font-black text-black">Enter Battle Arena</button>
+                        </div>
+                    </div>
+
+                    <!-- AI Smart Grader Tab -->
+                    <div id="stud-content-ai-grader" class="stud-content-tab hidden space-y-6">
+                        <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
+                            <span class="bg-[#b4ff39] text-black px-3 py-1 border-2 border-black text-xs font-black rounded-lg uppercase">AI Rubric Grader</span>
+                            <h2 class="text-3xl font-black text-black">AI Short-Answer Smart Grader</h2>
+                            <p class="text-xs font-bold text-gray-700">Type an essay or short-answer response to get instant AI scoring and rubric feedback.</p>
+                            <div>
+                                <label class="block text-xs font-black uppercase mb-1.5">Prompt / Question</label>
+                                <input type="text" id="ai-prompt-q" value="Explain how Python Flask handles database connections and REST APIs." class="w-full px-4 py-3 neo-input rounded-xl text-sm bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-black uppercase mb-1.5">Your Detailed Answer</label>
+                                <textarea id="ai-student-response" rows="4" placeholder="Write your answer here..." class="w-full px-4 py-3 neo-input rounded-xl text-sm"></textarea>
+                            </div>
+                            <button onclick="submitAIGrade()" class="w-full py-4 neo-btn neo-btn-green rounded-xl text-sm font-black">Grade with AI Assistant</button>
+                            <div id="ai-grade-result" class="hidden p-4 bg-purple-50 border-2 border-black rounded-2xl space-y-2">
+                                <h4 class="font-black text-sm">AI Evaluation Results:</h4>
+                                <p id="ai-grade-score" class="text-2xl font-black text-green-600">Score: 9/10</p>
+                                <p id="ai-grade-feedback" class="text-xs font-bold text-gray-800">Feedback...</p>
+                            </div>
                         </div>
                     </div>
 
@@ -371,24 +422,11 @@
                             </div>
                         </div>
                     </div>
-
-                    <div id="stud-content-settings" class="stud-content-tab hidden space-y-6">
-                        <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
-                            <h2 class="text-3xl font-black text-black">Student Settings</h2>
-                            <button onclick="showToast('Settings saved!')" class="w-full py-4 neo-btn neo-btn-black rounded-xl text-sm">Save Preferences</button>
-                        </div>
-                    </div>
-                    <div id="stud-content-profile" class="stud-content-tab hidden space-y-6">
-                        <div class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[6px_6px_0px_#111]">
-                            <h2 id="profile-student-name" class="text-2xl font-black text-black">Student Name</h2>
-                            <p id="profile-student-id" class="text-xs text-gray-600 font-bold">ID: STU-1021</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 9. LIVE QUIZ SOLVING & COMPLETE QUESTION REVIEW SCORECARD -->
+        <!-- 9. LIVE QUIZ SOLVING & SCORECARD -->
         <div id="view-quiz-solver" class="view-section hidden flex-col justify-center flex-1 py-10 max-w-2xl mx-auto w-full">
             <div id="quiz-question-box" class="neo-card p-8 rounded-3xl bg-white space-y-6 border-3 border-black shadow-[8px_8px_0px_#111]">
                 <div class="flex justify-between items-center pb-3 border-b-2 border-black">
@@ -413,9 +451,7 @@
 
                 <div class="space-y-4 pt-2">
                     <h3 class="font-black text-lg">Question-by-Question Review & Explanations</h3>
-                    <div id="scorecard-breakdown-list" class="space-y-3">
-                        <!-- Dynamically populated review with explanations -->
-                    </div>
+                    <div id="scorecard-breakdown-list" class="space-y-3"></div>
                 </div>
 
                 <button onclick="switchView('student-dashboard'); switchStudentTab('dashboard'); loadStudentPortalData();" class="w-full py-4 neo-btn neo-card-pink rounded-xl text-sm font-black text-black">
@@ -534,6 +570,41 @@
                 document.getElementById('profile-student-id').textContent = "ID: " + data.student_id;
                 setTimeout(() => { switchView('student-dashboard'); loadStudentPortalData(); }, 1000);
             } else { showToast(data.message); }
+        }
+
+        async function hostLiveBattle() {
+            const quizCode = document.getElementById('host-quiz-code').value.trim();
+            if (!quizCode) { showToast('Enter quiz code!'); return; }
+            const res = await fetch('/api/battle/create', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({quiz_code: quizCode}) });
+            const data = await res.json();
+            if (data.success) {
+                document.getElementById('display-battle-pin').textContent = data.battle_pin;
+                document.getElementById('battle-room-display').classList.remove('hidden');
+                showToast('Live Battle Room Active! PIN: ' + data.battle_pin);
+            } else { showToast(data.message); }
+        }
+
+        async function joinLiveBattle() {
+            const pin = document.getElementById('join-battle-pin').value.trim();
+            if (!pin) { showToast('Enter Battle PIN!'); return; }
+            const res = await fetch('/api/battle/join', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({battle_pin: pin, student_name: currentStudent.name}) });
+            const data = await res.json();
+            if (data.success) {
+                showToast('Joined Battle Arena!');
+                startQuiz(data.quiz);
+            } else { showToast(data.message); }
+        }
+
+        async function submitAIGrade() {
+            const promptQ = document.getElementById('ai-prompt-q').value;
+            const resp = document.getElementById('ai-student-response').value.trim();
+            if (!resp) { showToast('Please write your answer.'); return; }
+            const res = await fetch('/api/ai/grade', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({question: promptQ, student_answer: resp}) });
+            const data = await res.json();
+            document.getElementById('ai-grade-score').textContent = `Score: ${data.score}/10`;
+            document.getElementById('ai-grade-feedback').textContent = data.feedback;
+            document.getElementById('ai-grade-result').classList.remove('hidden');
+            showToast('AI Graded Successfully!');
         }
 
         async function loadStudentPortalData() {
@@ -683,13 +754,14 @@
                 const tbody = document.getElementById('reports-table-body');
                 tbody.innerHTML = '';
                 if (!data.reports || data.reports.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-500">No student submissions yet.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-500">No student submissions yet.</td></tr>`;
                     return;
                 }
                 data.reports.forEach(r => {
                     tbody.innerHTML += `
                         <tr onclick='openStudentProfile(${JSON.stringify(r)})' class="border-b border-gray-200 hover:bg-gray-50 cursor-pointer">
                             <td class="p-3 text-purple-700 underline font-black">${r.student_name}</td>
+                            <td class="p-3 text-xs font-bold text-gray-600">${r.date || 'Oct 25, 2026'}</td>
                             <td class="p-3">${r.quiz_title}</td>
                             <td class="p-3 text-green-600 font-black">${r.score}</td>
                             <td class="p-3"><span class="px-2.5 py-1 bg-[#b4ff39] border border-black text-xs rounded-md">${r.status}</span></td>
@@ -770,15 +842,15 @@
             blocks.forEach(b => {
                 const explInput = b.querySelector('.q-expl');
                 questions.push({
-                    question: b.querySelector('.q-text').value,
+                    question: b.querySelector('.q-text').value.trim(),
                     options: { 
-                        A: b.querySelector('.opt-a').value, 
-                        B: b.querySelector('.opt-b').value, 
-                        C: b.querySelector('.opt-c').value, 
-                        D: b.querySelector('.opt-d').value 
+                        A: b.querySelector('.opt-a').value.trim(), 
+                        B: b.querySelector('.opt-b').value.trim(), 
+                        C: b.querySelector('.opt-c').value.trim(), 
+                        D: b.querySelector('.opt-d').value.trim() 
                     },
-                    correct: b.querySelector('.q-correct').value.toUpperCase(),
-                    explanation: explInput ? explInput.value.trim() : ""
+                    correct: b.querySelector('.q-correct').value.toUpperCase().trim(),
+                    explanation: explInput ? explInput.value.trim() : "No explanation provided."
                 });
             });
 
